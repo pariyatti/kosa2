@@ -1,0 +1,5 @@
+shared:
+  txt_feeds:
+    pali_word:
+      filemask: "txt/pali/pali_words_one_loop_%s.txt"
+      languages: ["eng", "por"]
