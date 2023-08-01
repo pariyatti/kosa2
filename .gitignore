@@ -70,3 +70,9 @@ yarn-debug.log*
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# downloaded TXT files
+txt/pali/*.txt
+txt/buddha/*.txt
+txt/dohas/*.txt
+
