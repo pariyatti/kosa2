@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  language: MyString
-  text: MyText
-  looped_pali_word: one
-
-two:
-  language: MyString
-  text: MyText
-  looped_pali_word: two
+#
+#one:
+#  language: MyString
+#  text: MyText
+#  looped_pali_word: one
+#
+#two:
+#  language: MyString
+#  text: MyText
+#  looped_pali_word: two

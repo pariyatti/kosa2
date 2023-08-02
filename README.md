@@ -6,7 +6,7 @@ Spiking Kosa in (vanilla) Rails.
 
 * `rbenv`
 * Ruby 3.0.2
-* Postgres
+* Postgres 14
 * Rails 7.0.6
 * `gem install pg -- --with-pg-config=/usr/local/bin/pg_config`
 
