@@ -1,4 +1,5 @@
 class LoopedPaliWord < ApplicationRecord
+  include Nameable
   include Ingestable
   has_many :translations, class_name: 'LoopedPaliWordTranslation', dependent: :destroy
 
