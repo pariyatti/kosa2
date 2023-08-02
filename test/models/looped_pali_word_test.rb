@@ -14,11 +14,10 @@ class LoopedPaliWordTest < ActiveSupport::TestCase
     assert_equal 399, LoopedPaliWord.last.index
   end
 
-  test "TODO: translations" do
-    LoopedPaliWord.first.translations.inspect
+  test "translations" do
+    ts = LoopedPaliWord.find_by(pali: "dullabho").translations
+    assert_equal "rare, difficult attainment", ts.find {|t| t.language == "eng"}.text
+    assert_equal "raro, difícil de se atingir", ts.find {|t| t.language == "por"}.text
   end
 
-  test "TODO: other" do
-    LoopedPaliWord.all.each {|lpw| puts lpw.inspect }
-  end
 end

@@ -15,14 +15,9 @@ class LoopedPaliWord < ApplicationRecord
 
   def self.insert(lang, pair)
     lpw = LoopedPaliWord.find_or_create_by!(pali: pair.first, original_pali: pair.first)
-    lpw.set_index! unless lpw.index
+    lpw.safe_set_index!
     lpw.translations.find_or_create_by!(language: lang, text: pair.second)
     lpw
   end
 
-  def set_index!
-    max = LoopedPaliWord.maximum(:index)
-    self.index = max ? max + 1 : 0
-    save!
-  end
 end
