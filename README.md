@@ -32,3 +32,8 @@ make txt-clone     # download TXT files for looped cards (optional)
 ## Deploy
 
 * TODO
+
+## TODOs
+
+* standardrb
+* annotate_models
