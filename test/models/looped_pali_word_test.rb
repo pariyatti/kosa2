@@ -20,4 +20,9 @@ class LoopedPaliWordTest < ActiveSupport::TestCase
     assert_equal "raro, difícil de se atingir", ts.find {|t| t.language == "por"}.text
   end
 
+  test "validates ingestion found translations for each language" do
+    LoopedPaliWord.create!(pali: "bhagga", translations: [LoopedPaliWordTranslation.new(language: "eng", text: "broken")])
+    assert_raises(RuntimeError) { LoopedPaliWord.validate_ingest! }
+  end
+
 end
