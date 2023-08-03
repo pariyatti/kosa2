@@ -31,14 +31,27 @@ class LoopedPaliWord < ApplicationRecord
     now = DateTime.now.utc
     pub_time = now.change(publish_at_time).to_formatted_s(:kosa)
     #         idx (which-card pub-time cc)
-    index = which_card(now, count)
+    index = which_card(pub_time, count)
     #         card (-> (looped-find pub idx)
     #                  first
     #                  (types/dup (type pub)))
+    card = LoopedPaliWord.where(index: index).sole.transcribe(pub_time)
     #         existing (entity-find pub card)
+    existing = PaliWord.where(pali: card.pali).order(:published_at, :desc)
     #         published-at (published-at-key pub)
     #         save-fn (partial save! pub)]
     puts "index is: #{index}"
+    logger.info "#### Today's #{human_name} is: #{card.main_key}"
+    if existing.empty? || days_between(existing.first.published_at, pub_time) > 2
+      card.save!
+    else
+      logger.info "#### Ignoring. '#{card.main_key}' already exists within a 2-day window."
+    end
+  end
+
+  def self.days_between(big, small)
+    (big.to_date - small.to_date)
+      .then {|day_fraction| day_fraction.to_i.abs }
   end
 
   def self.which_card(now, count)
@@ -53,8 +66,7 @@ class LoopedPaliWord < ApplicationRecord
     #   ;; => #time/instant "2005-04-29T00:00:00Z"
     #   (mod (time/days-between "2005-04-29T00:00:00Z" today)
     #        card-count))
-    (Date.parse(PERL_EPOCH).to_date - now.to_date)
-      .then {|day_fraction| day_fraction.to_i.abs }
+    days_between(Date.parse(PERL_EPOCH), now)
       .then {|day_offset| day_offset % count }
   end
 
@@ -76,6 +88,14 @@ class LoopedPaliWord < ApplicationRecord
 
   def self.conf
     Rails.application.config_for(:looped_cards)[:txt_feeds][:pali_word]
+  end
+
+  def transcribe(pub_time)
+    pw = PaliWord.new(pali: self.pali, original_pali: self.original_pali, original_url: self.original_url, published_at: pub_time)
+    translations.each do |t|
+      pw.translations.build(language: t.language, text: t.text)
+    end
+    pw
   end
 
 end

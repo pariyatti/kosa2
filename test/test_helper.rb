@@ -9,5 +9,10 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
-  # Add more helper methods to be used by all tests here...
+  def assert_models(exp, act, msg = nil)
+    exp.id = act.id = nil
+    exp.created_at = act.created_at = nil
+    exp.updated_at = act.updated_at = nil
+    assert_equal(exp, act, msg)
+  end
 end
