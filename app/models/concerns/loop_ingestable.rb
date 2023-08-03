@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Ingestable
+module LoopIngestable
   extend ActiveSupport::Concern
 
   included do
