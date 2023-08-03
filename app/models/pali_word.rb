@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class PaliWord < ApplicationRecord
+  self.implicit_order_column = "created_at"
   include Nameable
   has_many :translations, class_name: 'PaliWordTranslation', dependent: :destroy, autosave: true
 

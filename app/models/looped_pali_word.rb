@@ -1,4 +1,5 @@
 class LoopedPaliWord < ApplicationRecord
+  self.implicit_order_column = "created_at"
   include Nameable
   include LoopIngestable
   include LoopPublishable

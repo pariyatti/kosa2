@@ -12,18 +12,19 @@
 
 ActiveRecord::Schema[7.0].define(version: 2023_08_02_200138) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "looped_pali_word_translations", force: :cascade do |t|
+  create_table "looped_pali_word_translations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "language"
     t.text "translation"
-    t.bigint "looped_pali_word_id", null: false
+    t.uuid "looped_pali_word_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["looped_pali_word_id"], name: "index_looped_pali_word_translations_on_looped_pali_word_id"
   end
 
-  create_table "looped_pali_words", force: :cascade do |t|
+  create_table "looped_pali_words", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "index"
     t.string "original_pali"
     t.string "original_url"
@@ -32,17 +33,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_200138) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "pali_word_translations", force: :cascade do |t|
+  create_table "pali_word_translations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "language"
     t.text "translation"
-    t.bigint "pali_word_id", null: false
+    t.uuid "pali_word_id", null: false
     t.datetime "published_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["pali_word_id"], name: "index_pali_word_translations_on_pali_word_id"
   end
 
-  create_table "pali_words", force: :cascade do |t|
+  create_table "pali_words", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "index"
     t.string "original_pali"
     t.string "original_url"

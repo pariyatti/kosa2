@@ -1,6 +1,6 @@
 class CreateLoopedPaliWords < ActiveRecord::Migration[7.0]
   def change
-    create_table :looped_pali_words do |t|
+    create_table :looped_pali_words, id: :uuid do |t|
       t.bigint :index
       t.string :original_pali
       t.string :original_url
