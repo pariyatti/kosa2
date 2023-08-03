@@ -1,4 +1,4 @@
-class PaliWordTranslation < ActiveRecord::Migration[7.0]
+class CreatePaliWordTranslation < ActiveRecord::Migration[7.0]
   def change
     create_table :pali_word_translations do |t|
       t.string :language

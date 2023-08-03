@@ -1,4 +1,4 @@
-class PaliWord < ActiveRecord::Migration[7.0]
+class CreatePaliWord < ActiveRecord::Migration[7.0]
   def change
     create_table :pali_words do |t|
       t.bigint :index
