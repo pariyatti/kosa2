@@ -1,6 +1,7 @@
 class LoopedPaliWord < ApplicationRecord
   include Nameable
   include LoopIngestable
+  include LoopPublishable
   has_many :translations, class_name: 'LoopedPaliWordTranslation', dependent: :destroy
 
   def self.ingest_all
@@ -15,59 +16,6 @@ class LoopedPaliWord < ApplicationRecord
       diff = {actual: ts, expected: conf[:languages]}
       raise "TXT translation count did not match!\n\n#{diff}" if ts.count != conf[:languages].count
     end
-  end
-
-  def self.publish_daily!
-    puts "Running #{human_name} 'publish_daily!' @ #{Time.now}"
-    count = LoopedPaliWord.all.count
-    if count > 0
-      publish_nth(count)
-    else
-      logger.info "#### Zero #{name} found."
-    end
-  end
-
-  def self.publish_nth(count)
-    now = DateTime.now.utc
-    pub_time = now.change(publish_at_time).to_formatted_s(:kosa)
-    #         idx (which-card pub-time cc)
-    index = which_card(pub_time, count)
-    #         card (-> (looped-find pub idx)
-    #                  first
-    #                  (types/dup (type pub)))
-    card = LoopedPaliWord.where(index: index).sole.transcribe(pub_time)
-    #         existing (entity-find pub card)
-    existing = PaliWord.where(pali: card.pali).order(:published_at, :desc)
-    #         published-at (published-at-key pub)
-    #         save-fn (partial save! pub)]
-    puts "index is: #{index}"
-    logger.info "#### Today's #{human_name} is: #{card.main_key}"
-    if existing.empty? || days_between(existing.first.published_at, pub_time) > 2
-      card.save!
-    else
-      logger.info "#### Ignoring. '#{card.main_key}' already exists within a 2-day window."
-    end
-  end
-
-  def self.days_between(big, small)
-    (big.to_date - small.to_date)
-      .then {|day_fraction| day_fraction.to_i.abs }
-  end
-
-  def self.which_card(now, count)
-    # ;; (def looped-card-count 220)
-    # ;; (def days-since-epoch (t/days (t/between (t/epoch) (t/now))))
-    # ;; (def days-since-perl (- days-since-epoch 12902))
-    # ;; (def todays-word (mod days-since-perl looped-card-count))
-    # (defn which-card [today card-count]
-    #   ;; "perl epoch":
-    #   ;; (t/>> (t/epoch)
-    #   ;;       (t/new-duration 12902 :days))
-    #   ;; => #time/instant "2005-04-29T00:00:00Z"
-    #   (mod (time/days-between "2005-04-29T00:00:00Z" today)
-    #        card-count))
-    days_between(Date.parse(PERL_EPOCH), now)
-      .then {|day_offset| day_offset % count }
   end
 
   def self.publish_at_time
@@ -88,6 +36,10 @@ class LoopedPaliWord < ApplicationRecord
 
   def self.conf
     Rails.application.config_for(:looped_cards)[:txt_feeds][:pali_word]
+  end
+
+  def self.already_published(card)
+    PaliWord.where(pali: card.pali)
   end
 
   def transcribe(pub_time)
