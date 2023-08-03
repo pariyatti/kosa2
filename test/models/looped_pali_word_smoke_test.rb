@@ -21,12 +21,21 @@ class LoopedPaliWordSmokeTest < ActiveSupport::TestCase
     assert_equal "raro, difícil de se atingir", ts.find {|t| t.language == "por"}.text
   end
 
-  test "publishing" do
+  test "publishing 2012" do
     # 2012-07-30T00:00:01
-    travel_to Time.utc(2012, 07, 30, 00, 00, 01)
+    travel_to Time.utc(2012, 7, 30, 0, 0, 1)
     LoopedPaliWord.publish_daily!
     puts PaliWord.first.inspect
     assert_models PaliWord.new(pali: "obhāsetvā", original_pali: "obhāsetvā", original_url: nil, published_at: DateTime.parse("2012-07-30T16:11:02Z")),
+                  PaliWord.first
+  end
+
+  test "publishing 2023" do
+    # 2012-07-30T00:00:01
+    travel_to Time.utc(2023, 8, 3, 0, 0, 1)
+    LoopedPaliWord.publish_daily!
+    puts PaliWord.first.inspect
+    assert_models PaliWord.new(pali: "pubbe", original_pali: "pubbe", original_url: nil, published_at: DateTime.parse("2023-08-03T16:11:02Z")),
                   PaliWord.first
   end
 end
