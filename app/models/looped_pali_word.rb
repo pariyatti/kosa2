@@ -30,7 +30,7 @@ class LoopedPaliWord < ApplicationRecord
   def self.insert(lang, pair)
     lpw = LoopedPaliWord.find_or_create_by!(pali: pair.first, original_pali: pair.first)
     lpw.safe_set_index!
-    lpw.translations.find_or_create_by!(language: lang, text: pair.second)
+    lpw.translations.find_or_create_by!(language: lang, translation: pair.second)
     lpw
   end
 
@@ -45,7 +45,7 @@ class LoopedPaliWord < ApplicationRecord
   def transcribe(pub_time)
     pw = PaliWord.new(pali: self.pali, original_pali: self.original_pali, original_url: self.original_url, published_at: pub_time)
     translations.each do |t|
-      pw.translations.build(language: t.language, text: t.text)
+      pw.translations.build(language: t.language, translation: t.translation)
     end
     pw
   end

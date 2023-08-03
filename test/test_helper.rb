@@ -10,8 +10,18 @@ class ActiveSupport::TestCase
   fixtures :all
 
   def assert_models(exp, act, msg = nil)
-    exp_hash = exp.attributes.except("id").except("created_at").except("updated_at")
-    act_hash = act.attributes.except("id").except("created_at").except("updated_at")
+    assert_model_hashes(exp.attributes, act.attributes)
+  end
+
+  def assert_model_hashes(exp, act, msg = nil)
+    exp_hash = exp.except("id").except("created_at").except("updated_at")
+    act_hash = act.except("id").except("created_at").except("updated_at")
+    exp_hash.keys.each do |k|
+      if exp_hash[k] == act_hash[k]
+        exp_hash.except! k
+        act_hash.except! k
+      end
+    end
     assert_equal(exp_hash, act_hash, msg)
   end
 end

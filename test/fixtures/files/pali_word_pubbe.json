@@ -1,0 +1,27 @@
+{
+  "bookmarkable": true,
+  "type": "pali_word",
+  "header": "Pāli Word of the Day",
+  "shareable": true,
+  "published_at": "2023-08-03T16:11:02.000Z",
+  "updated_at": "2023-08-03T16:11:02.000Z",
+  "id": "5cb21310-499c-48d8-931f-77d432ea2fca",
+  "url": "http://kosa.pariyatti.app/api/v1/today/pali-words/5cb21310-499c-48d8-931f-77d432ea2fca.json",
+  "pali": "pubbe",
+  "audio": {
+    "url": ""
+  },
+  "created_at": "2023-08-03T16:11:02.000Z",
+  "translations": [
+    {
+      "id": "43e50422-8b40-4b9e-a6be-c1fc34c6f182",
+      "language": "eng",
+      "translation": "formerly, in the past"
+    },
+    {
+      "id": "1c0061eb-92f3-44e2-9198-fcf5ea59c997",
+      "language": "por",
+      "translation": "anteriormente, no passado"
+    }
+  ]
+}

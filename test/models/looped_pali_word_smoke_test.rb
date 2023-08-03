@@ -17,8 +17,8 @@ class LoopedPaliWordSmokeTest < ActiveSupport::TestCase
 
   test "translations" do
     ts = LoopedPaliWord.find_by(pali: "dullabho").translations
-    assert_equal "rare, difficult attainment", ts.find {|t| t.language == "eng"}.text
-    assert_equal "raro, difícil de se atingir", ts.find {|t| t.language == "por"}.text
+    assert_equal "rare, difficult attainment", ts.find {|t| t.language == "eng"}.translation
+    assert_equal "raro, difícil de se atingir", ts.find {|t| t.language == "por"}.translation
   end
 
   test "publishing 2012" do

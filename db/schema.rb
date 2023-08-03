@@ -16,7 +16,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_200138) do
 
   create_table "looped_pali_word_translations", force: :cascade do |t|
     t.string "language"
-    t.text "text"
+    t.text "translation"
     t.bigint "looped_pali_word_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -24,7 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_200138) do
   end
 
   create_table "looped_pali_words", force: :cascade do |t|
-    t.integer "index"
+    t.bigint "index"
     t.string "original_pali"
     t.string "original_url"
     t.string "pali"
@@ -34,7 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_200138) do
 
   create_table "pali_word_translations", force: :cascade do |t|
     t.string "language"
-    t.text "text"
+    t.text "translation"
     t.bigint "pali_word_id", null: false
     t.datetime "published_at"
     t.datetime "created_at", null: false
