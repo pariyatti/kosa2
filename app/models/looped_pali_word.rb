@@ -5,12 +5,6 @@ class LoopedPaliWord < ApplicationRecord
   include LoopPublishable
   has_many :translations, class_name: 'LoopedPaliWordTranslation', dependent: :destroy
 
-  def self.ingest_all
-    conf[:languages].each do |lang|
-      ingest(conf[:filemask].gsub("%s", lang), lang)
-    end
-  end
-
   def self.validate_ingest!
     LoopedPaliWord.all.each do |lpw|
       ts = lpw.translations

@@ -16,6 +16,12 @@ module LoopIngestable
   end
 
   class_methods do
+    def ingest_all
+      conf[:languages].each do |lang|
+        ingest(conf[:filemask].gsub("%s", lang), lang)
+      end
+    end
+
     def ingest(f, lang)
       logger.info "#{human_name} TXT: started ingesting file '#{f}' for lang '#{lang}'"
       File.read(f).split('~').map { |entry| parse(entry) }.each { |entry| insert(lang, entry) }
