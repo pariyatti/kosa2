@@ -8,7 +8,4 @@ class PaliWord < ApplicationRecord
     self.pali
   end
 
-  def ==(other)
-    self.pali == other.pali && self.original_pali == other.original_pali && self.original_url == other.original_url && self.published_at == other.published_at
-  end
 end
