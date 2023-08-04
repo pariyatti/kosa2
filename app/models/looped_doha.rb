@@ -1,3 +1,5 @@
+using RefinedString
+
 class LoopedDoha < ApplicationRecord
   self.implicit_order_column = "created_at"
   include Nameable
@@ -15,12 +17,27 @@ class LoopedDoha < ApplicationRecord
     { hour: 17, min: 11, sec: 2 }
   end
 
-  def self.parse(line)
-    raise NotImplementedError
+  def self.from_blocks(blocks, lang)
+    { doha: blocks[0],
+      original_audio_url: blocks[1],
+      translations: [{language: lang, translation: blocks[2]}] }
   end
 
-  def self.insert(lang, pair)
-    raise NotImplementedError
+  def self.parse(entry, lang)
+    marker = marker_for(lang)
+    entry.split(marker)
+         .then {|split| split.map(&:trim) }
+         .then {|cleaned| [cleaned.first, cleaned.second]}
+         .then {|repaired| [repaired.first] + repaired.second.split(/\n\s*\n/, 2)}
+         .then {|blocks| from_blocks(blocks.map(&:trim), lang) }
+  end
+
+  def self.insert(record, lang)
+    # TODO: consider only looking up by :doha / :pali / :words
+    ld = LoopedDoha.find_or_create_by!(record.except(:translations))
+    ld.safe_set_index!
+    ld.translations.find_or_create_by!(record[:translations].first)
+    ld
   end
 
   def self.conf

@@ -10,6 +10,12 @@ class LoopedPaliWordSmokeTest < ActiveSupport::TestCase
     assert_equal 400, LoopedPaliWord.all.count
   end
 
+  test "all have 2 languages" do
+    LoopedPaliWord.all.each do |lpw|
+      assert_equal 2, lpw.translations.count
+    end
+  end
+
   test "indexes are off-by-one" do
     assert_equal 0, LoopedPaliWord.first.index
     assert_equal 399, LoopedPaliWord.last.index

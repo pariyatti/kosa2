@@ -18,14 +18,15 @@ class LoopedPaliWord < ApplicationRecord
     { hour: 16, min: 11, sec: 2 }
   end
 
-  def self.parse(line)
+  def self.parse(line, _)
+    # TODO: return a record, not an array
     line.split('—').map(&:strip)
   end
 
-  def self.insert(lang, pair)
-    lpw = LoopedPaliWord.find_or_create_by!(pali: pair.first, original_pali: pair.first)
+  def self.insert(record, lang)
+    lpw = LoopedPaliWord.find_or_create_by!(pali: record.first, original_pali: record.first)
     lpw.safe_set_index!
-    lpw.translations.find_or_create_by!(language: lang, translation: pair.second)
+    lpw.translations.find_or_create_by!(language: lang, translation: record.second)
     lpw
   end
 

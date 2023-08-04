@@ -3,3 +3,15 @@ shared:
     pali_word:
       filemask: "txt/pali/pali_words_one_loop_%s.txt"
       languages: ["eng", "por"]
+    doha:
+      filemask: "txt/dohas/daily_dohas_one_loop_%s.txt"
+      languages: ["eng", "lit", "por", "zho-hant"]
+      markers:
+        - language: "eng"
+          marker: "Listen"
+        - language: "lit"
+          marker: "Klausytis"
+        - language: "por"
+          marker: "Escute o áudio"
+        - language: "zho-hant"
+          marker: "聆聽"

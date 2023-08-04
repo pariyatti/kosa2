@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+using RefinedString
 
 module LoopIngestable
   extend ActiveSupport::Concern
@@ -24,7 +25,19 @@ module LoopIngestable
 
     def ingest(f, lang)
       logger.info "#{human_name} TXT: started ingesting file '#{f}' for lang '#{lang}'"
-      File.read(f).split('~').map { |entry| parse(entry) }.each { |entry| insert(lang, entry) }
+      entries = File.read(f).split('~')
+      logger.info "Processing #{entries.count} #{human_name} from TXT."
+      entries.map { |entry| parse(entry.trim, lang) }
+             .each.with_index(1) do |record, i|
+               logger.debug "Attempting insert of #{i} / #{entries.count}"
+               insert(record, lang)
+             end
+    end
+
+    def marker_for(lang)
+      marker_pair = conf[:markers].find {|m| m[:language] == lang} || raise("No #{human_name} marker for language '#{lang}'")
+      raw = marker_pair[:marker]
+      "#{raw}: "
     end
   end
 
