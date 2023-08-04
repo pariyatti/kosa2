@@ -1,3 +1,5 @@
+using RefinedString
+
 class LoopedPaliWord < ApplicationRecord
   self.implicit_order_column = "created_at"
   include Nameable
@@ -18,15 +20,18 @@ class LoopedPaliWord < ApplicationRecord
     { hour: 16, min: 11, sec: 2 }
   end
 
-  def self.parse(line, _)
+  def self.parse(line, lang)
     # TODO: return a record, not an array
-    line.split('—').map(&:strip)
+    blocks = line.split('—').map(&:trim)
+    { pali: blocks[0],
+      original_pali: blocks[0],
+      translations: [{language: lang, translation: blocks[1]}] }
   end
 
   def self.insert(record, lang)
-    lpw = LoopedPaliWord.find_or_create_by!(pali: record.first, original_pali: record.first)
+    lpw = LoopedPaliWord.find_or_create_by!(record.except(:translations))
     lpw.safe_set_index!
-    lpw.translations.find_or_create_by!(language: lang, translation: record.second)
+    lpw.translations.find_or_create_by!(record[:translations].first)
     lpw
   end
 
