@@ -16,4 +16,5 @@ class LoopedDohaSmokeTest < ActiveSupport::TestCase
       assert_equal 4, ld.translations.count, "LoopedDoha = #{ld.inspect}\nTranslations = #{ld.translations.inspect}"
     end
   end
+
 end

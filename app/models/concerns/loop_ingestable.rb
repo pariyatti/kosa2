@@ -49,11 +49,11 @@ module LoopIngestable
       ld.safe_set_index!
       ld.save!
 
-      ldt = ld.translations.where(record[:translations].first)
-      unless ldt.empty?
-        logger.debug "Duplicate #{record[:translations].first[:language]} translation found: #{ld.entry_key} — ignoring"
+      ldt = ld.translations.where(record[:translations].first).first_or_initialize
+      unless ldt.new_record?
+        logger.debug "Duplicate #{record[:translations].first[:language]} found: #{ld.entry_key} — replacing translation"
       end
-      ldt.first_or_create!
+      ldt.save!
       ld
     end
 
