@@ -32,14 +32,6 @@ class LoopedDoha < ApplicationRecord
          .then {|blocks| from_blocks(blocks.map(&:trim), lang) }
   end
 
-  def self.insert(record, lang)
-    # TODO: consider only looking up by :doha / :pali / :words
-    ld = LoopedDoha.find_or_create_by!(record.except(:translations))
-    ld.safe_set_index!
-    ld.translations.find_or_create_by!(record[:translations].first)
-    ld
-  end
-
   def self.conf
     Rails.application.config_for(:looped_cards)[:txt_feeds][:doha]
   end

@@ -28,13 +28,6 @@ class LoopedPaliWord < ApplicationRecord
       translations: [{language: lang, translation: blocks[1]}] }
   end
 
-  def self.insert(record, lang)
-    lpw = LoopedPaliWord.find_or_create_by!(record.except(:translations))
-    lpw.safe_set_index!
-    lpw.translations.find_or_create_by!(record[:translations].first)
-    lpw
-  end
-
   def self.conf
     Rails.application.config_for(:looped_cards)[:txt_feeds][:pali_word]
   end

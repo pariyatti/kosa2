@@ -30,7 +30,7 @@ module LoopIngestable
       entries.map { |entry| parse(entry.trim, lang) }
              .each.with_index(1) do |record, i|
                logger.debug "Attempting insert of #{i} / #{entries.count}"
-               insert(record, lang)
+               insert(record)
              end
     end
 
@@ -39,6 +39,15 @@ module LoopIngestable
       raw = marker_pair[:marker]
       "#{raw}: "
     end
+
+    def insert(record)
+      # TODO: consider only looking up by :doha / :pali / :words
+      ld = self.find_or_create_by!(record.except(:translations))
+      ld.safe_set_index!
+      ld.translations.find_or_create_by!(record[:translations].first)
+      ld
+    end
+
   end
 
 end
