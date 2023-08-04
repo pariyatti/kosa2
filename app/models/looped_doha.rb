@@ -44,4 +44,8 @@ class LoopedDoha < ApplicationRecord
     raise NotImplementedError
   end
 
+  def entry_key
+    self.doha
+  end
+
 end

@@ -42,9 +42,18 @@ module LoopIngestable
 
     def insert(record)
       # TODO: consider only looking up by :doha / :pali / :words
-      ld = self.find_or_create_by!(record.except(:translations))
+      ld = self.where(record.except(:translations)).first_or_initialize
+      unless ld.new_record?
+        logger.debug "Existing #{human_name} found: #{ld.entry_key} — appending translations"
+      end
       ld.safe_set_index!
-      ld.translations.find_or_create_by!(record[:translations].first)
+      ld.save!
+
+      ldt = ld.translations.where(record[:translations].first)
+      unless ldt.empty?
+        logger.debug "Duplicate #{record[:translations].first[:language]} translation found: #{ld.entry_key} — ignoring"
+      end
+      ldt.first_or_create!
       ld
     end
 

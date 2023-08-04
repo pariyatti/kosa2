@@ -44,4 +44,8 @@ class LoopedPaliWord < ApplicationRecord
     pw
   end
 
+  def entry_key
+    self.pali
+  end
+
 end
