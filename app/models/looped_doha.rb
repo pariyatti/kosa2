@@ -1,3 +1,5 @@
+require 'uri'
+require 'open-uri'
 using RefinedString
 
 class LoopedDoha < ApplicationRecord
@@ -38,6 +40,13 @@ class LoopedDoha < ApplicationRecord
 
   def self.already_published(card)
     Doha.where(doha: card.doha)
+  end
+
+  def download_attachment!
+    url = self.original_audio_url
+    file = URI.open(url)
+    filename = File.basename(URI.parse(url).path)
+    self.audio.attach(io: file, filename: filename, content_type: 'audio/mpeg')
   end
 
   def transcribe(pub_time)

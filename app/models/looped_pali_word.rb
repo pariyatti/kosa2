@@ -36,6 +36,9 @@ class LoopedPaliWord < ApplicationRecord
     PaliWord.where(pali: card.pali)
   end
 
+  def download_attachment!
+  end
+
   def transcribe(pub_time)
     pw = PaliWord.new(pali: self.pali, original_pali: self.original_pali, original_url: self.original_url, published_at: pub_time)
     translations.each do |t|

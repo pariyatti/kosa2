@@ -17,6 +17,14 @@ module LoopIngestable
   end
 
   class_methods do
+    def skip_downloads=(v)
+      @skip_downloads = v if Rails.env.test?
+    end
+
+    def skip_downloads
+      @skip_downloads
+    end
+
     def ingest_all
       conf[:languages].each do |lang|
         ingest(conf[:filemask].gsub("%s", lang), lang)
@@ -41,6 +49,7 @@ module LoopIngestable
     end
 
     def insert(record)
+      lang = record[:translations].first
       # TODO: consider only looking up by :doha / :pali / :words
       ld = self.where(record.except(:translations)).first_or_initialize
       unless ld.new_record?
@@ -48,10 +57,11 @@ module LoopIngestable
       end
       ld.safe_set_index!
       ld.save!
+      ld.download_attachment! unless lang[:language] != "eng" || skip_downloads
 
-      ldt = ld.translations.where(record[:translations].first).first_or_initialize
+      ldt = ld.translations.where(lang).first_or_initialize
       unless ldt.new_record?
-        logger.debug "Duplicate #{record[:translations].first[:language]} found: #{ld.entry_key} — replacing translation"
+        logger.debug "Duplicate #{lang[:language]} found: #{ld.entry_key} — replacing translation"
       end
       ldt.save!
       ld

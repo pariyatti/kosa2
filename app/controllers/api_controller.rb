@@ -1,4 +1,6 @@
 class ApiController < ApplicationController
+  include ActiveStorage::SetCurrent
+
   def today
     cards = []
     PaliWord.all.order(published_at: :desc).each do |pw|

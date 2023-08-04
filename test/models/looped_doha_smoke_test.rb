@@ -4,6 +4,7 @@ require "test_helper"
 class LoopedDohaSmokeTest < ActiveSupport::TestCase
 
   setup do
+    LoopedDoha.skip_downloads = true
     LoopedDoha.ingest_all
   end
 
@@ -16,5 +17,6 @@ class LoopedDohaSmokeTest < ActiveSupport::TestCase
       assert_equal 4, ld.translations.count, "LoopedDoha = #{ld.inspect}\nTranslations = #{ld.translations.inspect}"
     end
   end
+
 
 end
