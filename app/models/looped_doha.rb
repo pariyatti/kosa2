@@ -9,6 +9,7 @@ class LoopedDoha < ApplicationRecord
   include LoopPublishable
   has_many :translations, class_name: 'LoopedDohaTranslation', dependent: :destroy
   has_one_attached :audio
+  lookup_key :doha
 
   # TODO: can this be moved into LoopIngestable?
   def self.validate_ingest!
@@ -61,14 +62,6 @@ class LoopedDoha < ApplicationRecord
       doha.translations.build(language: t.language, translation: t.translation)
     end
     doha
-  end
-
-  def self.entry_attr_key
-    :doha
-  end
-
-  def entry_attr_value
-    self.doha
   end
 
 end

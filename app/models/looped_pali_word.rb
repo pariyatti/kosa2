@@ -6,6 +6,7 @@ class LoopedPaliWord < ApplicationRecord
   include LoopIngestable
   include LoopPublishable
   has_many :translations, class_name: 'LoopedPaliWordTranslation', dependent: :destroy
+  lookup_key :pali
 
   def self.validate_ingest!
     LoopedPaliWord.all.each do |lpw|
@@ -45,14 +46,6 @@ class LoopedPaliWord < ApplicationRecord
       pw.translations.build(language: t.language, translation: t.translation)
     end
     pw
-  end
-
-  def self.entry_attr_key
-    :pali
-  end
-
-  def entry_attr_value
-    self.pali
   end
 
 end
