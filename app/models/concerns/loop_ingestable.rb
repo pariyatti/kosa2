@@ -51,9 +51,9 @@ module LoopIngestable
     def insert(record)
       lang = record[:translations].first
       # TODO: consider only looking up by :doha / :pali / :words
-      ld = self.where(lookup_attr_key => record[lookup_attr_key]).first_or_initialize
+      ld = self.where(naturalkey_name => record[naturalkey_name]).first_or_initialize
       unless ld.new_record?
-        logger.debug "Existing #{human_name} found: #{ld.lookup_attr_value} — appending translations"
+        logger.debug "Existing #{human_name} found: #{ld.naturalkey_value} — appending translations"
       end
       if lang[:language] == "eng"
         ld.assign_attributes(record.except(:translations))
@@ -66,7 +66,7 @@ module LoopIngestable
 
       ldt = ld.translations.where(lang).first_or_initialize
       unless ldt.new_record?
-        logger.debug "Duplicate #{lang[:language]} found: #{ld.lookup_attr_value} — replacing translation"
+        logger.debug "Duplicate #{lang[:language]} found: #{ld.naturalkey_value} — replacing translation"
       end
       ldt.save!
       ld

@@ -9,7 +9,7 @@ class LoopedWordsOfBuddha < ApplicationRecord
   include LoopPublishable
   has_many :translations, class_name: 'LoopedWordsOfBuddhaTranslation', dependent: :destroy
   has_one_attached :audio
-  lookup_key :words
+  naturalkey_column :words
 
   # TODO: can this be moved into LoopIngestable?
   def self.validate_ingest!

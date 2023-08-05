@@ -6,7 +6,7 @@ class LoopedPaliWord < ApplicationRecord
   include LoopIngestable
   include LoopPublishable
   has_many :translations, class_name: 'LoopedPaliWordTranslation', dependent: :destroy
-  lookup_key :pali
+  naturalkey_column :pali
 
   def self.validate_ingest!
     LoopedPaliWord.all.each do |lpw|
