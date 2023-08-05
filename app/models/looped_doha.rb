@@ -39,7 +39,7 @@ class LoopedDoha < ApplicationRecord
   end
 
   def self.publish_at_time
-    # 09:11:02am PST +08:00 from UTC = 16:11:02
+    # 09:11:02am PST +08:00 from UTC = 17:11:02
     { hour: 17, min: 11, sec: 2 }
   end
 
@@ -63,7 +63,11 @@ class LoopedDoha < ApplicationRecord
     doha
   end
 
-  def entry_key
+  def self.entry_attr_key
+    :doha
+  end
+
+  def entry_attr_value
     self.doha
   end
 

@@ -1,0 +1,2 @@
+class WordsOfBuddha < ApplicationRecord
+end

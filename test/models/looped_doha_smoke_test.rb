@@ -8,7 +8,7 @@ class LoopedDohaSmokeTest < ActiveSupport::TestCase
     LoopedDoha.ingest_all
   end
 
-  test "exactly 400 records" do
+  test "exactly 122 records" do
     assert_equal 122, LoopedDoha.all.count
   end
 
@@ -17,7 +17,6 @@ class LoopedDohaSmokeTest < ActiveSupport::TestCase
       assert_equal 4, ld.translations.count, "LoopedDoha = #{ld.inspect}\nTranslations = #{ld.translations.inspect}"
     end
   end
-
 
   test "publishing 2012" do
     doha_text = "Bhogata bhogata bhogate, \nbandhana bandhate jāṅya. \nDekhata dekhata dekhate, \nbandhana khulate jāṅya. \n\nBhogata bhogata bhogate, \nGanthey bandhate jāṅya. \nDekhata dekhata dekhate, \nGanthey khulate jāṅya."

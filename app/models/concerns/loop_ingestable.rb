@@ -51,17 +51,22 @@ module LoopIngestable
     def insert(record)
       lang = record[:translations].first
       # TODO: consider only looking up by :doha / :pali / :words
-      ld = self.where(record.except(:translations)).first_or_initialize
+      ld = self.where(entry_attr_key => record[entry_attr_key]).first_or_initialize
       unless ld.new_record?
-        logger.debug "Existing #{human_name} found: #{ld.entry_key} — appending translations"
+        logger.debug "Existing #{human_name} found: #{ld.entry_attr_value} — appending translations"
+      end
+      if lang[:language] == "eng"
+        ld.assign_attributes(record.except(:translations))
       end
       ld.safe_set_index!
       ld.save!
-      ld.download_attachment! unless lang[:language] != "eng" || skip_downloads
+      if lang[:language] == "eng"
+        ld.download_attachment! unless skip_downloads
+      end
 
       ldt = ld.translations.where(lang).first_or_initialize
       unless ldt.new_record?
-        logger.debug "Duplicate #{lang[:language]} found: #{ld.entry_key} — replacing translation"
+        logger.debug "Duplicate #{lang[:language]} found: #{ld.entry_attr_value} — replacing translation"
       end
       ldt.save!
       ld

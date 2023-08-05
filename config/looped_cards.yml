@@ -16,7 +16,7 @@ shared:
         - language: "zho-hant"
           marker: "聆聽"
     words_of_buddha:
-      filemask: "txt/dohas/daily_words_one_loop_%s.txt"
+      filemask: "txt/buddha/daily_words_one_loop_%s.txt"
       languages: ["eng", "spa", "fra", "ita", "por", "srp", "zho-hant"]
       markers:
         - language: "eng"

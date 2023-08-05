@@ -1,7 +1,6 @@
-class CreateLoopedWordsOfBuddhas < ActiveRecord::Migration[7.0]
+class CreateWordsOfBuddhas < ActiveRecord::Migration[7.0]
   def change
-    create_table :looped_words_of_buddhas, id: :uuid do |t|
-      t.bigint :index
+    create_table :words_of_buddhas, id: :uuid do |t|
       t.text :words
       t.string :citepali
       t.string :citepali_url

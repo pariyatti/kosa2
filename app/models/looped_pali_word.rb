@@ -47,7 +47,11 @@ class LoopedPaliWord < ApplicationRecord
     pw
   end
 
-  def entry_key
+  def self.entry_attr_key
+    :pali
+  end
+
+  def entry_attr_value
     self.pali
   end
 
