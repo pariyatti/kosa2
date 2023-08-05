@@ -6,6 +6,11 @@ class LoopedDohaTest < ActiveSupport::TestCase
     LoopedDoha.skip_downloads = false
   end
 
+  test "validates ingestion found translations for each language" do
+    LoopedDoha.create!(doha: "Dharam ditto si", translations: [LoopedDohaTranslation.new(language: "eng", translation: "broken")])
+    assert_raises(RuntimeError) { LoopedDoha.validate_ingest! }
+  end
+
   test "downloads mp3 and attaches it" do
     LoopedDoha.ingest(file_fixture("doha_citta_mp3_eng.txt"), "eng")
     assert_equal "054_Doha.mp3", LoopedDoha.first.audio.filename.to_s

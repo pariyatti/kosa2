@@ -10,8 +10,13 @@ class LoopedDoha < ApplicationRecord
   has_many :translations, class_name: 'LoopedDohaTranslation', dependent: :destroy
   has_one_attached :audio
 
+  # TODO: can this be moved into LoopIngestable?
   def self.validate_ingest!
-    raise NotImplementedError
+    LoopedDoha.all.each do |ld|
+      ts = ld.translations
+      diff = {actual: ts, expected: conf[:languages]}
+      raise "TXT translation count did not match!\n\n#{diff}" if ts.count != conf[:languages].count
+    end
   end
 
   def self.from_blocks(blocks, lang)
