@@ -15,3 +15,21 @@ shared:
           marker: "Escute o áudio"
         - language: "zho-hant"
           marker: "聆聽"
+    words_of_buddha:
+      filemask: "txt/dohas/daily_words_one_loop_%s.txt"
+      languages: ["eng", "spa", "fra", "ita", "por", "srp", "zho-hant"]
+      markers:
+        - language: "eng"
+          marker: "Listen"
+        - language: "spa"
+          marker: "Escuchar"
+        - language: "fra"
+          marker: "Ecouter " # yes, it has a space
+        - language: "ita"
+          marker: "Ascolta"
+        - language: "por"
+          marker: "Ouça"
+        - language: "srp"
+          marker: "Slušaj"
+        - language: "zho-hant"
+          marker: "Listen"
