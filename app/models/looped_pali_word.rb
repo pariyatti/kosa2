@@ -15,11 +15,6 @@ class LoopedPaliWord < ApplicationRecord
     end
   end
 
-  def self.publish_at_time
-    # 08:11:02am PST +08:00 from UTC = 16:11:02
-    { hour: 16, min: 11, sec: 2 }
-  end
-
   def self.parse(line, lang)
     # TODO: return a record, not an array
     blocks = line.split('—').map(&:trim)
@@ -30,6 +25,11 @@ class LoopedPaliWord < ApplicationRecord
 
   def self.conf
     Rails.application.config_for(:looped_cards)[:txt_feeds][:pali_word]
+  end
+
+  def self.publish_at_time
+    # 08:11:02am PST +08:00 from UTC = 16:11:02
+    { hour: 16, min: 11, sec: 2 }
   end
 
   def self.already_published(card)

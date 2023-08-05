@@ -57,6 +57,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_03_203149) do
     t.text "original_doha"
     t.string "original_url"
     t.string "original_audio_url"
+    t.datetime "published_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

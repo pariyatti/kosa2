@@ -18,5 +18,6 @@ so_often = if Rails.env.development?
 
 s.every so_often do
   LoopedPaliWord.publish_daily!
+  LoopedDoha.publish_daily!
 end
 

@@ -14,11 +14,6 @@ class LoopedDoha < ApplicationRecord
     raise NotImplementedError
   end
 
-  def self.publish_at_time
-    # 09:11:02am PST +08:00 from UTC = 16:11:02
-    { hour: 17, min: 11, sec: 2 }
-  end
-
   def self.from_blocks(blocks, lang)
     { doha: blocks[0],
       original_audio_url: blocks[1],
@@ -38,6 +33,11 @@ class LoopedDoha < ApplicationRecord
     Rails.application.config_for(:looped_cards)[:txt_feeds][:doha]
   end
 
+  def self.publish_at_time
+    # 09:11:02am PST +08:00 from UTC = 16:11:02
+    { hour: 17, min: 11, sec: 2 }
+  end
+
   def self.already_published(card)
     Doha.where(doha: card.doha)
   end
@@ -50,7 +50,12 @@ class LoopedDoha < ApplicationRecord
   end
 
   def transcribe(pub_time)
-    raise NotImplementedError
+    doha = Doha.new(doha: self.doha, original_doha: self.original_doha, original_url: self.original_url,
+                  original_audio_url: self.original_audio_url, published_at: pub_time)
+    translations.each do |t|
+      doha.translations.build(language: t.language, translation: t.translation)
+    end
+    doha
   end
 
   def entry_key
