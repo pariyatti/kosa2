@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_03_203149) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_05_142609) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -99,6 +99,29 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_03_203149) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "looped_words_of_buddha_translations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "language"
+    t.text "translation"
+    t.uuid "looped_words_of_buddha_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["looped_words_of_buddha_id"], name: "index_looped_wob_translations_on_looped_wob_id"
+  end
+
+  create_table "looped_words_of_buddhas", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "words"
+    t.string "citepali"
+    t.string "citepali_url"
+    t.string "citebook"
+    t.string "citebook_url"
+    t.text "original_words"
+    t.string "original_url"
+    t.string "original_audio_url"
+    t.datetime "published_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "pali_word_translations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "language"
     t.text "translation"
@@ -124,5 +147,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_03_203149) do
   add_foreign_key "doha_translations", "dohas"
   add_foreign_key "looped_doha_translations", "looped_dohas"
   add_foreign_key "looped_pali_word_translations", "looped_pali_words"
+  add_foreign_key "looped_words_of_buddha_translations", "looped_words_of_buddhas"
   add_foreign_key "pali_word_translations", "pali_words"
 end

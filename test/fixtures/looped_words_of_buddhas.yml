@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+#one:
+#  words: MyText
+#  citepali: MyString
+#  citepali_url: MyString
+#  citebook: MyString
+#  citebook_url: MyString
+#  original_words: MyText
+#  original_url: MyString
+#  original_audio_url: MyString
+#  published_at: 2023-08-05 11:22:01
+#
+#two:
+#  words: MyText
+#  citepali: MyString
+#  citepali_url: MyString
+#  citebook: MyString
+#  citebook_url: MyString
+#  original_words: MyText
+#  original_url: MyString
+#  original_audio_url: MyString
+#  published_at: 2023-08-05 11:22:01
