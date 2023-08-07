@@ -3,14 +3,19 @@ using RefinedHash
 
 class ApiControllerTest < ActionDispatch::IntegrationTest
   test "should get today" do
-    # TODO: this is just to run tests on an airplane without wifi
-    LoopedDoha.skip_downloads = true
+    # skip downloads to run tests on an airplane without wifi
+    if true # ENV["RAILS_TEST_ENV"] == "airplane"
+      LoopedDoha.skip_downloads = true
+      LoopedWordsOfBuddha.skip_downloads = true
+    end
 
     LoopedPaliWord.ingest_all
     LoopedDoha.ingest_all
+    LoopedWordsOfBuddha.ingest_all
     travel_to Time.utc(2023, 8, 3, 0, 0, 1)
     LoopedPaliWord.publish_daily!
     LoopedDoha.publish_daily!
+    LoopedWordsOfBuddha.publish_daily!
 
     get api_today_url
     assert_response :success
@@ -19,21 +24,11 @@ class ApiControllerTest < ActionDispatch::IntegrationTest
     puts json_body.inspect
 
     pubbe = JSON.parse(file_fixture("pali_word_pubbe.json").read)
-    # TODO: url won't match even once we have a route for it, but be aware it
-    #       should exist eventually
-    exp = strip_ids! pubbe.except("url")
-    act = strip_ids! json_body.first.except("url")
-    assert_model_hashes exp, act
-
+    assert_json pubbe, json_body[0]
     naekarama = JSON.parse(file_fixture("doha_naekarama.json").read)
-    exp = strip_ids! naekarama.except("url")
-    act = strip_ids! json_body.second.except("url")
-    assert_model_hashes exp, act
+    assert_json naekarama, json_body[1]
+    appam = JSON.parse(file_fixture("words_of_buddha_appam.json").read)
+    assert_json appam, json_body[2]
   end
 
-  def strip_ids!(j)
-    # TODO: ultimately, we should assert that ids are UUIDs (at least)
-    j["translations"].each {|t| t.delete("id")}
-    j
-  end
 end

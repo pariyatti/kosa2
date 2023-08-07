@@ -24,4 +24,18 @@ class ActiveSupport::TestCase
     end
     assert_equal(exp_hash, act_hash, msg)
   end
+
+  def assert_json(exp, act, msg = nil)
+    # TODO: url won't match even once we have a route for it, but be aware it
+    #       should exist eventually
+    exp2 = strip_ids! exp.except("url")
+    act2 = strip_ids! act.except("url")
+    assert_model_hashes exp2, act2
+  end
+
+  def strip_ids!(j)
+    # TODO: ultimately, we should assert that ids are UUIDs (at least)
+    j["translations"].each {|t| t.delete("id")}
+    j
+  end
 end

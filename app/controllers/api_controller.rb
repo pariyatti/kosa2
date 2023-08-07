@@ -11,6 +11,10 @@ class ApiController < ApplicationController
       # TODO: put :url back when resource routes are ready:
       cards << doha.to_json.except(:url)
     end
+    WordsOfBuddha.all.order(published_at: :desc).each do |words_of_buddha|
+      # TODO: put :url back when resource routes are ready:
+      cards << words_of_buddha.to_json.except(:url)
+    end
     render json: cards
   end
 end
