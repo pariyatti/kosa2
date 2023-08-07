@@ -4,10 +4,7 @@ class PaliWord < ApplicationRecord
   self.implicit_order_column = "created_at"
   include Nameable
   has_many :translations, class_name: 'PaliWordTranslation', dependent: :destroy, autosave: true
-
-  def main_key
-    self.pali
-  end
+  naturalkey_column :pali
 
   def to_json
     { id: self.id,

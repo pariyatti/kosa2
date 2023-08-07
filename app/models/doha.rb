@@ -3,10 +3,7 @@ class Doha < ApplicationRecord
   include Nameable
   has_many :translations, class_name: 'DohaTranslation', dependent: :destroy, autosave: true
   has_one_attached :audio
-
-  def main_key
-    self.doha
-  end
+  naturalkey_column :doha
 
   def to_json
     { id: self.id,

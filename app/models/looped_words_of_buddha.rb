@@ -69,10 +69,15 @@ class LoopedWordsOfBuddha < ApplicationRecord
   end
 
   def transcribe(pub_time)
-    wob = WordsOfBuddha.new(doha: self.words, citepali: self.citepali, citepali_url: self.citepali_url,
-                            citebook: self.citebook, citebook_url: self.citebook_url,
-                            original_words: self.original_words, original_url: self.original_url,
-                            original_audio_url: self.original_audio_url, published_at: pub_time)
+    wob = WordsOfBuddha.new(words: self.words,
+                            citepali: self.citepali,
+                            citepali_url: self.citepali_url,
+                            citebook: self.citebook,
+                            citebook_url: self.citebook_url,
+                            original_words: self.original_words,
+                            original_url: self.original_url,
+                            original_audio_url: self.original_audio_url,
+                            published_at: pub_time)
     translations.each do |t|
       wob.translations.build(language: t.language, translation: t.translation)
     end

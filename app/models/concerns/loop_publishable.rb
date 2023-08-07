@@ -21,11 +21,11 @@ module LoopPublishable
       card = self.where(index: index).sole.transcribe(pub_time)
       existing = self.already_published(card).order(published_at: :desc)
       puts "index is: #{index}"
-      logger.info "#### Today's #{human_name} is: #{card.main_key}"
+      logger.info "#### Today's #{human_name} is: #{card.naturalkey_value}"
       if existing.empty? || days_between(existing.first.published_at, pub_time) > 2
         card.save!
       else
-        logger.info "#### Ignoring. '#{card.main_key}' already exists within a 2-day window."
+        logger.info "#### Ignoring. '#{card.naturalkey_value}' already exists within a 2-day window."
       end
     end
 
