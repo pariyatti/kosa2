@@ -1,5 +1,6 @@
 class WordsOfBuddha < ApplicationRecord
   self.implicit_order_column = "created_at"
+  include Routing
   include Nameable
   has_many :translations, class_name: 'WordsOfBuddhaTranslation', dependent: :destroy
   has_one_attached :audio
@@ -13,7 +14,7 @@ class WordsOfBuddha < ApplicationRecord
       created_at: self.created_at,
       updated_at: self.updated_at,
       type: "words_of_buddha",
-      url: "TODO", # TODO: self-reference URL
+      url: words_of_buddha_url(self, :json),
       header: "Words of the Buddha",
       bookmarkable: true,
       shareable: true,

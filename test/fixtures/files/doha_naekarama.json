@@ -1,1 +1,31 @@
-{"id":"c457e23e-7353-408a-8cdf-ec7feb1c51a9","doha":"Nae karama bāndhe nahīṅ, \nkṣīṇa purātana hoya. \nKṣaṇa kṣaṇa jāgrata hī rahe, \nsahaja mukta hai soya. \n\nNae karama bāndhe nahīṅ, \nkṣīṇa purātana hoya. \nPratikṣaṇa jāgrata hī rahe, \nsahaja mukta hai soya.","translations":[{"id":"75d43e5b-9def-49b5-9799-2ac925a65959","language":"eng","translation":"Do not generate new kamma, \nlet the old be extinguished, \nevery moment remain vigilant, \nand naturally you become liberated. \n\nDo not generate new kamma, \nlet the old be extinguished, \nevery moment remain vigilant, \nand naturally you become liberated.\n\n–S.N. Goenka"},{"id":"9740463d-5e98-4f5e-b9f7-dd693f73cf23","language":"lit","translation":"Nekurkite naujos kammos, \nLeiskite senajai išnykti,\nKiekvieną akimirką išlikite budrūs,\nIr neabejotinai išsilaisvinsite.\n\nNekurkite naujos kammos, \nLeiskite senajai išnykti,\nKiekvieną akimirką išlikite budrūs,\nIr neabejotinai išsilaisvinsite.\n\n–S.N. Goenka"},{"id":"ed7db6ac-7a15-4a9b-851e-82d41a9e1f39","language":"por","translation":"Não gere novo kamma,\ndeixe o velho se extinguir,\na cada momento permaneça vigilante,\ne naturalmente irá se libertar.\n\nNão gere novo kamma,\ndeixe o velho se extinguir,\na cada momento permaneça vigilante,\ne naturalmente irá se libertar.\n\n–S.N. Goenka"},{"id":"7f62c5cc-cb95-494a-a25a-5501899d73d4","language":"zho-hant","translation":"別再造作新業，\n讓舊業盡除，\n每一刻保持警覺，\n自然得以解脫。\n\n別再造作新業，\n讓舊業盡除，\n每一刻保持警覺，\n自然得以解脫。\n\n─葛印卡老師"}],"published_at":"2023-08-03T17:11:02.000Z","created_at":"2023-08-03T00:00:01.000Z","updated_at":"2023-08-03T00:00:01.000Z","type":"doha","header":"Daily Dhamma Verse","bookmarkable":true,"shareable":true,"audio":{"url":""},"original_doha":null,"original_url":null,"original_audio_url":"https://download.pariyatti.org/dohas/081_Doha.mp3"}
+{
+  "id":"c457e23e-7353-408a-8cdf-ec7feb1c51a9",
+  "url": "http://kosa-test.pariyatti.app/api/v1/today/doha/c457e23e-7353-408a-8cdf-ec7feb1c51a9.json",
+  "doha":"Nae karama bāndhe nahīṅ, \nkṣīṇa purātana hoya. \nKṣaṇa kṣaṇa jāgrata hī rahe, \nsahaja mukta hai soya. \n\nNae karama bāndhe nahīṅ, \nkṣīṇa purātana hoya. \nPratikṣaṇa jāgrata hī rahe, \nsahaja mukta hai soya.",
+  "translations": [
+    {
+      "id":"75d43e5b-9def-49b5-9799-2ac925a65959",
+      "language":"eng",
+      "translation":"Do not generate new kamma, \nlet the old be extinguished, \nevery moment remain vigilant, \nand naturally you become liberated. \n\nDo not generate new kamma, \nlet the old be extinguished, \nevery moment remain vigilant, \nand naturally you become liberated.\n\n–S.N. Goenka"
+    },
+    {
+      "id":"9740463d-5e98-4f5e-b9f7-dd693f73cf23",
+      "language":"lit",
+      "translation":"Nekurkite naujos kammos, \nLeiskite senajai išnykti,\nKiekvieną akimirką išlikite budrūs,\nIr neabejotinai išsilaisvinsite.\n\nNekurkite naujos kammos, \nLeiskite senajai išnykti,\nKiekvieną akimirką išlikite budrūs,\nIr neabejotinai išsilaisvinsite.\n\n–S.N. Goenka"
+    },
+    {"id":"ed7db6ac-7a15-4a9b-851e-82d41a9e1f39","language":"por","translation":"Não gere novo kamma,\ndeixe o velho se extinguir,\na cada momento permaneça vigilante,\ne naturalmente irá se libertar.\n\nNão gere novo kamma,\ndeixe o velho se extinguir,\na cada momento permaneça vigilante,\ne naturalmente irá se libertar.\n\n–S.N. Goenka"},
+    {"id":"7f62c5cc-cb95-494a-a25a-5501899d73d4","language":"zho-hant","translation":"別再造作新業，\n讓舊業盡除，\n每一刻保持警覺，\n自然得以解脫。\n\n別再造作新業，\n讓舊業盡除，\n每一刻保持警覺，\n自然得以解脫。\n\n─葛印卡老師"}
+  ],
+  "published_at":"2023-08-03T17:11:02.000Z",
+  "created_at":"2023-08-03T00:00:01.000Z",
+  "updated_at":"2023-08-03T00:00:01.000Z",
+  "type":"doha",
+  "header":"Daily Dhamma Verse",
+  "bookmarkable":true,
+  "shareable":true,
+  "audio":{"url":""},
+  "original_doha":null,
+  "original_url":null,
+  "original_audio_url":"https://download.pariyatti.org/dohas/081_Doha.mp3"
+}
+

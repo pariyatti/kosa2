@@ -1,5 +1,6 @@
 class Doha < ApplicationRecord
   self.implicit_order_column = "created_at"
+  include Routing
   include Nameable
   has_many :translations, class_name: 'DohaTranslation', dependent: :destroy, autosave: true
   has_one_attached :audio
@@ -13,7 +14,7 @@ class Doha < ApplicationRecord
       created_at: self.created_at,
       updated_at: self.updated_at,
       type: "doha",
-      url: "TODO", # TODO: self-reference URL
+      url: doha_url(self, :json),
       header: "Daily Dhamma Verse",
       bookmarkable: true,
       shareable: true,

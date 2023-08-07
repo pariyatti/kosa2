@@ -17,7 +17,6 @@ class LoopedPaliWord < ApplicationRecord
   end
 
   def self.parse(line, lang)
-    # TODO: return a record, not an array
     blocks = line.split('—', 2).map(&:trim)
     { pali: blocks[0],
       original_pali: blocks[0],

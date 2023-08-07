@@ -50,7 +50,6 @@ module LoopIngestable
 
     def insert(record)
       lang = record[:translations].first
-      # TODO: consider only looking up by :doha / :pali / :words
       ld = self.where(naturalkey_name => record[naturalkey_name]).first_or_initialize
       unless ld.new_record?
         logger.debug "Existing #{human_name} found: #{ld.naturalkey_value} — appending translations"

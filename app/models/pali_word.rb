@@ -2,6 +2,7 @@
 
 class PaliWord < ApplicationRecord
   self.implicit_order_column = "created_at"
+  include Routing
   include Nameable
   has_many :translations, class_name: 'PaliWordTranslation', dependent: :destroy, autosave: true
   naturalkey_column :pali
@@ -14,7 +15,7 @@ class PaliWord < ApplicationRecord
       created_at: self.created_at,
       updated_at: self.updated_at,
       type: "pali_word",
-      url: "TODO", # TODO: self-reference URL
+      url: pali_word_url(self, :json),
       header: "Pāli Word of the Day",
       bookmarkable: true,
       shareable: true,

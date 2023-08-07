@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-
+  scope '/api/v1/today', constraints: { format: 'json' } do
+    resources :pali_word, :doha, :words_of_buddha
+  end
 
 end

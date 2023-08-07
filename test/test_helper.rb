@@ -1,6 +1,7 @@
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
+using RefinedHash
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
@@ -26,16 +27,19 @@ class ActiveSupport::TestCase
   end
 
   def assert_json(exp, act, msg = nil)
-    # TODO: url won't match even once we have a route for it, but be aware it
-    #       should exist eventually
-    exp2 = strip_ids! exp.except("url")
-    act2 = strip_ids! act.except("url")
+    exp2 = strip_ids! exp.update_key("url") {|u| strip_uuid(u) }
+    act2 = strip_ids! act.update_key("url") {|u| strip_uuid(u) }
     assert_model_hashes exp2, act2
   end
 
   def strip_ids!(j)
-    # TODO: ultimately, we should assert that ids are UUIDs (at least)
-    j["translations"].each {|t| t.delete("id")}
+    j["translations"].each_with_index do |t, i|
+      j["translations"][i] = t.update_key("id") {|id| strip_uuid(id) }
+    end
     j
+  end
+
+  def strip_uuid(s)
+    s.gsub(/[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}/, "UUID-WAS-HERE")
   end
 end
