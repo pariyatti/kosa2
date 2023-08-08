@@ -24,4 +24,12 @@ class LoopedDohaTest < ActiveSupport::TestCase
     assert_equal earlier, LoopedDoha.first.audio.blob
   end
 
+  test "duplicates audio" do
+    LoopedDoha.ingest(file_fixture("doha_citta_mp3_eng.txt"), "eng")
+    assert_equal 1, LoopedDoha.count
+    LoopedDoha.publish_nth(1)
+    assert_equal "054_Doha.mp3", Doha.first.audio.filename.to_s
+    assert Doha.first.audio.audio?
+  end
+
 end

@@ -43,9 +43,10 @@ class LoopedDoha < ApplicationRecord
   end
 
   def transcribe(pub_time)
-    # TODO: transcribe audio
-    doha = Doha.new(doha: self.doha, original_doha: self.original_doha, original_url: self.original_url,
-                  original_audio_url: self.original_audio_url, published_at: pub_time)
+    doha = Doha.new(doha: self.doha,
+                    original_doha: self.original_doha, original_url: self.original_url,
+                    original_audio_url: self.original_audio_url, published_at: pub_time)
+    doha.audio.attach(self.audio.blob)
     translations.each do |t|
       doha.translations.build(language: t.language, translation: t.translation)
     end

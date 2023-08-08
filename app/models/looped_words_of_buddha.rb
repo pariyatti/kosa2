@@ -59,7 +59,6 @@ class LoopedWordsOfBuddha < ApplicationRecord
   end
 
   def transcribe(pub_time)
-    # TODO: transcribe audio
     wob = WordsOfBuddha.new(words: self.words,
                             citepali: self.citepali,
                             citepali_url: self.citepali_url,
@@ -69,6 +68,7 @@ class LoopedWordsOfBuddha < ApplicationRecord
                             original_url: self.original_url,
                             original_audio_url: self.original_audio_url,
                             published_at: pub_time)
+    wob.audio.attach(self.audio.blob)
     translations.each do |t|
       wob.translations.build(language: t.language, translation: t.translation)
     end
