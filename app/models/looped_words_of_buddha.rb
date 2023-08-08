@@ -1,5 +1,3 @@
-require 'uri'
-require 'open-uri'
 using RefinedString
 
 class LoopedWordsOfBuddha < ApplicationRecord
@@ -57,10 +55,7 @@ class LoopedWordsOfBuddha < ApplicationRecord
   end
 
   def download_attachment!
-    url = self.original_audio_url
-    file = URI.open(url)
-    filename = File.basename(URI.parse(url).path)
-    self.audio.attach(io: file, filename: filename, content_type: 'audio/mpeg')
+    download_audio_attachment!
   end
 
   def transcribe(pub_time)
