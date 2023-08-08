@@ -32,6 +32,18 @@ class ActiveSupport::TestCase
     assert_model_hashes exp2, act2
   end
 
+  def assert_attachment_path(exp, act, msg = nil)
+    exp2 = strip_attachment_path_id exp
+    act2 = strip_attachment_path_id act
+    assert_equal exp2, act2
+  end
+
+  def assert_attachment_url(exp, act, msg = nil)
+    exp2 = strip_attachment_url_id exp
+    act2 = strip_attachment_url_id act
+    assert_equal exp2, act2
+  end
+
   def strip_ids!(j)
     j["translations"].each_with_index do |t, i|
       j["translations"][i] = t.update_key("id") {|id| strip_uuid(id) }
@@ -42,4 +54,15 @@ class ActiveSupport::TestCase
   def strip_uuid(s)
     s.gsub(/[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}/, "UUID-WAS-HERE")
   end
+
+  def strip_attachment_path_id(s)
+    return unless s
+    s.gsub(/(\/rails\/active_storage\/blobs\/redirect\/).*(\/[a-zA-Z0-9_]+\.mp3\?disposition=attachment)/, '\1ID-WAS-HERE\2')
+  end
+
+  def strip_attachment_url_id(s)
+    return unless s
+    s.gsub(/(http:\/\/kosa-test\.pariyatti\.app\/rails\/active_storage\/blobs\/redirect\/).*(\/[a-zA-Z0-9_]+\.mp3)/, '\1ID-WAS-HERE\2')
+  end
+
 end

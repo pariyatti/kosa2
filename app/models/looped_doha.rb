@@ -46,6 +46,7 @@ class LoopedDoha < ApplicationRecord
     doha = Doha.new(doha: self.doha,
                     original_doha: self.original_doha, original_url: self.original_url,
                     original_audio_url: self.original_audio_url, published_at: pub_time)
+    raise "Looped audio not attached" unless self.audio.attached?
     doha.audio.attach(self.audio.blob)
     translations.each do |t|
       doha.translations.build(language: t.language, translation: t.translation)

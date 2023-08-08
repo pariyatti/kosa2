@@ -18,11 +18,14 @@ module LoopPublishable
       now = DateTime.now.utc
       pub_time = now.change(publish_at_time).to_formatted_s(:kosa)
       index = which_card(pub_time, count)
-      card = self.where(index: index).sole.transcribe(pub_time)
+      looped = self.where(index: index).sole
+      card = looped.transcribe(pub_time)
       existing = self.already_published(card).order(published_at: :desc)
       puts "index is: #{index}"
+      puts "existing? #{existing.empty?}"
       logger.info "#### Today's #{human_name} is: #{card.naturalkey_value}"
       if existing.empty? || days_between(existing.first.published_at, pub_time) > 2
+        logger.info "#### Saving."
         card.save!
       else
         logger.info "#### Ignoring. '#{card.naturalkey_value}' already exists within a 2-day window."

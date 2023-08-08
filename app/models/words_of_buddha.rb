@@ -18,7 +18,9 @@ class WordsOfBuddha < ApplicationRecord
       header: "Words of the Buddha",
       bookmarkable: true,
       shareable: true,
-      audio: {url: ""}, # TODO: url_for(self.audio)
+      audio: { path: rails_blob_path(self.audio, disposition: "attachment", only_path: true),
+               url: polymorphic_url(self.audio)
+              },
       original_words: self.original_words,
       original_url: self.original_url,
       original_audio_url: self.original_audio_url

@@ -18,7 +18,9 @@ class Doha < ApplicationRecord
       header: "Daily Dhamma Verse",
       bookmarkable: true,
       shareable: true,
-      audio: {url: ""}, # TODO: url_for(self.audio)
+      audio: { path: rails_blob_path(self.audio, disposition: "attachment", only_path: true),
+               url: polymorphic_url(self.audio)
+              },
       original_doha: self.original_doha,
       original_url: self.original_url,
       original_audio_url: self.original_audio_url

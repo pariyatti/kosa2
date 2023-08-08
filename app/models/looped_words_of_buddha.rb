@@ -68,6 +68,7 @@ class LoopedWordsOfBuddha < ApplicationRecord
                             original_url: self.original_url,
                             original_audio_url: self.original_audio_url,
                             published_at: pub_time)
+    raise "Looped audio not attached" unless self.audio.attached?
     wob.audio.attach(self.audio.blob)
     translations.each do |t|
       wob.translations.build(language: t.language, translation: t.translation)

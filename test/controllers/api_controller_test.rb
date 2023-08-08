@@ -3,11 +3,7 @@ using RefinedHash
 
 class ApiControllerTest < ActionDispatch::IntegrationTest
   test "should get today" do
-    # skip downloads to run tests on an airplane without wifi
-    if true # ENV["RAILS_TEST_ENV"] == "airplane"
-      LoopedDoha.skip_downloads = true
-      LoopedWordsOfBuddha.skip_downloads = true
-    end
+    next unless ENV["RAILS_TEST_ENV"] == "all"
 
     LoopedPaliWord.ingest_all
     LoopedDoha.ingest_all
