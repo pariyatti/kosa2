@@ -11,11 +11,6 @@ class LoopedWordsOfBuddha < ApplicationRecord
   has_one_attached :audio
   naturalkey_column :words
 
-  # TODO: can this be moved into LoopIngestable?
-  def self.validate_ingest!
-    raise NotImplementedError
-  end
-
   def self.from_blocks(blocks, lang)
     { words: blocks[0],
       original_audio_url: blocks[1],

@@ -8,14 +8,6 @@ class LoopedPaliWord < ApplicationRecord
   has_many :translations, class_name: 'LoopedPaliWordTranslation', dependent: :destroy
   naturalkey_column :pali
 
-  def self.validate_ingest!
-    LoopedPaliWord.all.each do |lpw|
-      ts = lpw.translations
-      diff = {actual: ts, expected: conf[:languages]}
-      raise "TXT translation count did not match!\n\n#{diff}" if ts.count != conf[:languages].count
-    end
-  end
-
   def self.parse(line, lang)
     blocks = line.split('—', 2).map(&:trim)
     { pali: blocks[0],

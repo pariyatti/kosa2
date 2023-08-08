@@ -71,6 +71,14 @@ module LoopIngestable
       ld
     end
 
+    def validate_ingest!
+      self.all.each do |looped_card|
+        ts = looped_card.translations
+        diff = {actual: ts, expected: conf[:languages]}
+        raise "TXT translation count did not match!\n\n#{diff}" if ts.count != conf[:languages].count
+      end
+    end
+
   end
 
 end

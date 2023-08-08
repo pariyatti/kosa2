@@ -11,15 +11,6 @@ class LoopedDoha < ApplicationRecord
   has_one_attached :audio
   naturalkey_column :doha
 
-  # TODO: can this be moved into LoopIngestable?
-  def self.validate_ingest!
-    LoopedDoha.all.each do |ld|
-      ts = ld.translations
-      diff = {actual: ts, expected: conf[:languages]}
-      raise "TXT translation count did not match!\n\n#{diff}" if ts.count != conf[:languages].count
-    end
-  end
-
   def self.from_blocks(blocks, lang)
     { doha: blocks[0],
       original_audio_url: blocks[1],
