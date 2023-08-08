@@ -5,6 +5,7 @@ class LoopedWordsOfBuddha < ApplicationRecord
   include Nameable
   include LoopIngestable
   include LoopPublishable
+  #noinspection RailsParamDefResolve
   has_many :translations, class_name: 'LoopedWordsOfBuddhaTranslation', dependent: :destroy
   has_one_attached :audio
   naturalkey_column :words
@@ -34,8 +35,7 @@ class LoopedWordsOfBuddha < ApplicationRecord
          .then {|split| split.map(&:trim) }
          .then {|cleaned| [cleaned.first, cleaned.second]}
          .then {|repaired| [repaired.first] + repaired.second.split(/\n\s*\n/)}
-         # TODO: replace the .. operator
-         .then {|all_blocks| [all_blocks[0..all_blocks.count-2], shred_citations(all_blocks.last)]}
+         .then {|all_blocks| [all_blocks.take(all_blocks.count-1), shred_citations(all_blocks.last)]}
          .then do |main_blocks, cite_blocks|
            from_blocks(main_blocks.map(&:trim), lang).merge(from_cite_blocks(cite_blocks.map(&:trim)))
          end
@@ -59,6 +59,7 @@ class LoopedWordsOfBuddha < ApplicationRecord
   end
 
   def transcribe(pub_time)
+    # TODO: transcribe audio
     wob = WordsOfBuddha.new(words: self.words,
                             citepali: self.citepali,
                             citepali_url: self.citepali_url,

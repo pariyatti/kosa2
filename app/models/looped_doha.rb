@@ -5,6 +5,7 @@ class LoopedDoha < ApplicationRecord
   include Nameable
   include LoopIngestable
   include LoopPublishable
+  #noinspection RailsParamDefResolve
   has_many :translations, class_name: 'LoopedDohaTranslation', dependent: :destroy
   has_one_attached :audio
   naturalkey_column :doha
@@ -42,6 +43,7 @@ class LoopedDoha < ApplicationRecord
   end
 
   def transcribe(pub_time)
+    # TODO: transcribe audio
     doha = Doha.new(doha: self.doha, original_doha: self.original_doha, original_url: self.original_url,
                   original_audio_url: self.original_audio_url, published_at: pub_time)
     translations.each do |t|

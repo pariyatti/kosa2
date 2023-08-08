@@ -7,6 +7,13 @@ module LoopIngestable
   extend ActiveSupport::Concern
 
   included do
+    def download_audio_attachment!
+      url = self.original_audio_url
+      file = URI.open(url)
+      filename = File.basename(URI.parse(url).path)
+      self.audio.attach(io: file, filename: filename, content_type: 'audio/mpeg')
+    end
+
     def set_index!
       max = self.class.maximum(:index)
       self.index = max ? max + 1 : 0
@@ -48,13 +55,6 @@ module LoopIngestable
       marker_pair = conf[:markers].find {|m| m[:language] == lang} || raise("No #{human_name} marker for language '#{lang}'")
       raw = marker_pair[:marker]
       "#{raw}: "
-    end
-
-    def download_audio_attachment!
-      url = self.original_audio_url
-      file = URI.open(url)
-      filename = File.basename(URI.parse(url).path)
-      self.audio.attach(io: file, filename: filename, content_type: 'audio/mpeg')
     end
 
     def insert(record)
