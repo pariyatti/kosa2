@@ -6,6 +6,8 @@ class PaliWord < ApplicationRecord
   include Nameable
   has_many :translations, class_name: 'PaliWordTranslation', dependent: :destroy, autosave: true
   naturalkey_column :pali
+  validates_presence_of :pali, :translations, :published_at
+  validates_uniqueness_of :pali
 
   def to_json
     { id: self.id,
