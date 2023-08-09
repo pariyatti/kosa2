@@ -1,7 +1,7 @@
 require "test_helper"
 using RefinedHash
 
-class ApiControllerTest < ActionDispatch::IntegrationTest
+class ApiControllerSmokeTest < ActionDispatch::IntegrationTest
   smoke_test "should get today" do
 
     LoopedPaliWord.ingest_all
