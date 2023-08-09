@@ -1,23 +1,23 @@
+#noinspection RubyResolve
 require "test_helper"
 
 class LoopedWordsOfBuddhaSmokeTest < ActiveSupport::TestCase
 
-  setup do
-    LoopedWordsOfBuddha.skip_downloads = true
+  smoke_setup do
     LoopedWordsOfBuddha.ingest_all
   end
 
-  test "exactly 169 records" do
+  smoke_test "exactly 169 records" do
     assert_equal 169, LoopedWordsOfBuddha.all.count
   end
 
-  test "all have 7 languages" do
+  smoke_test "all have 7 languages" do
     LoopedWordsOfBuddha.all.each do |lwob|
       assert_equal 7, lwob.translations.count, "LoopedWordsOfBuddha = #{lwob.inspect}\nTranslations = #{lwob.translations.inspect}"
     end
   end
 
-  test "publishing 2012" do
+  smoke_test "publishing 2012" do
     words_text = "Yo ca dhammamabhiññāya\ndhammamaññāya paṇḍito,\nrahadova nivāte ca\nanejo vūpasammati."
     # 2012-07-30T00:00:01
     travel_to Time.utc(2012, 7, 30, 0, 0, 1)

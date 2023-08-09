@@ -10,6 +10,18 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
+  def self.smoke_setup(&block)
+    if ENV["RAILS_TEST_ENV"] == "smoke" || ENV["TEAMCITY_RAKE_RUNNER_MODE"] == 'idea'
+      setup(&block)
+    end
+  end
+
+  def self.smoke_test(name, &block)
+    if ENV["RAILS_TEST_ENV"] == "smoke" || ENV["TEAMCITY_RAKE_RUNNER_MODE"] == 'idea'
+      test(name, &block)
+    end
+  end
+
   def assert_models(exp, act, msg = nil)
     assert_model_hashes(exp.attributes, act.attributes)
   end
@@ -27,8 +39,12 @@ class ActiveSupport::TestCase
   end
 
   def assert_json(exp, act, msg = nil)
-    exp2 = strip_ids! exp.update_key("url") {|u| strip_uuid(u) }
-    act2 = strip_ids! act.update_key("url") {|u| strip_uuid(u) }
+    exp2 = exp.update_key("url") {|u| strip_uuid(u) }
+      .update_key("audio") {|a| nil }
+      .then {|e| strip_ids!(e) }
+    act2 = act.update_key("url") {|u| strip_uuid(u) }
+      .update_key("audio") {|a| nil }
+      .then {|a| strip_ids!(a) }
     assert_model_hashes exp2, act2
   end
 

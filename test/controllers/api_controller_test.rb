@@ -2,8 +2,7 @@ require "test_helper"
 using RefinedHash
 
 class ApiControllerTest < ActionDispatch::IntegrationTest
-  test "should get today" do
-    next unless ENV["RAILS_TEST_ENV"] == "all"
+  smoke_test "should get today" do
 
     LoopedPaliWord.ingest_all
     LoopedDoha.ingest_all

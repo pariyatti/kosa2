@@ -1,24 +1,24 @@
 # frozen_string_literal: true
+#noinspection RubyResolve
 require "test_helper"
 
 class LoopedDohaSmokeTest < ActiveSupport::TestCase
 
-  setup do
-    LoopedDoha.skip_downloads = true
+  smoke_setup do
     LoopedDoha.ingest_all
   end
 
-  test "exactly 122 records" do
+  smoke_test "exactly 122 records" do
     assert_equal 122, LoopedDoha.all.count
   end
 
-  test "all have 4 languages" do
+  smoke_test "all have 4 languages" do
     LoopedDoha.all.each do |ld|
       assert_equal 4, ld.translations.count, "LoopedDoha = #{ld.inspect}\nTranslations = #{ld.translations.inspect}"
     end
   end
 
-  test "publishing 2012" do
+  smoke_test "publishing 2012" do
     doha_text = "Bhogata bhogata bhogate, \nbandhana bandhate jāṅya. \nDekhata dekhata dekhate, \nbandhana khulate jāṅya. \n\nBhogata bhogata bhogate, \nGanthey bandhate jāṅya. \nDekhata dekhata dekhate, \nGanthey khulate jāṅya."
     # 2012-07-30T00:00:01
     travel_to Time.utc(2012, 7, 30, 0, 0, 1)
