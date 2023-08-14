@@ -21,10 +21,10 @@ class PaliWord < ApplicationRecord
   naturalkey_column :pali
   validates_presence_of :pali, :translations, :published_at
 
-  def to_json
+  def as_json(options=nil)
     { id: self.id,
       pali: self.pali,
-      translations: self.translations.map {|t| t.attributes.slice("id", "language", "translation") },
+      translations: self.translations.as_json,
       published_at: self.published_at,
       created_at: self.created_at,
       updated_at: self.updated_at,

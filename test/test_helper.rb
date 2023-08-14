@@ -73,6 +73,12 @@ class ActiveSupport::TestCase
     s.gsub(/[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}/, "UUID-WAS-HERE")
   end
 
+  def strip_activestorage_id(s)
+    return unless s
+    s.gsub(/(\/rails\/active_storage\/blobs\/redirect\/)[a-zA-Z0-9_]+=--[a-zA-Z0-9_]+(\/[a-zA-Z0-9_]+\.mp3\?disposition=attachment)/, '\1ID-WAS-HERE\2')
+     .gsub(/(http:\/\/kosa-test\.pariyatti\.app\/rails\/active_storage\/blobs\/redirect\/)[a-zA-Z0-9_]+=--[a-zA-Z0-9_]+(\/[a-zA-Z0-9_]+\.mp3)/, '\1ID-WAS-HERE\2')
+  end
+
   def strip_attachment_path_id(s)
     return unless s
     s.gsub(/(\/rails\/active_storage\/blobs\/redirect\/).*(\/[a-zA-Z0-9_]+\.mp3\?disposition=attachment)/, '\1ID-WAS-HERE\2')

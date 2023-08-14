@@ -13,9 +13,9 @@ class DohaTest < ActiveSupport::TestCase
     #noinspection RubyResolve
     doha.audio.attach(io: file, filename: filename, content_type: 'audio/mpeg')
     assert_attachment_path "/rails/active_storage/blobs/redirect/ID-WAS-HERE/108_Doha.mp3?disposition=attachment",
-                           doha.to_json[:audio][:path]
+                           doha.as_json[:audio][:path]
     assert_attachment_url "http://kosa-test.pariyatti.app/rails/active_storage/blobs/redirect/ID-WAS-HERE/108_Doha.mp3",
-                          doha.to_json[:audio][:url]
+                          doha.as_json[:audio][:url]
   end
 
 end

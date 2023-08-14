@@ -13,9 +13,9 @@ class WordsOfBuddhaTest < ActiveSupport::TestCase
     #noinspection RubyResolve
     wob.audio.attach(io: file, filename: filename, content_type: 'audio/mpeg')
     assert_attachment_path "/rails/active_storage/blobs/redirect/ID-WAS-HERE/dhammapada_11_154.mp3?disposition=attachment",
-                           wob.to_json[:audio][:path]
+                           wob.as_json[:audio][:path]
     assert_attachment_url "http://kosa-test.pariyatti.app/rails/active_storage/blobs/redirect/ID-WAS-HERE/dhammapada_11_154.mp3",
-                          wob.to_json[:audio][:url]
+                          wob.as_json[:audio][:url]
   end
 
 end

@@ -24,10 +24,11 @@ class WordsOfBuddha < ApplicationRecord
   naturalkey_column :words
   validates_presence_of :words, :translations, :published_at
 
-  def to_json
-    { id: self.id,
+  def as_json(options=nil)
+    {
+      id: self.id,
       words: self.words,
-      translations: self.translations.map {|t| t.attributes.slice("id", "language", "translation") },
+      translations: self.translations.as_json,
       published_at: self.published_at,
       created_at: self.created_at,
       updated_at: self.updated_at,

@@ -13,4 +13,12 @@
 class DohaTranslation < ApplicationRecord
   belongs_to :doha, autosave: true
   validates_presence_of :language, :translation, :published_at
+
+  def as_json(options=nil)
+    {
+      id: self.id,
+      language: self.language,
+      translation: self.translation
+    }
+  end
 end
