@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: dohas
+#
+#  id                 :uuid             not null, primary key
+#  doha               :text
+#  original_audio_url :string
+#  original_doha      :text
+#  original_url       :string
+#  published_at       :datetime
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#
 class Doha < ApplicationRecord
   self.implicit_order_column = "created_at"
   include Routing

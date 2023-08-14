@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: looped_dohas
+#
+#  id                 :uuid             not null, primary key
+#  doha               :text
+#  index              :bigint
+#  original_audio_url :string
+#  original_doha      :text
+#  original_url       :string
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#
 using RefinedString
 
 class LoopedDoha < ApplicationRecord

@@ -1,5 +1,18 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: pali_words
+#
+#  id            :uuid             not null, primary key
+#  index         :bigint
+#  original_pali :string
+#  original_url  :string
+#  pali          :string
+#  published_at  :datetime
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
 class PaliWord < ApplicationRecord
   self.implicit_order_column = "created_at"
   include Routing

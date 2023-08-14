@@ -1,5 +1,17 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: pali_word_translations
+#
+#  id           :uuid             not null, primary key
+#  language     :string
+#  published_at :datetime
+#  translation  :text
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  pali_word_id :uuid             not null, indexed
+#
 class PaliWordTranslation < ApplicationRecord
   include Nameable
   belongs_to :pali_word

@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: looped_pali_words
+#
+#  id            :uuid             not null, primary key
+#  index         :bigint
+#  original_pali :string
+#  original_url  :string
+#  pali          :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
 using RefinedString
 
 class LoopedPaliWord < ApplicationRecord

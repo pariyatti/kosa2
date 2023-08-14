@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: words_of_buddhas
+#
+#  id                 :uuid             not null, primary key
+#  citebook           :string
+#  citebook_url       :string
+#  citepali           :string
+#  citepali_url       :string
+#  original_audio_url :string
+#  original_url       :string
+#  original_words     :text
+#  published_at       :datetime
+#  words              :text
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#
 class WordsOfBuddha < ApplicationRecord
   self.implicit_order_column = "created_at"
   include Routing
