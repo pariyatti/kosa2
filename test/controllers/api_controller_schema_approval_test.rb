@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "test_helper"
 
-class ApiControllerApprovalTest < ActionDispatch::IntegrationTest
+class ApiControllerSchemaApprovalTest < ActionDispatch::IntegrationTest
 
   # TODO: more than 3 cards - just use fixtures?
 
