@@ -19,9 +19,11 @@ class LoopedDoha < ApplicationRecord
   include LoopIngestable
   include LoopPublishable
   #noinspection RailsParamDefResolve
-  has_many :translations, class_name: 'LoopedDohaTranslation', dependent: :destroy
+  has_many :translations, class_name: 'LoopedDohaTranslation', dependent: :destroy, autosave: true
   has_one_attached :audio
   naturalkey_column :doha
+  validates_presence_of :doha, :translations
+  validates_uniqueness_of :doha
 
   def self.from_blocks(blocks, lang)
     { doha: blocks[0],
@@ -57,12 +59,14 @@ class LoopedDoha < ApplicationRecord
 
   def transcribe(pub_time)
     doha = Doha.new(doha: self.doha,
-                    original_doha: self.original_doha, original_url: self.original_url,
-                    original_audio_url: self.original_audio_url, published_at: pub_time)
+                    original_doha: self.original_doha,
+                    original_url: self.original_url,
+                    original_audio_url: self.original_audio_url,
+                    published_at: pub_time)
     raise "Looped audio not attached" unless self.audio.attached?
     doha.audio.attach(self.audio.blob)
     translations.each do |t|
-      doha.translations.build(language: t.language, translation: t.translation)
+      doha.translations.build(language: t.language, translation: t.translation, published_at: pub_time)
     end
     doha
   end

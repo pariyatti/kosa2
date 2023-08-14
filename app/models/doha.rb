@@ -18,6 +18,7 @@ class Doha < ApplicationRecord
   has_many :translations, class_name: 'DohaTranslation', dependent: :destroy, autosave: true
   has_one_attached :audio
   naturalkey_column :doha
+  validates_presence_of :doha, :translations, :published_at
 
   def to_json
     { id: self.id,

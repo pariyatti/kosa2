@@ -14,7 +14,6 @@
 #
 class PaliWordTranslation < ApplicationRecord
   include Nameable
-  belongs_to :pali_word
+  belongs_to :pali_word, autosave: true
   validates_presence_of :language, :translation, :published_at
-
 end

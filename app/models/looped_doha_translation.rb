@@ -10,5 +10,6 @@
 #  looped_doha_id :uuid             not null, indexed
 #
 class LoopedDohaTranslation < ApplicationRecord
-  belongs_to :looped_doha
+  belongs_to :looped_doha, autosave: true
+  validates_presence_of :language, :translation
 end

@@ -12,5 +12,4 @@
 class LoopedPaliWordTranslation < ApplicationRecord
   belongs_to :looped_pali_word, autosave: true
   validates_presence_of :language, :translation
-
 end
