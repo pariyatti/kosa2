@@ -17,7 +17,7 @@ class LoopedPaliWord < ApplicationRecord
   include Nameable
   include LoopIngestable
   include LoopPublishable
-  has_many :translations, class_name: 'LoopedPaliWordTranslation', dependent: :destroy
+  has_many :translations, class_name: 'LoopedPaliWordTranslation', dependent: :destroy, autosave: true
   naturalkey_column :pali
   validates_presence_of :pali, :translations
   validates_uniqueness_of :pali

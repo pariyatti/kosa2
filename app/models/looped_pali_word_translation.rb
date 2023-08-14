@@ -10,7 +10,7 @@
 #  looped_pali_word_id :uuid             not null, indexed
 #
 class LoopedPaliWordTranslation < ApplicationRecord
-  belongs_to :looped_pali_word
+  belongs_to :looped_pali_word, autosave: true
   validates_presence_of :language, :translation
 
 end
