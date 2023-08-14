@@ -7,7 +7,7 @@ class LoopedPaliWord < ApplicationRecord
   include LoopPublishable
   has_many :translations, class_name: 'LoopedPaliWordTranslation', dependent: :destroy
   naturalkey_column :pali
-  validates_presence_of :pali, :translations, :published_at
+  validates_presence_of :pali, :translations
   validates_uniqueness_of :pali
 
   def self.parse(line, lang)

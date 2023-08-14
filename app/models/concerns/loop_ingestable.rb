@@ -7,21 +7,33 @@ module LoopIngestable
   extend ActiveSupport::Concern
 
   included do
+    def append_translation!(lang)
+      ldt = self.translations.where(lang).first_or_initialize
+      unless ldt.new_record?
+        logger.debug "Duplicate #{lang[:language]} found: #{self.naturalkey_value} — replacing translation"
+      end
+      ldt.save!
+    end
+
     def download_audio_attachment!
       url = self.original_audio_url
       file = URI.open(url)
-      filename = File.basename(URI.parse(url).path)
+      filename = File.basename(URI.parse(url).path) # TODO: test for nil path
+      #noinspection RubyResolve
       self.audio.attach(io: file, filename: filename, content_type: 'audio/mpeg')
     end
 
     def set_index!
       max = self.class.maximum(:index)
       self.index = max ? max + 1 : 0
-      save!
     end
 
     def safe_set_index!
-      set_index! unless self.index
+      return if self.index
+      self.transaction do
+        set_index!
+        save!
+      end
     end
   end
 
@@ -65,18 +77,12 @@ module LoopIngestable
       end
       if lang[:language] == "eng"
         ld.assign_attributes(record.except(:translations))
-      end
-      ld.safe_set_index!
-      ld.save!
-      if lang[:language] == "eng"
         ld.download_attachment! unless skip_downloads
       end
 
-      ldt = ld.translations.where(lang).first_or_initialize
-      unless ldt.new_record?
-        logger.debug "Duplicate #{lang[:language]} found: #{ld.naturalkey_value} — replacing translation"
-      end
-      ldt.save!
+      ld.append_translation!(lang)
+      ld.safe_set_index!
+      ld.save!
       ld
     end
 
@@ -89,5 +95,6 @@ module LoopIngestable
     end
 
   end
+
 
 end
