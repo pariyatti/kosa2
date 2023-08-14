@@ -1,3 +1,4 @@
+#noinspection RubyResolve
 require "test_helper"
 
 class WordsOfBuddhaTest < ActiveSupport::TestCase
@@ -6,7 +7,10 @@ class WordsOfBuddhaTest < ActiveSupport::TestCase
     wob = create(:words_of_buddha)
     url = "https://download.pariyatti.org/dwob/dhammapada_11_154.mp3"
     file = URI.open(url)
-    filename = File.basename(URI.parse(url).path)
+    path = URI.parse(url).path
+    #noinspection RubyMismatchedArgumentType
+    filename = File.basename(path)
+    #noinspection RubyResolve
     wob.audio.attach(io: file, filename: filename, content_type: 'audio/mpeg')
     assert_attachment_path "/rails/active_storage/blobs/redirect/ID-WAS-HERE/dhammapada_11_154.mp3?disposition=attachment",
                            wob.to_json[:audio][:path]
