@@ -10,5 +10,6 @@
 #  looped_words_of_buddha_id :uuid             not null, indexed
 #
 class LoopedWordsOfBuddhaTranslation < ApplicationRecord
-  belongs_to :looped_words_of_buddha
+  belongs_to :looped_words_of_buddha, autosave: true
+  validates_presence_of :language, :translation
 end

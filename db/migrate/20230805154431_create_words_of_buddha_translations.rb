@@ -8,6 +8,7 @@ class CreateWordsOfBuddhaTranslations < ActiveRecord::Migration[7.0]
                    index: {name: 'index_wob_translations_on_wob_id'},
                    null: false, foreign_key: true, type: :uuid
 
+      t.datetime :published_at
       t.timestamps
     end
   end

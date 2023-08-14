@@ -24,9 +24,13 @@ class LoopedWordsOfBuddha < ApplicationRecord
   include LoopIngestable
   include LoopPublishable
   #noinspection RailsParamDefResolve
-  has_many :translations, class_name: 'LoopedWordsOfBuddhaTranslation', dependent: :destroy
+  has_many :translations, class_name: 'LoopedWordsOfBuddhaTranslation', dependent: :destroy, autosave: true
   has_one_attached :audio
   naturalkey_column :words
+  #noinspection RailsParamDefResolve
+  validates_presence_of :words, :translations
+  #noinspection RailsParamDefResolve
+  validates_uniqueness_of :words
 
   def self.from_blocks(blocks, lang)
     { words: blocks[0],
@@ -89,7 +93,7 @@ class LoopedWordsOfBuddha < ApplicationRecord
     raise "Looped audio not attached" unless self.audio.attached?
     wob.audio.attach(self.audio.blob)
     translations.each do |t|
-      wob.translations.build(language: t.language, translation: t.translation)
+      wob.translations.build(language: t.language, translation: t.translation, published_at: pub_time)
     end
     wob
   end

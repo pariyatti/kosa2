@@ -19,9 +19,10 @@ class WordsOfBuddha < ApplicationRecord
   self.implicit_order_column = "created_at"
   include Routing
   include Nameable
-  has_many :translations, class_name: 'WordsOfBuddhaTranslation', dependent: :destroy
+  has_many :translations, class_name: 'WordsOfBuddhaTranslation', dependent: :destroy, autosave: true
   has_one_attached :audio
   naturalkey_column :words
+  validates_presence_of :words, :translations, :published_at
 
   def to_json
     { id: self.id,

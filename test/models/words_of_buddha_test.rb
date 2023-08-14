@@ -3,7 +3,7 @@ require "test_helper"
 class WordsOfBuddhaTest < ActiveSupport::TestCase
 
   test "audio attachment renders as mp3 url in json" do
-    wob = WordsOfBuddha.create!(words: "Gahakāraka, diṭṭhosi!")
+    wob = create(:words_of_buddha)
     url = "https://download.pariyatti.org/dwob/dhammapada_11_154.mp3"
     file = URI.open(url)
     filename = File.basename(URI.parse(url).path)

@@ -9,8 +9,8 @@ class CreateWordsOfBuddhas < ActiveRecord::Migration[7.0]
       t.text :original_words
       t.string :original_url
       t.string :original_audio_url
-      t.datetime :published_at
 
+      t.datetime :published_at
       t.timestamps
     end
   end
