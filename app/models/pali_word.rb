@@ -7,7 +7,6 @@ class PaliWord < ApplicationRecord
   has_many :translations, class_name: 'PaliWordTranslation', dependent: :destroy, autosave: true
   naturalkey_column :pali
   validates_presence_of :pali, :translations, :published_at
-  validates_uniqueness_of :pali
 
   def to_json
     { id: self.id,
@@ -21,7 +20,7 @@ class PaliWord < ApplicationRecord
       header: "Pāli Word of the Day",
       bookmarkable: true,
       shareable: true,
-      audio: {url: ""}
+      audio: {url: ""} # Pali Words do not include audio yet
     }
   end
 end
