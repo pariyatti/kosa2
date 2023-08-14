@@ -13,8 +13,8 @@
 using RefinedString
 
 class LoopedPaliWord < ApplicationRecord
-  include Nameable
   include Ordered
+  include Nameable
   include LoopIngestable
   include LoopPublishable
   has_many :translations, class_name: 'LoopedPaliWordTranslation', dependent: :destroy, autosave: true
