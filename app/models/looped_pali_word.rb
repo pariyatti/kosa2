@@ -13,8 +13,8 @@
 using RefinedString
 
 class LoopedPaliWord < ApplicationRecord
-  self.implicit_order_column = "created_at"
   include Nameable
+  include Ordered
   include LoopIngestable
   include LoopPublishable
   has_many :translations, class_name: 'LoopedPaliWordTranslation', dependent: :destroy, autosave: true

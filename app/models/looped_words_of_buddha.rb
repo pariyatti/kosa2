@@ -19,7 +19,7 @@
 using RefinedString
 
 class LoopedWordsOfBuddha < ApplicationRecord
-  self.implicit_order_column = "created_at"
+  include Ordered
   include Nameable
   include LoopIngestable
   include LoopPublishable

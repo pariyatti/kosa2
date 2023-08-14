@@ -14,7 +14,7 @@
 using RefinedString
 
 class LoopedDoha < ApplicationRecord
-  self.implicit_order_column = "created_at"
+  include Ordered
   include Nameable
   include LoopIngestable
   include LoopPublishable

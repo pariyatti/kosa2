@@ -11,7 +11,6 @@
 #  words_of_buddha_id :uuid             not null, indexed
 #
 class WordsOfBuddhaTranslation < ApplicationRecord
-  self.implicit_order_column = "created_at"
   belongs_to :words_of_buddha, autosave: true
   validates_presence_of :language, :translation, :published_at
 end
