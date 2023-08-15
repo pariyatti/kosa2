@@ -9,7 +9,7 @@ return if defined?(Rails::Console) || Rails.env.test? || File.split($PROGRAM_NAM
 s = Rufus::Scheduler.singleton
 
 so_often = if Rails.env.development?
-             '5s'
+             '1m'
            elsif Rails.env.production?
              '1h'
            else
@@ -19,5 +19,6 @@ so_often = if Rails.env.development?
 s.every so_often do
   LoopedPaliWord.publish_daily!
   LoopedDoha.publish_daily!
+  LoopedWordsOfBuddha.publish_daily!
 end
 
