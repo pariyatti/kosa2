@@ -47,20 +47,33 @@ module LoopIngestable
     end
 
     def ingest_all
+      puts "\nIngesting #{human_name}..."
       conf[:languages].each do |lang|
         ingest(conf[:filemask].gsub("%s", lang), lang)
       end
+      puts "\nDone."
     end
 
     def ingest(f, lang)
-      logger.info "#{human_name} TXT: started ingesting file '#{f}' for lang '#{lang}'"
+      print_logged "\n#{human_name} TXT: started ingesting file '#{f}' for lang '#{lang}'"
       entries = File.read(f).split('~')
       logger.info "Processing #{entries.count} #{human_name} from TXT."
       entries.map { |entry| parse(entry.trim, lang) }
              .each.with_index(1) do |record, i|
+               print_progress
                logger.debug "Attempting insert of #{i} / #{entries.count}"
                insert(record)
              end
+    end
+
+    def print_logged(msg)
+      puts msg
+      logger.info msg
+    end
+
+    def print_progress
+      print "."
+      STDOUT.flush
     end
 
     def marker_for(lang)
