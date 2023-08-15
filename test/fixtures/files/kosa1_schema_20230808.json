@@ -1,0 +1,250 @@
+[
+  {
+    "original_audio_url": "https://download.pariyatti.org/dohas/086_Doha.mp3",
+    "bookmarkable": true,
+    "original_doha": "Bhogata bhogata bhogate, \nbandhana bandhate jāṅya. \nDekhata dekhata dekhate, \nbandhana khulate jāṅya. \n\nBhogata bhogata bhogate, \nGanthey bandhate jāṅya. \nDekhata dekhata dekhate, \nGanthey khulate jāṅya.",
+    "type": "doha",
+    "header": "Daily Dhamma Verse",
+    "shareable": true,
+    "published_at": "2023-08-08T17:11:02.000Z",
+    "updated_at": "2023-08-08T17:11:02.000Z",
+    "id": "84d0703d-d667-413b-b4da-3d3b700e43ad",
+    "url": "http://kosa.pariyatti.app/api/v1/today/doha/84d0703d-d667-413b-b4da-3d3b700e43ad.json",
+    "original_url": "",
+    "created_at": "2023-08-08T17:11:02.000Z",
+    "translations": [
+      {
+        "id": "95a88b3e-12f0-462b-a160-ee4efc45b16a",
+        "language": "eng",
+        "translation": "Rolling, rolling in pleasure and pain, \nwe keep tying knots. \nObserving, observing, observing, \nwe open all the knots. \n\nRolling, rolling in pleasure and pain, \nwe keep tying knots. \nObserving, observing, observing, \nwe open all the knots.\n\n–S.N. Goenka"
+      },
+      {
+        "id": "caa3e795-d711-42b8-b5a1-a94a0d386aae",
+        "language": "lit",
+        "translation": "Nuolat įsitraukę į malonumus ir skausmą, \nVis susipainiojame.\nNuolat stebėdami\nViską išsprendžiame.\n\nNuolat įsitraukę į malonumus ir skausmą, \nVis susipainiojame.\nNuolat stebėdami\nViską išsprendžiame.\n\n–S.N. Goenka"
+      },
+      {
+        "id": "70e949e0-a5e8-412d-8320-3d9919fafac4",
+        "language": "por",
+        "translation": "Rolando, rolando, no prazer e na dor,\natamos nós sem parar.\nObservando, observando, observando,\ndesatamos todos os nós.\n\nRolando, rolando, no prazer e na dor,\natamos nós sem parar.\nObservando, observando, observando,\ndesatamos todos os nós.\n\n–S.N. Goenka"
+      },
+      {
+        "id": "84786118-ccfb-4814-8cd6-2311f2382468",
+        "language": "zho-hant",
+        "translation": "在苦樂中翻騰、翻騰，\n我們不斷打結。\n觀察、觀察、觀察，\n我們打開所有纏結。\n\n在苦樂中翻騰、翻騰，\n我們不斷打結。\n觀察、觀察、觀察，\n我們打開所有纏結。\n\n─葛印卡老師"
+      }
+    ],
+    "doha": "Bhogata bhogata bhogate, \nbandhana bandhate jāṅya. \nDekhata dekhata dekhate, \nbandhana khulate jāṅya. \n\nBhogata bhogata bhogate, \nGanthey bandhate jāṅya. \nDekhata dekhata dekhate, \nGanthey khulate jāṅya."
+  },
+  {
+    "bookmarkable": true,
+    "type": "pali_word",
+    "header": "Pāli Word of the Day",
+    "shareable": true,
+    "published_at": "2023-08-08T16:11:02.000Z",
+    "updated_at": "2023-08-08T16:11:02.000Z",
+    "id": "6132e0ff-d3d5-42ca-a612-642ed90ac72e",
+    "url": "http://kosa.pariyatti.app/api/v1/today/pali-words/6132e0ff-d3d5-42ca-a612-642ed90ac72e.json",
+    "pali": "vinayo",
+    "audio": {
+      "url": ""
+    },
+    "created_at": "2023-08-08T16:11:02.000Z",
+    "translations": [
+      {
+        "id": "58118534-160b-4d20-988e-3afd6fe66505",
+        "language": "eng",
+        "translation": "discipline, code of conduct, rules of morality, ethics"
+      },
+      {
+        "id": "22531810-bbf5-4d92-84dd-bdc2f36b321f",
+        "language": "por",
+        "translation": "disciplina, código de conduta, regras de moralidade, ética"
+      }
+    ]
+  },
+  {
+    "original_audio_url": "https://download.pariyatti.org/dwob/dhammapada_19_258.mp3",
+    "citepali": "Dhammapada 19.258",
+    "bookmarkable": true,
+    "words": "Na tena paṇḍito hoti\nyāvatā bahu bhāsati.\nKhemī, averī abhayo\n‘‘paṇḍito’’ti pavuccati.",
+    "type": "words_of_buddha",
+    "header": "Words of the Buddha",
+    "shareable": true,
+    "published_at": "2023-08-08T15:11:02.000Z",
+    "citebook_url": "https://store.pariyatti.org/The-Dhammapada-The-Buddhas-Path-of-Wisdom-Pocket-Edition_p_6305.html",
+    "updated_at": "2023-08-08T15:11:02.000Z",
+    "citepali_url": "https://tipitaka.org/romn/cscd/s0502m.mul18.xml#para258",
+    "id": "38f1d0d2-6753-4919-8c05-58264fdfc863",
+    "url": "http://kosa.pariyatti.app/api/v1/today/words-of-buddha/38f1d0d2-6753-4919-8c05-58264fdfc863.json",
+    "citebook": "The Dhammapada: The Buddha's Path of Wisdom, translated from Pāli by Acharya Buddharakkhita",
+    "image": {
+      "url": "/uploads/kuti-d54d85868f2963a4efee91e5c86e1679-bodhi-leaf.jpg"
+    },
+    "audio": {
+      "url": "/uploads/kuti-2ae14222941ab81db970dc34b6725698-dhammapada_19_258.mp3"
+    },
+    "created_at": "2023-08-08T15:11:02.000Z",
+    "translations": [
+      {
+        "id": "7fe9ab06-f1e4-4930-88f4-884bf5e05ee7",
+        "language": "eng",
+        "translation": "One is not wise\nbecause one speaks much.\nOne who is peaceable, friendly and fearless\nis called \"wise\"."
+      },
+      {
+        "id": "b22a62c2-6f58-4601-9cad-f4f07236968d",
+        "language": "spa",
+        "translation": "Porque habla mucho, \nno por esto es sabio, \nése con seguridad, sin enemistad, sin miedo, \nes llamado sabio."
+      },
+      {
+        "id": "b7988316-5a51-4cdd-8c18-ea578739ccf1",
+        "language": "fra",
+        "translation": "Nul n’est sage\nParce qu’il parle beaucoup.\nCelui qui est paisible, amical et sans peur\nest appelé « sage »."
+      },
+      {
+        "id": "d0855b19-3746-49f7-b226-8589de763f83",
+        "language": "ita",
+        "translation": "Uno non è saggio perché parla tanto.\nChi è pacifico, amichevole e senza paura\nè chiamato “saggio”."
+      },
+      {
+        "id": "23aab0c8-7d36-4872-9f4d-d740116dcc3c",
+        "language": "por",
+        "translation": "Não se é sábio\npor se falar muito.\nAquele que é tranqüilo, amigável e destemido\né chamado de “sábio”"
+      },
+      {
+        "id": "8277b864-fd4f-4f62-b7a6-fb45c8206677",
+        "language": "srp",
+        "translation": "Nije neko mudar\nsamo zato što mnogo priča.\nKo je spokojan bez mržnje i straha\ntoga mudracem zovu."
+      },
+      {
+        "id": "3129b10c-9330-4eb8-8cb7-a59c38892f46",
+        "language": "zho-hant",
+        "translation": "不以言語多，\n而稱為智者；\n淡定、無怨、無畏者，\n堪稱為智者。\n《南傳法句經 19.258》"
+      }
+    ]
+  },
+  {
+    "original_audio_url": "https://download.pariyatti.org/dohas/085_Doha.mp3",
+    "bookmarkable": true,
+    "original_doha": "Tṛṣā jaḍa se khoda kara, \nanāsakta bana jāṅya. \nBhava bandhana se chuṭana kā, \nyahī eka upāya.",
+    "type": "doha",
+    "header": "Daily Dhamma Verse",
+    "shareable": true,
+    "published_at": "2023-08-07T17:11:02.000Z",
+    "updated_at": "2023-08-07T17:11:02.000Z",
+    "id": "f85a2b81-ae8f-4f00-8be5-dad674a37db0",
+    "url": "http://kosa.pariyatti.app/api/v1/today/doha/f85a2b81-ae8f-4f00-8be5-dad674a37db0.json",
+    "original_url": "",
+    "created_at": "2023-08-07T17:11:02.000Z",
+    "translations": [
+      {
+        "id": "3d8771cc-1fdd-4479-b130-3f4da5619b77",
+        "language": "eng",
+        "translation": "Dig out craving by the roots \nand become detached. \nThis is the only way \nto break the bonds of becoming. \n\n–S.N. Goenka"
+      },
+      {
+        "id": "44b95e28-75b3-49f2-8e67-43a9ce968732",
+        "language": "lit",
+        "translation": "Visiškai pašalink troškimą \nIr tapk nepriklausomu.\nTai – vienintelis būdas\nNutraukti tapsmo saitus. \n\n–S.N. Goenka"
+      },
+      {
+        "id": "96fce521-aa57-4702-8eb1-80ba7892a6d5",
+        "language": "por",
+        "translation": "Desenterre a avidez pelas raízes \ne torne-se desapegado.\nEsta é a única forma\nde romper as amarras do vir a ser.\n\n–S.N. Goenka"
+      },
+      {
+        "id": "f3e046ff-4d75-4a45-a30b-81e5e9a0aff7",
+        "language": "zho-hant",
+        "translation": "將貪愛連根拔起\n且變得灑脫自在。\n這是破除輪迴束縛\n唯一的途徑。\n\n─葛印卡老師"
+      }
+    ],
+    "doha": "Tṛṣā jaḍa se khoda kara, \nanāsakta bana jāṅya. \nBhava bandhana se chuṭana kā, \nyahī eka upāya."
+  },
+  {
+    "bookmarkable": true,
+    "type": "pali_word",
+    "header": "Pāli Word of the Day",
+    "shareable": true,
+    "published_at": "2023-08-07T16:11:02.000Z",
+    "updated_at": "2023-08-07T16:11:02.000Z",
+    "id": "20da9230-230b-4b8c-8ba5-d1b669958ac9",
+    "url": "http://kosa.pariyatti.app/api/v1/today/pali-words/20da9230-230b-4b8c-8ba5-d1b669958ac9.json",
+    "pali": "sippa",
+    "audio": {
+      "url": ""
+    },
+    "created_at": "2023-08-07T16:11:02.000Z",
+    "translations": [
+      {
+        "id": "1620490a-d9ed-49ae-bbba-3e671f63f8ee",
+        "language": "eng",
+        "translation": "skill, art, craft, branch of knowledge"
+      },
+      {
+        "id": "4f712e39-642e-40e8-87d6-d0d54241bf88",
+        "language": "por",
+        "translation": "habilidade, arte, artesanato, área de conhecimento"
+      }
+    ]
+  },
+  {
+    "original_audio_url": "https://download.pariyatti.org/dwob/udana_2_11_a.mp3",
+    "citepali": "Udāna 2.11",
+    "bookmarkable": true,
+    "words": "Sukho viveko tuṭṭhassa,\nsutadhammassa passato.\nAbyāpajjaṃ sukhaṃ loke --\npāṇabhūtesu saṃyamo.",
+    "type": "words_of_buddha",
+    "header": "Words of the Buddha",
+    "shareable": true,
+    "published_at": "2023-08-07T15:11:02.000Z",
+    "citebook_url": "https://store.pariyatti.org/Gemstones-of-the-Good-Dhamma-WH342-4_p_1679.html",
+    "updated_at": "2023-08-07T15:11:02.000Z",
+    "citepali_url": "https://tipitaka.org/romn/cscd/s0503m.mul1.xml#para11",
+    "id": "e1639aef-bda6-4eaa-a3bb-ff53a0da3346",
+    "url": "http://kosa.pariyatti.app/api/v1/today/words-of-buddha/e1639aef-bda6-4eaa-a3bb-ff53a0da3346.json",
+    "citebook": "Gemstones of the Good Dhamma, compiled and translated by Ven. S. Dhammika",
+    "image": {
+      "url": "/uploads/kuti-d54d85868f2963a4efee91e5c86e1679-bodhi-leaf.jpg"
+    },
+    "audio": {
+      "url": "/uploads/kuti-0047168505b182ab0371ad9c9c05e230-udana_2_11_a.mp3"
+    },
+    "created_at": "2023-08-07T15:11:02.000Z",
+    "translations": [
+      {
+        "id": "05c3fa38-8fed-4245-9a92-d38dbe8dad1b",
+        "language": "eng",
+        "translation": "Solitude is happiness for one who is content,\nwho has heard the Dhamma and clearly sees.\nNon-affliction is happiness in the world --\nharmlessness towards all living beings."
+      },
+      {
+        "id": "8a0e1e63-ed23-4da4-80a9-eda65b3b8522",
+        "language": "spa",
+        "translation": "La soledad es felicidad para quien está satisfecho, \npara quien ha oído el Dhamma y ve con claridad.\nNo tener aflicción es felicidad en el mundo, \nsiendo inofensivo hacia todos los seres vivos."
+      },
+      {
+        "id": "a4956d7f-12d5-4309-9ee7-239dffa52f74",
+        "language": "fra",
+        "translation": "La solitude est bonheur pour celui qui est satisfait,\nA écouté le Dhamma et voit clairement.\nL’absence de souffrance est bonheur en ce monde,\ninoffensif envers tout être vivant."
+      },
+      {
+        "id": "d16c2ca4-6f1f-47a2-8495-371432e6378c",
+        "language": "ita",
+        "translation": "La solitudine è la felicità per chi si sente appagato,\nchi conosce il Dhamma ed è dotato di chiara visione.\nL’assenza di afflizione è la felicità nel mondo –\nil non voler far del male a nessun essere vivente."
+      },
+      {
+        "id": "abfe9a16-b977-4ee1-a4c4-523dbfbd3aca",
+        "language": "por",
+        "translation": "Solidão é felicidade para aquele que está contente,\nouviu o Dhamma e vê claramente.\nNão-aflição é felicidade neste mundo –\njamais causar mal a qualquer ser vivo."
+      },
+      {
+        "id": "cb4389b2-a432-4c8b-b321-3b0f009b4116",
+        "language": "srp",
+        "translation": "Samoća je sreća za onoga ko je zadovoljan\nkoji je čuo Dhammu i jasno vidi.\nNepovređivanje je sreća u svetu ovom,\nbezopasnost prema svim živim bićima."
+      },
+      {
+        "id": "e6b0b377-50a0-49b6-9403-b9765a566cd2",
+        "language": "zho-hant",
+        "translation": "知足者樂於獨居，\n對正法具正見解，\n無瞋為世間之樂，\n不惱害一切眾生。\n《自說經 2.11》"
+      }
+    ]
+  }
+]
