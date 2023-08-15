@@ -4,13 +4,13 @@ class ApiController < ApplicationController
   def today
     cards = []
     PaliWord.all.order(published_at: :desc).each do |pali_word|
-      cards << pali_word.to_json
+      cards << pali_word
     end
     Doha.all.order(published_at: :desc).each do |doha|
-      cards << doha.to_json
+      cards << doha
     end
     WordsOfBuddha.all.order(published_at: :desc).each do |words_of_buddha|
-      cards << words_of_buddha.to_json
+      cards << words_of_buddha
     end
     render json: cards
   end
