@@ -12,6 +12,8 @@ class ApiController < ApplicationController
     WordsOfBuddha.all.order(published_at: :desc).each do |words_of_buddha|
       cards << words_of_buddha
     end
-    render json: cards
+    # NOTE: the mutation 'reverse!' is an order of magnitude faster than creating
+    #       a new array and doesn't matter if it's the last call in the method
+    render json: cards.sort_by {|card| card['published_at'] }.reverse!
   end
 end

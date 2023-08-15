@@ -14,9 +14,9 @@ class ApiControllerSmokeTest < ActionDispatch::IntegrationTest
 
     get api_today_url
     assert_response :success
-    puts response.body
+    # puts response.body
     json_body = JSON.parse(response.body)
-    puts json_body.inspect
+    # puts json_body.inspect
 
     pubbe = JSON.parse(file_fixture("pali_word_pubbe.json").read)
     assert_json pubbe, json_body[0]
