@@ -21,5 +21,9 @@
   "audio":{"url":""},
   "original_words":null,
   "original_url":null,
-  "original_audio_url":"https://download.pariyatti.org/dwob/sutta_nipata_4_810.mp3"
+  "original_audio_url":"https://download.pariyatti.org/dwob/sutta_nipata_4_810.mp3",
+  "citepali": "Sutta Nipāta 4.810",
+  "citepali_url": "https://tipitaka.org/romn/cscd/s0505m.mul3.xml#para810",
+  "citebook": "Translated from Pāli by Thanissaro Bhikkhu",
+  "citebook_url": ""
 }
