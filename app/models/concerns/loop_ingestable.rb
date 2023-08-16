@@ -51,7 +51,7 @@ module LoopIngestable
       conf[:languages].each do |lang|
         ingest(conf[:filemask].gsub("%s", lang), lang)
       end
-      puts "\nDone."
+      puts "\nDone #{human_name}."
     end
 
     def ingest(f, lang)

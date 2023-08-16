@@ -25,7 +25,19 @@ namespace :kosa do
       sh("./bin/kosa-clone-txt-files.sh")
     end
 
-    # TODO: txt_prod, txt_trunc_prod
+    desc "Ingest TXT files in production"
+    task prod_ingest: [:ingest]
+
+    desc "Truncate Looped* tables in production"
+    task prod_trunc: [:environment] do
+      LoopedPaliWordTranslation.delete_all
+      LoopedPaliWord.delete_all
+      LoopedDohaTranslation.delete_all
+      LoopedDoha.delete_all
+      LoopedWordsOfBuddhaTranslation.delete_all
+      LoopedWordsOfBuddha.delete_all
+    end
+
   end
 
   # TODO: ~/.kosa, ~/.kosa/secrets, ~/.kosa/ansible-password
