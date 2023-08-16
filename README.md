@@ -37,8 +37,12 @@ rails s -b 0.0.0.0                      # needed for IP access from mobile app
 
 ## TODOs
 
+*Required*
+
 * expose / test self-reference URLs (with dynamic host)
 * test non-CDN audio URLs from mobile app
+
+*Optional / Future*
 
 * standardrb
 * ViewComponent
