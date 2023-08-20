@@ -41,6 +41,10 @@ rails s -b 0.0.0.0                      # needed for IP access from mobile app
 
 * expose / test self-reference URLs (with dynamic host)
 * test non-CDN audio URLs from mobile app
+* https://github.com/collectiveidea/audited
+    * uuids
+    * jsonb columns?
+    * ops: be aware of upgrade path
 
 *Optional / Future*
 
