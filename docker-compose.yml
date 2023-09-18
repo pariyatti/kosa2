@@ -5,6 +5,7 @@ services:
       - ./volumes/db:/var/lib/postgresql/data
     env_file:
       - .dockerenv
+      - .env.local_password
   web:
     build: .
     restart: always
@@ -15,5 +16,6 @@ services:
       - "3000:3000"
     env_file:
       - .dockerenv
+      - .env.local_password
     depends_on:
       - db
