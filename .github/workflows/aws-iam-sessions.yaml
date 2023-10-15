@@ -1,0 +1,25 @@
+name: AWS Sessions Manager
+on:
+  push
+env:
+  BUCKET_NAME : "pariyatti-example-bucket"
+  AWS_REGION : "us-east-1"  
+permissions:
+  id-token: write  
+  contents: read
+jobs:
+  SessionsManagerGetRole:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v4
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::169629426357:role/kosa2-iam-github-oidc
+          role-session-name: githuboidcrolesession
+          aws-region: ${{ env.AWS_REGION }}
+      # Get current role information
+      - name:  Test the current role for IAM
+        run: |
+          aws sts get-caller-identity
