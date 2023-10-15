@@ -1,0 +1,7 @@
+.git
+volumes/
+storage/
+txt/pali/
+txt/buddha/
+txt/dohas/
+.env.local_password
