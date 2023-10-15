@@ -77,5 +77,11 @@ txt/pali/*.txt
 txt/buddha/*.txt
 txt/dohas/*.txt
 
-# Volumes
+# Docker Volumes
 volumes/
+
+# Terraform
+.terraform/
+*.tfstate
+terraform.plan
+*.tfstate.backup
