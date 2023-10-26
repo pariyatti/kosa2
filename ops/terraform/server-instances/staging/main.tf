@@ -37,9 +37,18 @@ data "aws_ami" "amazonlinux_2023" {
   most_recent = true
   owners = [ "amazon" ]
   filter {
-    name = "name"
-
-    values = [ "al2023-ami-*-kernel-6.1-x86_64" ] # x86_64
+    name   = "name"
+    values = ["al2023-ami-2023.*-x86_64"]
+  }
+ 
+  filter {
+    name   = "architecture"
+    values = ["x86_64"]
+  }
+ 
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
   }
 }
 
@@ -94,7 +103,7 @@ module "kosa2_asg" {
   instance_type     = "t3.medium"
   user_data         = base64encode(local.user_data)
   ebs_optimized     = true
-  enable_monitoring = true
+  enable_monitoring = false
 
   # IAM role & instance profile
   create_iam_instance_profile = true
@@ -109,37 +118,8 @@ module "kosa2_asg" {
     AmazonSSMPatchAssociation = "arn:aws:iam::aws:policy/AmazonSSMPatchAssociation"
   }
 
-  block_device_mappings = [
-    {
-      # Root volume
-      device_name = "/dev/xvda"
-      no_device   = 0
-      ebs = {
-        delete_on_termination = true
-        encrypted             = true
-        volume_size           = 30
-        volume_type           = "gp3"
-      }
-    }
-  ]
-
   capacity_reservation_specification = {
     capacity_reservation_preference = "open"
-  }
-
-  cpu_options = {
-    core_count       = 1
-    threads_per_core = 1
-  }
-
-  credit_specification = {
-    cpu_credits = "standard"
-  }
-
-  metadata_options = {
-    http_endpoint               = "enabled"
-    http_tokens                 = "required"
-    http_put_response_hop_limit = 32
   }
 
   network_interfaces = [
@@ -148,6 +128,7 @@ module "kosa2_asg" {
       description           = "eth0"
       device_index          = 0
       security_groups       = [module.kosa_asg_sg.security_group_id]
+      associate_public_ip_address = true
     }
   ]
 
