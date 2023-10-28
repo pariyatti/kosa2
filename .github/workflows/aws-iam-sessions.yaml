@@ -23,3 +23,11 @@ jobs:
       - name:  Test the current role for IAM
         run: |
           aws sts get-caller-identity
+      - name: Run command on remote vm
+        run: |
+          KOSA2_INSTANCE_ID=$(aws ec2 describe-instances --filter "Name=tag:Name,Values=kosa2-asg" --query "Reservations[].Instances[?State.Name == 'running'].InstanceId[]" --output text)
+          aws ssm send-command \
+          --document-name "AWS-RunShellScript" \
+          --parameters commands="echo Hello>/tmp/githubactions" \
+          --instance-ids $KOSA2_INSTANCE_ID \
+          --document-version '$LATEST'

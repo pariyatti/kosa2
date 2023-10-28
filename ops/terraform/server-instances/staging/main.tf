@@ -3,13 +3,25 @@ locals {
     #!/bin/bash
     yum update -y
     yum upgrade -y
-    yum install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
-    yum install -y docker
+    systemctl enable amazon-ssm-agent
+    systemctl start amazon-ssm-agent
+    yum install -y docker git
     systemctl start docker
     systemctl enable docker
     usermod -aG docker ec2-user
     wget https://github.com/docker/compose/releases/download/v2.23.0/docker-compose-$(uname -s)-$(uname -m) -O /usr/bin/docker-compose
     chmod +x /usr/bin/docker-compose
+    key_param=$(aws ssm get-parameter \
+            --with-decryption \
+            --name kosa-ssh-key \
+            --output text \
+            --query Parameter.Value)
+    if [ $? -eq 0 ]; then
+      mkdir -p /home/ec2-user/.ssh/
+      echo "$${key_param}" > /home/ec2-user/.ssh/id_rsa
+      chmod 400 /home/ec2-user/.ssh/id_rsa
+      chown ec2-user:ec2-user /home/ec2-user/.ssh/id_rsa
+    fi
   EOT
   tags = {
     GithubRepo = "kosa2"
