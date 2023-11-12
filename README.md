@@ -37,7 +37,17 @@ rails s -b 0.0.0.0                      # needed for IP access from mobile app
 
 ## TODOs
 
-*Required*
+*Required Ops*
+
+* Caddy Setup
+* Postgres Data Backup
+
+*Required App Changes*
+
+* Limit Infinit Scroll: https://github.com/pariyatti/mobile-app/issues/126
+* Show Cards in Local Timezone: https://github.com/pariyatti/mobile-app/issues/129
+
+*Required Kosa Changes*
 
 * TXT file hash check before ingest
 * ActiveStorage to S3 instead of local
