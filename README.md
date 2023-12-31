@@ -49,7 +49,6 @@ rails s -b 0.0.0.0                      # needed for IP access from mobile app
 
 *Required Kosa Changes*
 
-* TXT file hash check before ingest
 * ActiveStorage to S3 instead of local
 * expose / test self-reference URLs (with dynamic host)
 * test non-CDN audio URLs from mobile app

@@ -15,7 +15,7 @@ class LoopIngestableTest < ActiveSupport::TestCase
     assert_equal first.updated_at, last.updated_at
   end
 
-  test "ingest permits duplicates across languages" do
+  test "idempotent ingest permits duplicates across languages" do
     # ...because sometimes English translations show up in other language files, verbatim.
     filemask = file_fixture_str('idempotent_repeat_pali_words_one_loop_%s.txt')
     LoopedPaliWord.ingest_all_from(filemask)

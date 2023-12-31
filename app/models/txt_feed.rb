@@ -12,15 +12,21 @@
 class TxtFeed < ApplicationRecord
   validates :sha1_digest, uniqueness: { scope: :language }
 
-  def self.register!(entry_text, lang)
+  def self.for(entry_text, lang)
+    feed = self.where(sha1_digest: digest_for(entry_text), language: lang).first_or_initialize
     # it's a bit wasteful to record the entire text blob of the entry, but
     # this is a very small amount of data, Postgres is fast, and it's probably
     # going to save us some grief some day to have the actual text to debug. -sd
-    TxtFeed.create!(sha1_digest: digest_for(entry_text), entry: entry_text, language: lang)
+    feed.entry = entry_text
+    feed
   end
 
-  def self.registered?(entry_text, lang)
-    TxtFeed.find_by(sha1_digest: digest_for(entry_text), language: lang)
+  def register!
+    save!
+  end
+
+  def registered?
+    not new_record?
   end
 
   def self.digest_for(entry_text)

@@ -91,14 +91,15 @@ module LoopIngestable
 
     def insert(entry_text, record)
       translation = record[:translations].first
-      return if TxtFeed.registered?(entry_text, translation[:language])
+      txt_feed = TxtFeed.for(entry_text, translation[:language])
+      return if txt_feed.registered?
 
       ld = self.where(naturalkey_name => record[naturalkey_name]).first_or_initialize
       unless ld.new_record?
         logger.debug "Existing #{human_name} found: #{ld.naturalkey_value} — appending translations"
       end
       ld.build!(translation, record)
-      TxtFeed.register!(entry_text, translation[:language])
+      txt_feed.register!
       ld
     end
 
