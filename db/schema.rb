@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_05_154431) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_31_000752) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -142,6 +142,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_05_154431) do
     t.datetime "published_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "txt_feeds", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "language"
+    t.text "sha1_digest"
+    t.text "entry"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["language", "sha1_digest"], name: "index_txt_feeds_on_language_and_sha1_digest", unique: true
   end
 
   create_table "words_of_buddha_translations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

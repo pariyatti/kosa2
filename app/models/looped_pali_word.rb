@@ -22,8 +22,8 @@ class LoopedPaliWord < ApplicationRecord
   validates_presence_of :pali, :translations
   validates_uniqueness_of :pali
 
-  def self.parse(line, lang)
-    blocks = line.split('—', 2).map(&:trim)
+  def self.parse(entry, lang)
+    blocks = entry.split('—', 2).map(&:trim)
     { pali: blocks[0],
       original_pali: blocks[0],
       translations: [{language: lang, translation: blocks[1]}] }

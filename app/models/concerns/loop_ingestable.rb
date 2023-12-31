@@ -23,6 +23,16 @@ module LoopIngestable
       self.audio.attach(io: file, filename: filename, content_type: 'audio/mpeg')
     end
 
+    def build!(translation, record)
+      if translation[:language] == "eng"
+        assign_attributes(record.except(:translations))
+        download_attachment!
+      end
+      append_translation!(translation)
+      safe_set_index!
+      save!
+    end
+
     def set_index!
       max = self.class.maximum(:index)
       self.index = max ? max + 1 : 0
@@ -38,18 +48,14 @@ module LoopIngestable
   end
 
   class_methods do
-    def skip_downloads=(v)
-      @skip_downloads = v if Rails.env.test?
-    end
-
-    def skip_downloads
-      @skip_downloads
-    end
-
     def ingest_all
+      ingest_all_from(conf[:filemask])
+    end
+
+    def ingest_all_from(txt_feed_filemask)
       puts "\nIngesting #{human_name}..."
       conf[:languages].each do |lang|
-        ingest(conf[:filemask].gsub("%s", lang), lang)
+        ingest(txt_feed_filemask.gsub("%s", lang), lang)
       end
       puts "\nDone #{human_name}."
     end
@@ -58,11 +64,12 @@ module LoopIngestable
       print_logged "\n#{human_name} TXT: started ingesting file '#{f}' for lang '#{lang}'"
       entries = File.read(f).split('~')
       logger.info "Processing #{entries.count} #{human_name} from TXT."
-      entries.map { |entry| parse(entry.trim, lang) }
-             .each.with_index(1) do |record, i|
+      entries.map { |entry| entry.trim }
+             .map.with_index(1) { |entry, i| [entry, parse(entry, lang), i] }
+             .each do |entry_text, record, i|
                print_progress
                logger.debug "Attempting insert of #{i} / #{entries.count}"
-               insert(record)
+               insert(entry_text, record)
              end
     end
 
@@ -82,20 +89,16 @@ module LoopIngestable
       "#{raw}: "
     end
 
-    def insert(record)
-      lang = record[:translations].first
+    def insert(entry_text, record)
+      translation = record[:translations].first
+      return if TxtFeed.registered?(entry_text, translation[:language])
+
       ld = self.where(naturalkey_name => record[naturalkey_name]).first_or_initialize
       unless ld.new_record?
         logger.debug "Existing #{human_name} found: #{ld.naturalkey_value} — appending translations"
       end
-      if lang[:language] == "eng"
-        ld.assign_attributes(record.except(:translations))
-        ld.download_attachment! unless skip_downloads
-      end
-
-      ld.append_translation!(lang)
-      ld.safe_set_index!
-      ld.save!
+      ld.build!(translation, record)
+      TxtFeed.register!(entry_text, translation[:language])
       ld
     end
 
@@ -106,8 +109,6 @@ module LoopIngestable
         raise "TXT translation count did not match!\n\n#{diff}" if ts.count != conf[:languages].count
       end
     end
-
   end
-
 
 end

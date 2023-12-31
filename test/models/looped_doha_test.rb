@@ -2,10 +2,6 @@ require "test_helper"
 
 class LoopedDohaTest < ActiveSupport::TestCase
 
-  setup do
-    LoopedDoha.skip_downloads = false
-  end
-
   test "validates ingestion found translations for each language" do
     LoopedDoha.create!(doha: "Dharam ditto si", translations: [LoopedDohaTranslation.new(language: "eng", translation: "broken")])
     assert_raises(RuntimeError) { LoopedDoha.validate_ingest! }

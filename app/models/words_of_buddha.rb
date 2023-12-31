@@ -29,13 +29,6 @@ class WordsOfBuddha < ApplicationRecord
       id: self.id,
       words: self.words,
       translations: self.translations.as_json,
-      audio: { path: rails_blob_path(self.audio, disposition: "attachment", only_path: true),
-               url: polymorphic_url(self.audio)
-      },
-      citepali: self.citepali,
-      citepali_url: self.citepali_url,
-      citebook: self.citebook,
-      citebook_url: self.citebook_url,
       published_at: self.published_at,
       created_at: self.created_at,
       updated_at: self.updated_at,
@@ -44,9 +37,16 @@ class WordsOfBuddha < ApplicationRecord
       header: "Words of the Buddha",
       bookmarkable: true,
       shareable: true,
+      audio: { path: rails_blob_path(self.audio, disposition: "attachment", only_path: true),
+               url: polymorphic_url(self.audio)
+      },
       original_words: self.original_words,
       original_url: self.original_url,
-      original_audio_url: self.original_audio_url
+      original_audio_url: self.original_audio_url,
+      citepali: self.citepali,
+      citepali_url: self.citepali_url,
+      citebook: self.citebook,
+      citebook_url: self.citebook_url
     }
   end
 end

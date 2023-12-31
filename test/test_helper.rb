@@ -12,6 +12,10 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
+  def file_fixture_str(filename)
+    Pathname.new(File.join(file_fixture_path, filename)).to_s
+  end
+
   def self.smoke_setup(&block)
     if ENV["RAILS_TEST_ENV"] == "smoke" || ENV["TEAMCITY_RAKE_RUNNER_MODE"] == 'idea'
       setup(&block)
