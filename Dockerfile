@@ -5,7 +5,7 @@ COPY Gemfile /kosa/Gemfile
 COPY Gemfile.lock /kosa/Gemfile.lock
 RUN bundle install
 
-COPY docker/entrypoint.sh /usr/bin/
+COPY docker/apiserver/entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 COPY . /kosa/
 ENTRYPOINT ["entrypoint.sh"]

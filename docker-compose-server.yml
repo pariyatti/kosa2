@@ -1,6 +1,20 @@
 version: "3.7"
 
 services:
+  caddy:
+    build:
+      context: docker/caddy
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - SITE_ADDRESS=kosa2.pariyatti.app
+    volumes:
+      - $PWD/site:/srv
+      - caddy_data:/data
+      - caddy_config:/config
   db:
     image: postgres:14
     volumes:
@@ -11,17 +25,20 @@ services:
   web:
     build:
       context: .
-      dockerfile: docker/apiserver/Dockerfile-local
+      dockerfile: Dockerfile
     restart: always
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
-    volumes:
-      - .:/kosa
     ports:
       - "3000:3000"
     env_file:
       - .dockerenv
       - .env.local_password
+      - /home/ec2-user/.kosa/kosa-rails.dockerenv
     environment:
       - RUN_INGESTION=yes
     depends_on:
       - db
+
+volumes:
+  caddy_data:
+  caddy_config:

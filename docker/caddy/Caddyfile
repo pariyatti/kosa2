@@ -1,0 +1,4 @@
+{$SITE_ADDRESS}
+ 
+# Send API requests to backend
+reverse_proxy /* localhost:3000

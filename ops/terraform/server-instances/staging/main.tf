@@ -22,6 +22,18 @@ locals {
       chmod 400 /home/ec2-user/.ssh/id_rsa
       chown ec2-user:ec2-user /home/ec2-user/.ssh/id_rsa
     fi
+    KOSA_RAILS_DOCKER_ENV=$(aws ssm get-parameter \
+            --with-decryption \
+            --name kosa-rails-docker-env \
+            --output text \
+            --query Parameter.Value)
+    if [ $? -eq 0 ]; then
+      mkdir -p /home/ec2-user/.kosa/
+      echo "$${KOSA_RAILS_DOCKER_ENV}" >  /home/ec2-user/.kosa/kosa-rails.dockerenv
+    fi
+    git clone git@github.com:pariyatti/kosa2.git
+    cd kosa2 && ./bin/kosa-clone-txt-files.sh
+    docker-compose -f docker-compose-server.yml up -d
   EOT
   tags = {
     GithubRepo = "kosa2"
