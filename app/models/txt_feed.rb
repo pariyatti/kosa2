@@ -10,6 +10,7 @@
 #  updated_at  :datetime         not null
 #
 class TxtFeed < ApplicationRecord
+  has_paper_trail
   validates :sha1_digest, uniqueness: { scope: :language }
 
   def self.for(entry_text, lang)

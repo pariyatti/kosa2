@@ -12,6 +12,7 @@
 #
 class WordsOfBuddhaTranslation < ApplicationRecord
   belongs_to :words_of_buddha, autosave: true
+  has_paper_trail
   validates_presence_of :language, :translation, :published_at
 
   def as_json(options=nil)

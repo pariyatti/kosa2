@@ -11,5 +11,6 @@
 #
 class LoopedWordsOfBuddhaTranslation < ApplicationRecord
   belongs_to :looped_words_of_buddha, autosave: true
+  has_paper_trail
   validates_presence_of :language, :translation
 end

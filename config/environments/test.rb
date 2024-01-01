@@ -60,4 +60,6 @@ Rails.application.configure do
 
   config.logger = Logger.new(STDOUT)
   config.log_level = :info
+
+  config.active_job.queue_adapter = :inline
 end

@@ -11,5 +11,6 @@
 #
 class LoopedPaliWordTranslation < ApplicationRecord
   belongs_to :looped_pali_word, autosave: true
+  has_paper_trail
   validates_presence_of :language, :translation
 end
