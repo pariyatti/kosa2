@@ -80,9 +80,6 @@ GEM
     annotate (3.2.0)
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
-    audited (5.4.2)
-      activerecord (>= 5.0, < 7.2)
-      request_store (~> 1.2)
     base64 (0.2.0)
     bigdecimal (3.1.5)
     bindex (0.8.1)
@@ -159,6 +156,9 @@ GEM
     nio4r (2.7.0)
     nokogiri (1.16.0-x86_64-darwin)
       racc (~> 1.4)
+    paper_trail (15.1.0)
+      activerecord (>= 6.1)
+      request_store (~> 1.4)
     pg (1.5.4)
     psych (5.1.2)
       stringio
@@ -262,13 +262,13 @@ PLATFORMS
 
 DEPENDENCIES
   annotate
-  audited
   bootsnap
   capybara
   debug
   factory_bot_rails
   importmap-rails
   jbuilder
+  paper_trail
   pg (~> 1.5)
   puma (~> 6.0)
   rails (~> 7.1.2)

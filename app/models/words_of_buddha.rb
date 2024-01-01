@@ -19,6 +19,7 @@ class WordsOfBuddha < ApplicationRecord
   include Ordered
   include Routing
   include Nameable
+  has_paper_trail
   has_many :translations, class_name: 'WordsOfBuddhaTranslation', dependent: :destroy, autosave: true
   has_one_attached :audio
   naturalkey_column :words
