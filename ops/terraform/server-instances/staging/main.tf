@@ -34,6 +34,23 @@ locals {
     git clone git@github.com:pariyatti/kosa2.git
     cd kosa2 && ./bin/kosa-clone-txt-files.sh
     docker-compose -f docker-compose-server.yml up -d
+    TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
+    PUBLIC_IP=$(curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/public-ipv4)
+    aws route53 change-resource-record-sets --hosted-zone-id Z034735625QA8S8JNJVZZ --change-batch '
+    {
+        "Changes": [
+            {
+                "Action": "UPSERT",
+                "ResourceRecordSet": {
+                    "Type": "A",
+                    "Name": "kosa2.pariyatti.app",
+                    "TTL": 60,
+                    "ResourceRecords": [{"Value": "'$PUBLIC_IP'"}]
+                }
+            }
+        ]
+    }
+    '
   EOT
   tags = {
     GithubRepo = "kosa2"
@@ -43,10 +60,10 @@ locals {
 
 
 data "aws_vpc" "kosa2_vpc" {
-   filter {
-        name = "tag:Name"
-        values = ["kosa2-vpc"]
-    }
+  filter {
+    name   = "tag:Name"
+    values = ["kosa2-vpc"]
+  }
 }
 
 
@@ -59,21 +76,25 @@ data "aws_subnets" "kosa2_public" {
 
 data "aws_ami" "amazonlinux_2023" {
   most_recent = true
-  owners = [ "amazon" ]
+  owners      = ["amazon"]
   filter {
     name   = "name"
     values = ["al2023-ami-2023.*-x86_64"]
   }
- 
+
   filter {
     name   = "architecture"
     values = ["x86_64"]
   }
- 
+
   filter {
     name   = "virtualization-type"
     values = ["hvm"]
   }
+}
+
+data "aws_route53_zone" "kosa_domain" {
+  name = "kosa2.pariyatti.app"
 }
 
 module "kosa_asg_sg" {
@@ -93,7 +114,7 @@ module "kosa_asg_sg" {
 }
 
 module "kosa2_asg" {
-  source  = "terraform-aws-modules/autoscaling/aws"
+  source = "terraform-aws-modules/autoscaling/aws"
 
   # Autoscaling group
   name = "kosa2-asg"
@@ -139,7 +160,8 @@ module "kosa2_asg" {
   }
   iam_role_policies = {
     AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-    AmazonSSMPatchAssociation = "arn:aws:iam::aws:policy/AmazonSSMPatchAssociation"
+    AmazonSSMPatchAssociation    = "arn:aws:iam::aws:policy/AmazonSSMPatchAssociation"
+    Kosa2DNSRecords              = aws_iam_policy.kosa2_set_dns.arn
   }
 
   capacity_reservation_specification = {
@@ -148,10 +170,10 @@ module "kosa2_asg" {
 
   network_interfaces = [
     {
-      delete_on_termination = true
-      description           = "eth0"
-      device_index          = 0
-      security_groups       = [module.kosa_asg_sg.security_group_id]
+      delete_on_termination       = true
+      description                 = "eth0"
+      device_index                = 0
+      security_groups             = [module.kosa_asg_sg.security_group_id]
       associate_public_ip_address = true
     }
   ]
@@ -169,4 +191,25 @@ module "kosa2_asg" {
 
   tags = local.tags
 
+}
+
+data "aws_iam_policy_document" "kosa2_set_dns" {
+  statement {
+    sid    = "SetDomainNames"
+    effect = "Allow"
+
+    actions = [
+      "route53:ChangeResourceRecordSets"
+    ]
+
+    resources = [
+      "arn:aws:route53:::hostedzone/${data.aws_route53_zone.kosa_domain.zone_id}"
+    ]
+  }
+}
+
+resource "aws_iam_policy" "kosa2_set_dns" {
+  name   = "kosa2_set_dns_policy"
+  path   = "/"
+  policy = data.aws_iam_policy_document.kosa2_set_dns.json
 }
