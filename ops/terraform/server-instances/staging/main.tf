@@ -31,6 +31,7 @@ locals {
       mkdir -p /home/ec2-user/.kosa/
       echo "$${KOSA_RAILS_DOCKER_ENV}" >  /home/ec2-user/.kosa/kosa-rails.dockerenv
     fi
+    ssh-keygen -F github.com || ssh-keyscan github.com >>~/.ssh/known_hosts
     git clone git@github.com:pariyatti/kosa2.git
     cd kosa2 && ./bin/kosa-clone-txt-files.sh
     docker-compose -f docker-compose-server.yml up -d

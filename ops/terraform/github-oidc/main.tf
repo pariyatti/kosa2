@@ -31,7 +31,7 @@ module "iam_github_oidc_role" {
 
   policies = {
     sessionsmanager = aws_iam_policy.ssm_session_manager_policy.arn,
-    s3backup = aws_iam_policy.s3_backup_policy.arn
+    s3backup        = aws_iam_policy.s3_backup_policy.arn
   }
 
   tags = local.tags
@@ -40,12 +40,12 @@ module "iam_github_oidc_role" {
 resource "aws_iam_policy" "ssm_session_manager_policy" {
   name        = "SSMSessionManagerPolicy"
   description = "IAM policy for Systems Manager Session Manager"
-  policy      = jsonencode({
+  policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
       {
-        Effect   = "Allow",
-        Action   = [
+        Effect = "Allow",
+        Action = [
           "ssm:CreateAssociation",
           "ssm:DescribeAssociation",
           "ssm:GetDocument",
@@ -69,12 +69,12 @@ resource "aws_iam_policy" "ssm_session_manager_policy" {
 resource "aws_iam_policy" "s3_backup_policy" {
   name        = "S3BackupPolicy"
   description = "IAM policy for S3 buckets"
-  policy      = jsonencode({
+  policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
       {
-        Effect   = "Allow",
-        Action   = [
+        Effect = "Allow",
+        Action = [
           "s3:PutObject"
         ],
         Resource = "arn:aws:s3:::pariyatti-kosa2-postgresql-db-backup/*",
