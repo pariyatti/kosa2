@@ -12,6 +12,7 @@
 #
 class DohaTranslation < ApplicationRecord
   belongs_to :doha, autosave: true
+  has_paper_trail
   validates_presence_of :language, :translation, :published_at
 
   def as_json(options=nil)

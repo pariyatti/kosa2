@@ -11,5 +11,6 @@
 #
 class LoopedDohaTranslation < ApplicationRecord
   belongs_to :looped_doha, autosave: true
+  has_paper_trail
   validates_presence_of :language, :translation
 end
