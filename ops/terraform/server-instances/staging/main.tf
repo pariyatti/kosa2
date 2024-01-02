@@ -5,7 +5,7 @@ locals {
     yum upgrade -y
     systemctl enable amazon-ssm-agent
     systemctl start amazon-ssm-agent
-    yum install -y docker git
+    yum install -y docker git tree
     systemctl start docker
     systemctl enable docker
     usermod -aG docker ec2-user
@@ -30,11 +30,13 @@ locals {
     if [ $? -eq 0 ]; then
       mkdir -p /home/ec2-user/.kosa/
       echo "$${KOSA_RAILS_DOCKER_ENV}" >  /home/ec2-user/.kosa/kosa-rails.dockerenv
+      chmod 400 /home/ec2-user/.kosa/kosa-rails.dockerenv
+      chown ec2-user:ec2-user /home/ec2-user/.kosa/kosa-rails.dockerenv
     fi
-    ssh-keygen -F github.com || ssh-keyscan github.com >>/home/ec2-user/.ssh/known_hosts
-    cd /home/ec2-user && git clone git@github.com:pariyatti/kosa2.git
-    cd kosa2 && ./bin/kosa-clone-txt-files.sh
-    docker-compose -f docker-compose-server.yml up -d
+    su ec2-user -c 'ssh-keygen -F github.com || ssh-keyscan github.com >>/home/ec2-user/.ssh/known_hosts'
+    su ec2-user -c 'cd /home/ec2-user && git clone git@github.com:pariyatti/kosa2.git'
+    su ec2-user -c 'cd /home/ec2-user/kosa2 && ./bin/kosa-clone-txt-files.sh && git checkout 1-ops-create-container-image-for-rails-app && ./init_local_container_env.sh'
+    docker-compose -f /home/ec2-user/kosa2/docker-compose-server.yml up -d
     TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
     PUBLIC_IP=$(curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/public-ipv4)
     aws route53 change-resource-record-sets --hosted-zone-id Z034735625QA8S8JNJVZZ --change-batch '
