@@ -49,14 +49,16 @@ bundle exec rails db:migrate
 
 *Required App Changes*
 
-* Limit Infinite Scroll: https://github.com/pariyatti/mobile-app/issues/126
-* Show Cards in Local Timezone: https://github.com/pariyatti/mobile-app/issues/129
+* [ ] Limit Infinite Scroll: https://github.com/pariyatti/mobile-app/issues/126
+* [ ] Show Cards in Local Timezone: https://github.com/pariyatti/mobile-app/issues/129
 
 *Required Kosa Changes*
 
-* ActiveStorage to S3 instead of local
-* expose / test self-reference URLs (with dynamic host)
-* test non-CDN audio URLs from mobile app
+* [ ] ActiveStorage to S3 instead of local
+    * [ ] Ops for S3 Access Key
+    * [ ] configure production.rb, staging.rb
+* [ ] expose / test self-reference URLs (with dynamic host)
+* [ ] test non-CDN audio URLs from mobile app
 
 *Optional / Future*
 
