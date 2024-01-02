@@ -10,7 +10,7 @@ class LoopedWordsOfBuddhaTest < ActiveSupport::TestCase
   test "duplicates audio" do
     LoopedWordsOfBuddha.ingest(file_fixture("words_of_buddha_yatoyato_mp3_eng.txt"), "eng")
     assert_equal 1, LoopedWordsOfBuddha.count
-    LoopedWordsOfBuddha.publish_nth(1)
+    LoopedWordsOfBuddha.publish_daily!
     assert_equal "dhammapada_25_374.mp3", WordsOfBuddha.first.audio.filename.to_s
     assert WordsOfBuddha.first.audio.audio?
   end

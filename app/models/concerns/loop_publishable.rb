@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+using RefinedDate
+using RefinedDateTime
 
 module LoopPublishable
   extend ActiveSupport::Concern
@@ -6,42 +8,45 @@ module LoopPublishable
   class_methods do
     def publish_daily!
       puts "Running #{human_name} 'publish_daily!' @ #{Time.now}"
-      count = self.all.count
-      if count > 0
-        publish_nth(count)
-      else
-        logger.info "#### Zero #{name} found."
-      end
+      publish_nth(DateTime.now.utc)
     end
 
-    def publish_nth(count)
-      now = DateTime.now.utc
-      pub_time = now.change(publish_at_time).to_formatted_s(:kosa)
+    def publish_nth(utc_datetime)
+      count = self.all.count
+      logger.info("#### Ignoring. Zero #{name} found.") and return if count == 0
+
+      card = transcribe_nth(to_publish_time(utc_datetime), count)
+      if recently_published?(card)
+        logger.info "#### Ignoring. '#{card.naturalkey_value}' was recently published."
+        return
+      end
+      logger.info "#### Saving."
+      card.save!
+    end
+
+    def to_publish_time(utc_datetime)
+      DateTime.parse(utc_datetime.change(publish_at_time).to_formatted_s(:kosa))
+    end
+
+    def transcribe_nth(pub_time, count)
       index = which_card(pub_time, count)
+      puts "index is: #{index}"
       looped = self.where(index: index).sole
       card = looped.transcribe(pub_time)
-      existing = self.already_published(card).order(published_at: :desc)
-      puts "index is: #{index}"
-      puts "existing? #{existing.empty?}"
       logger.info "#### Today's #{human_name} is: #{card.naturalkey_value}"
-      if existing.empty? || days_between(existing.first.published_at, pub_time) > 2
-        logger.info "#### Saving."
-        card.save!
-      else
-        logger.info "#### Ignoring. '#{card.naturalkey_value}' already exists within a 2-day window."
-      end
-    end
-
-    def days_between(big, small)
-      (big.to_date - small.to_date)
-        .then {|day_fraction| day_fraction.to_i.abs }
+      return card
     end
 
     def which_card(now, count)
-      days_between(Date.parse(PERL_EPOCH), now)
+      now.whole_days_since(PERL_EPOCH)
         .then {|day_offset| day_offset % count }
     end
 
+    def recently_published?(card)
+      existing = self.already_published(card).order(published_at: :desc)
+      puts "existing? #{existing.empty?}"
+      return existing.exists? && existing.first.published_at.whole_days_since(card.published_at) < 2
+    end
   end
 
 end
