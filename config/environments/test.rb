@@ -62,4 +62,8 @@ Rails.application.configure do
   config.log_level = :info
 
   config.active_job.queue_adapter = :inline
+
+  # Abuse ActionMailer to expose the host in the Routing Concern.
+  config.action_mailer.default_url_options = self.default_url_options = { host: 'kosa-test.pariyatti.app' }
+
 end
