@@ -46,6 +46,7 @@ bundle exec rails db:migrate
 
 * Caddy Setup
 * Postgres Data Backup
+* [ ] `~/.kosa/secrets` ?
 
 *Required App Changes*
 
