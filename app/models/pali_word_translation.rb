@@ -15,6 +15,7 @@
 class PaliWordTranslation < ApplicationRecord
   include Nameable
   belongs_to :pali_word, autosave: true
+  has_paper_trail
   validates_presence_of :language, :translation, :published_at
 
   def as_json(options=nil)

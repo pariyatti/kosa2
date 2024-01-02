@@ -33,7 +33,12 @@ rails s -b 0.0.0.0                      # needed for IP access from mobile app
 
 ## Deploy
 
-* TODO
+NOTE: The [the `paper_trail` install generator](https://github.com/paper-trail-gem/paper_trail#1b-installation) 
+generates migrations out-of-band, so it's a development-time step, not a deployment step.
+
+```sh 
+bundle exec rails db:migrate
+```
 
 ## TODOs
 
@@ -41,21 +46,22 @@ rails s -b 0.0.0.0                      # needed for IP access from mobile app
 
 * Caddy Setup
 * Postgres Data Backup
+* [ ] `~/.kosa/secrets` ?
 
 *Required App Changes*
 
-* Limit Infinit Scroll: https://github.com/pariyatti/mobile-app/issues/126
-* Show Cards in Local Timezone: https://github.com/pariyatti/mobile-app/issues/129
+* [ ] Limit Infinite Scroll: https://github.com/pariyatti/mobile-app/issues/126
+* [ ] Show Cards in Local Timezone: https://github.com/pariyatti/mobile-app/issues/129
 
 *Required Kosa Changes*
 
-* ActiveStorage to S3 instead of local
-* expose / test self-reference URLs (with dynamic host)
-* test non-CDN audio URLs from mobile app
-* https://github.com/collectiveidea/audited
-    * uuids
-    * jsonb columns?
-    * ops: be aware of upgrade path
+* [ ] ActiveStorage to S3 instead of local
+    * [ ] Ops for S3 Access Key
+    * [ ] configure production.rb, staging.rb
+* [x] expose / test self-reference URLs
+    * [x] dynamic host
+    * [x] expose in controllers
+* [ ] test non-CDN audio URLs from mobile app
 
 *Optional / Future*
 
