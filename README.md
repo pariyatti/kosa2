@@ -58,9 +58,9 @@ bundle exec rails db:migrate
 * [ ] ActiveStorage to S3 instead of local
     * [ ] Ops for S3 Access Key
     * [ ] configure production.rb, staging.rb
-* [-] expose / test self-reference URLs
+* [x] expose / test self-reference URLs
     * [x] dynamic host
-    * [ ] expose in controllers
+    * [x] expose in controllers
 * [ ] test non-CDN audio URLs from mobile app
 
 *Optional / Future*
