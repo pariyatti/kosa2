@@ -44,9 +44,9 @@ bundle exec rails db:migrate
 
 *Required Ops*
 
-* Caddy Setup
-* Postgres Data Backup
-* [ ] `~/.kosa/secrets` ?
+* [ ] way to load db backup
+* [ ] create deploy GitHub Action
+* [ ] configure EFS volume mount?
 
 *Required App Changes*
 
@@ -55,13 +55,14 @@ bundle exec rails db:migrate
 
 *Required Kosa Changes*
 
-* [ ] ActiveStorage to S3 instead of local
-    * [ ] Ops for S3 Access Key
-    * [ ] configure production.rb, staging.rb
-* [x] expose / test self-reference URLs
-    * [x] dynamic host
-    * [x] expose in controllers
+* [ ] populate /today cards back in time?
 * [ ] test non-CDN audio URLs from mobile app
+* [x] ActiveStorage to S3 instead of local
+  * [x] Ops for S3 Access Key - not required (we use IAM)
+  * [x] configure production.rb, staging.rb
+* [x] expose / test self-reference URLs
+  * [x] dynamic host
+  * [x] expose in controllers
 
 *Optional / Future*
 
