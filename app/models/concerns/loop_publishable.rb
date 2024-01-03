@@ -11,6 +11,11 @@ module LoopPublishable
       publish_nth(DateTime.now.utc)
     end
 
+    def publish_specific!(date)
+      raise TypeError("#{date} is not a Date.") unless date.instance_of?(Date)
+      publish_nth(date.to_datetime)
+    end
+
     def publish_nth(utc_datetime)
       count = self.all.count
       logger.info("#### Ignoring. Zero #{name} found.") and return if count == 0

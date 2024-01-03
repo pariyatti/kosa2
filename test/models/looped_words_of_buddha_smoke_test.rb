@@ -4,7 +4,12 @@ require "test_helper"
 class LoopedWordsOfBuddhaSmokeTest < ActiveSupport::TestCase
 
   smoke_setup do
+    Rails.logger.level = 2
     LoopedWordsOfBuddha.ingest_all
+  end
+
+  teardown do
+    Rails.logger.level = 0
   end
 
   smoke_test "exactly 169 records" do
@@ -33,6 +38,13 @@ class LoopedWordsOfBuddhaSmokeTest < ActiveSupport::TestCase
                                     citebook_url: "https://store.pariyatti.org/Gemstones-of-the-Good-Dhamma-WH342-4_p_1679.html",
                                     published_at: DateTime.parse("2012-07-30T15:11:02Z")),
                   WordsOfBuddha.first
+  end
+
+  smoke_test "publish 2023-07-30" do
+    LoopedWordsOfBuddha.publish_specific!(Date.new(2023, 7, 30))
+    assert_equal 1, WordsOfBuddha.count
+    words = "Sabbhireva samāsetha,\nsabbhi kubbetha santhavaṃ.\nSataṃ saddhammamaññāya\npaññā labbhati nāññato."
+    assert_equal words, WordsOfBuddha.first.words
   end
 
 end

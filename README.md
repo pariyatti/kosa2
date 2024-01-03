@@ -40,6 +40,14 @@ generates migrations out-of-band, so it's a development-time step, not a deploym
 bundle exec rails db:migrate
 ```
 
+## Development
+
+* *Date/Time/DateTime:* Everywhere in Kosa, we will use the Ruby `Date` and `DateTime` classes exclusively.
+  Although `Time` is capable of representing BCE dates, Kosa does _not_ care about timezones or leap seconds,
+  since every time value is stored in UTC. Timezones are only used in clients. 
+  `DateTime` provides a saner approach to calendars than seconds from epoch.
+  See [SO discussion](https://stackoverflow.com/questions/1261329/difference-between-datetime-and-time-in-ruby).
+
 ## TODOs
 
 *Required Ops*
@@ -56,6 +64,8 @@ bundle exec rails db:migrate
 *Required Kosa Changes*
 
 * [ ] populate /today cards back in time?
+* [ ] add CI: GitHub Actions w smoke tests
+* [ ] deal with failed downloads (below)
 * [ ] test non-CDN audio URLs from mobile app
 * [x] ActiveStorage to S3 instead of local
   * [x] Ops for S3 Access Key - not required (we use IAM)
@@ -63,6 +73,17 @@ bundle exec rails db:migrate
 * [x] expose / test self-reference URLs
   * [x] dynamic host
   * [x] expose in controllers
+
+```
+Minitest::UnexpectedError: Net::OpenTimeout: Failed to open TCP connection to download.pariyatti.org:443 (execution expired)
+    app/models/concerns/loop_ingestable.rb:20:in `download_audio_attachment!'
+    app/models/looped_doha.rb:58:in `download_attachment!'
+    app/models/concerns/loop_ingestable.rb:29:in `build!'
+    app/models/concerns/loop_ingestable.rb:101:in `insert'
+    app/models/concerns/loop_ingestable.rb:72:in `block in ingest'
+    app/models/concerns/loop_ingestable.rb:69:in `each'
+    app/models/concerns/loop_ingestable.rb:69:in `ingest'
+```
 
 *Optional / Future*
 

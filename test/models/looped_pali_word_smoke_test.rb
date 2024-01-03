@@ -2,6 +2,9 @@
 require "test_helper"
 
 class LoopedPaliWordSmokeTest < ActiveSupport::TestCase
+
+  # NOTE: LoopedPaliWord does not use 'smoke_setup' and 'smoke_test'
+  #       because it does not need to download any MP3s.
   setup do
     LoopedPaliWord.ingest_all
   end
@@ -40,8 +43,15 @@ class LoopedPaliWordSmokeTest < ActiveSupport::TestCase
     # 2012-07-30T00:00:01
     travel_to Time.utc(2023, 8, 3, 0, 0, 1)
     LoopedPaliWord.publish_daily!
-    puts PaliWord.first.inspect
     assert_models PaliWord.new(pali: "pubbe", original_pali: "pubbe", original_url: nil, published_at: DateTime.parse("2023-08-03T16:11:02Z")),
                   PaliWord.first
   end
+
+  test "publish 2023-07-30" do
+    LoopedPaliWord.publish_specific!(Date.new(2023, 7, 30))
+    assert_equal 1, PaliWord.count
+    pali = "bālānaṃ"
+    assert_equal pali, PaliWord.first.pali
+  end
+
 end
