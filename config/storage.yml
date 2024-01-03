@@ -10,7 +10,7 @@ local:
 amazon:
   service: S3
   region: us-east-1
-  bucket: pariyatti_app/activestorage-<%= Rails.env %>
+  bucket: pariyatti-app-activestorage-<%= Rails.env %>
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:
