@@ -160,6 +160,7 @@ module "kosa2_asg" {
     AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
     AmazonSSMPatchAssociation    = "arn:aws:iam::aws:policy/AmazonSSMPatchAssociation"
     Kosa2DNSRecords              = aws_iam_policy.kosa2_set_dns.arn
+    Kosa2S3Buckets               = aws_iam_policy.kosa2_s3_buckets.arn
   }
 
   capacity_reservation_specification = {
@@ -210,4 +211,28 @@ resource "aws_iam_policy" "kosa2_set_dns" {
   name   = "kosa2_set_dns_policy"
   path   = "/"
   policy = data.aws_iam_policy_document.kosa2_set_dns.json
+}
+
+data "aws_iam_policy_document" "kosa2_s3_buckets" {
+  statement {
+    sid    = "AllowBucketAccess"
+    effect = "Allow"
+
+    actions = [
+      "s3:GetObject",
+      "s3:ListBucket",
+      "s3:PutObject",
+    ]
+
+    resources = [
+      "arn:aws:s3:::pariyatti-app-activestorage-production",
+      "arn:aws:s3:::pariyatti-app-activestorage-production/*"
+    ]
+  }
+}
+
+resource "aws_iam_policy" "kosa2_s3_buckets" {
+  name   = "kosa2_s3_buckets_access"
+  path   = "/"
+  policy = data.aws_iam_policy_document.kosa2_s3_buckets.json
 }
