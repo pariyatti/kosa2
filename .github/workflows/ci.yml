@@ -10,6 +10,17 @@ jobs:
       group: ${{ github.ref }}
       cancel-in-progress: true
 
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: kosa2_ci
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
@@ -40,8 +51,21 @@ jobs:
             echo "| RAILS_TEST_ENV    | ${{ steps.setup.outputs.RAILS_TEST_ENV }}    |"
           } >> $GITHUB_STEP_SUMMARY
 
+      - name: Setup database
+        env:
+          RAILS_ENV: test
+          POSTGRES_HOST: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: kosa2_ci
+          POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
+        run: |
+          cp config/database.ci.yml config/database.yml
+          bundle exec rails db:create
+          bundle exec rails db:migrate
+
       - name: Smoke Test
-        run: bundle exec rake test
+        run: bundle exec rails test
 
 #      - name: Build Docker
 #        uses: docker/build-push-action@v5
