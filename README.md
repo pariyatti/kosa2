@@ -60,7 +60,8 @@ MONTHS=6 rake kosa:looped:publish
 
 * [ ] way to load db backup
 * [ ] create deploy GitHub Action
-* [ ] configure EFS volume mount?
+* [x] configure EFS volume mount?
+* [x] setup initial AWS deploy infra (PR #1)
 
 *Required App Changes*
 
@@ -73,12 +74,15 @@ MONTHS=6 rake kosa:looped:publish
 * [ ] deal with failed downloads (below)
 * [ ] test non-CDN audio URLs from mobile app
 * [x] populate /today cards back in time?
+    * [x] large refactor of publishing
+    * [x] ability to publish for a specific date
 * [x] ActiveStorage to S3 instead of local
-  * [x] Ops for S3 Access Key - not required (we use IAM)
-  * [x] configure production.rb, staging.rb
+    * [x] Ops for S3 Access Key - not required (we use IAM)
+    * [x] configure production.rb, staging.rb
 * [x] expose / test self-reference URLs
-  * [x] dynamic host
-  * [x] expose in controllers
+    * [x] dynamic host (trickery for per-environment routing)
+    * [x] expose in controllers
+* [x] DB audits w paper_trail
 
 ```
 Minitest::UnexpectedError: Net::OpenTimeout: Failed to open TCP connection to download.pariyatti.org:443 (execution expired)
