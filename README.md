@@ -22,8 +22,8 @@ without them.
 ## Build / Run Kosa
 
 ```shell
-git clone git@github.com:pariyatti/kosa.git
-cd kosa
+git clone git@github.com:pariyatti/kosa2.git
+cd kosa2
 
 rake kosa:txt:clean                     # Remove TXT files
 rake kosa:txt:clone                     # Clone TXT files from GitHub

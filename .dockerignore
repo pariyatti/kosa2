@@ -1,0 +1,4 @@
+.git
+volumes/
+storage/
+.env.local_password

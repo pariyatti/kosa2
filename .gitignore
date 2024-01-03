@@ -28,6 +28,7 @@ config/master.key
 # TODO Comment out these rules if environment variables can be committed
 .env
 .env*.local
+.env.local_password
 
 ## Environment normalization:
 /.bundle
@@ -76,3 +77,11 @@ txt/pali/*.txt
 txt/buddha/*.txt
 txt/dohas/*.txt
 
+# Docker Volumes
+volumes/
+
+# Terraform
+.terraform/
+*.tfstate
+terraform.plan
+*.tfstate.backup
