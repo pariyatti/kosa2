@@ -71,8 +71,18 @@ jobs:
           bundle exec rails db:create
           bundle exec rails db:migrate
 
-      - name: Smoke Test
-        run: bundle exec rails test
+#      - name: Smoke Test
+#        run: bundle exec rails test
+
+      - name: Run Tests
+        env:
+          RAILS_ENV: test
+          POSTGRES_HOST: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: kosa2_ci
+          POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
+        run: bundle exec rake test
 
 #      - name: Build Docker
 #        uses: docker/build-push-action@v5
