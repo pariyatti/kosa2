@@ -1,0 +1,62 @@
+name: CI
+on: push
+
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+
+    concurrency:
+      group: ${{ github.ref }}
+      cancel-in-progress: true
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+        with:
+          ref: 'main'
+          submodules: recursive
+
+      - name: Install rbenv / Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+          # Ruby version selected by .ruby-version file (rbenv)
+
+      - name: Setup
+        id: setup
+        run: |
+          {
+            echo "RAILS_TEST_ENV=smoke"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Print Setup
+        id: print_setup
+        run: |
+          {
+            echo "### Workflow variables"
+            echo "| Variable          | Value                                        |"
+            echo "| ----------------- | -------------------------------------------- |"
+            echo "| RAILS_TEST_ENV    | ${{ steps.setup.outputs.RAILS_TEST_ENV }}    |"
+          } >> $GITHUB_STEP_SUMMARY
+
+      - name: Smoke Test
+        run: bundle exec rake test
+
+#      - name: Build Docker
+#        uses: docker/build-push-action@v5
+#        with:
+#          pull: true # equivalent to --pull, not --pull-always / --pull=always
+#          push: false
+#          context: .
+#          # https://docs.docker.com/build/ci/github-actions/multi-platform/
+#          # https://dev.to/cloudx/multi-arch-docker-images-the-easy-way-with-github-actions-4k54
+#          platforms: linux/amd64 # ,linux/arm64
+#          file: ./Dockerfile
+#          build-args: |
+#            ENDB_GIT_DESCRIBE=${{ steps.setup.outputs.ENDB_GIT_DESCRIBE }}
+#            RUST_OS=${{ steps.setup.outputs.RUST_OS }}
+#            SBCL_OS=${{ steps.setup.outputs.SBCL_OS }}
+#            ENDB_OS=${{ steps.setup.outputs.ENDB_OS }}
+#          tags: ${{ steps.setup.outputs.DOCKER_TAG }} # not required, but maintains
+#                                                      # symmetry with build-push-docker.yml

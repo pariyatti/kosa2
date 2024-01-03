@@ -21,6 +21,8 @@ without them.
 
 ## Build / Run Kosa
 
+* install [`rbenv`](https://github.com/rbenv/rbenv)
+
 ```shell
 git clone git@github.com:pariyatti/kosa2.git
 cd kosa2
