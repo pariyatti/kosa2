@@ -40,6 +40,12 @@ generates migrations out-of-band, so it's a development-time step, not a deploym
 bundle exec rails db:migrate
 ```
 
+If retroactive looped cards are required, they can be generated/published with:
+
+```sh 
+MONTHS=6 rake kosa:looped:publish
+```
+
 ## Development
 
 * *Date/Time/DateTime:* Everywhere in Kosa, we will use the Ruby `Date` and `DateTime` classes exclusively.
@@ -63,10 +69,10 @@ bundle exec rails db:migrate
 
 *Required Kosa Changes*
 
-* [ ] populate /today cards back in time?
 * [ ] add CI: GitHub Actions w smoke tests
 * [ ] deal with failed downloads (below)
 * [ ] test non-CDN audio URLs from mobile app
+* [x] populate /today cards back in time?
 * [x] ActiveStorage to S3 instead of local
   * [x] Ops for S3 Access Key - not required (we use IAM)
   * [x] configure production.rb, staging.rb
