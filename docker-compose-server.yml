@@ -13,12 +13,12 @@ services:
       - SITE_ADDRESS=kosa2.pariyatti.app
     volumes:
       - $PWD/site:/srv
-      - caddy_data:/data
-      - caddy_config:/config
+      - /mnt/efs/caddy_data:/data
+      - /mnt/efs/caddy_config:/config
   db:
     image: postgres:14
     volumes:
-      - ./volumes/db:/var/lib/postgresql/data
+      - /mnt/efs/volumes/db:/var/lib/postgresql/data
     env_file:
       - .dockerenv
       - .env.local_password
@@ -38,7 +38,3 @@ services:
       - RUN_INGESTION=yes
     depends_on:
       - db
-
-volumes:
-  caddy_data:
-  caddy_config:

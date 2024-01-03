@@ -5,7 +5,12 @@ locals {
     yum upgrade -y
     systemctl enable amazon-ssm-agent
     systemctl start amazon-ssm-agent
-    yum install -y docker git tree
+    yum install -y amazon-efs-utils docker git tree
+    file_system_id_01=fs-0bfbacf2ba1a4d7a5
+    efs_directory=/mnt/efs
+    mkdir -p "$${efs_directory}"
+    echo "$${file_system_id_01}:/ $${efs_directory} efs tls,_netdev" >> /etc/fstab
+    mount -a -t efs defaults
     systemctl start docker
     systemctl enable docker
     usermod -aG docker ec2-user
@@ -100,20 +105,10 @@ data "aws_route53_zone" "kosa_domain" {
   name = "kosa2.pariyatti.app"
 }
 
-module "kosa_asg_sg" {
-  source  = "terraform-aws-modules/security-group/aws"
-  version = "~> 5.0"
-
-  name        = "kosa2-asg-sg"
-  description = "Kosa2 security group"
-  vpc_id      = data.aws_vpc.kosa2_vpc.id
-
-  ingress_cidr_blocks = ["0.0.0.0/0"]
-  ingress_rules       = ["https-443-tcp"]
-
-  egress_rules = ["all-all"]
-
-  tags = local.tags
+data "aws_security_group" "kosa_asg_sg" {
+  tags = {
+    Name = "kosa2-asg-sg"
+  }
 }
 
 module "kosa2_asg" {
@@ -176,7 +171,7 @@ module "kosa2_asg" {
       delete_on_termination       = true
       description                 = "eth0"
       device_index                = 0
-      security_groups             = [module.kosa_asg_sg.security_group_id]
+      security_groups             = [data.aws_security_group.kosa_asg_sg.id]
       associate_public_ip_address = true
     }
   ]
