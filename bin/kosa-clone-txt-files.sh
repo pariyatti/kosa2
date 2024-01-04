@@ -34,15 +34,18 @@ set -e
     printf "Leaving Kosa to git clone in /tmp...\n"
     pushd /tmp
     if [ -d "daily_emails_rss_auto" ]; then
+        printf "...pulling existing clone..."
         pushd daily_emails_rss_auto
         pwd
         git pull
         popd
-    elif [[ -z "${TXT_PA_TOKEN}" ]]; then
+    elif [[ -n "${TXT_PA_TOKEN}" ]]; then
+        printf "...TXT_PA_TOKEN set, using HTTP clone..."
         pwd
         # shellcheck disable=SC2086
         git clone https://${TXT_PA_TOKEN}@github.com/pariyatti/Daily_emails_RSS.git
     else
+        printf "...using SSH git clone..."
         pwd
         git clone git@github.com:pariyatti/Daily_emails_RSS.git daily_emails_rss_auto
     fi
