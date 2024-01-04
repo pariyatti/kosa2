@@ -71,7 +71,7 @@ jobs:
 
       - name: Clone TXT Files
         env:
-          PA_TOKEN: ${{ secrets.TXT_PA_SECRET }}
+          TXT_PA_TOKEN: ${{ secrets.TXT_PA_TOKEN }}
         run: "./bin/kosa-clone-txt-files.sh"
         shell: bash
 

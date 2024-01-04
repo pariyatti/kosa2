@@ -38,6 +38,10 @@ set -e
         pwd
         git pull
         popd
+    elif [[ -z "${TXT_PA_TOKEN}" ]]; then
+        pwd
+        # shellcheck disable=SC2086
+        git clone https://${TXT_PA_TOKEN}@github.com/pariyatti/Daily_emails_RSS.git
     else
         pwd
         git clone git@github.com:pariyatti/Daily_emails_RSS.git daily_emails_rss_auto
