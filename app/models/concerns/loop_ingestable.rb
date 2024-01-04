@@ -17,7 +17,7 @@ module LoopIngestable
 
     def download_audio_attachment!
       url = self.original_audio_url
-      file = URI.open(url)
+      file = URI.open_with_retries(url, 5)
       filename = File.basename(URI.parse(url).path) # TODO: test for nil path
       #noinspection RubyResolve
       self.audio.attach(io: file, filename: filename, content_type: 'audio/mpeg')

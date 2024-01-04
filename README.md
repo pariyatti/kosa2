@@ -5,9 +5,9 @@ Spiking Kosa in (vanilla) Rails.
 ## Dependencies
 
 * `rbenv`
-* Ruby 3.0.2
+* Ruby 3.2.2
 * Postgres 14
-* Rails 7.0.6
+* Rails 7.1.2
 * `gem install pg -- --with-pg-config=/usr/local/bin/pg_config`
 
 ## Access TXT Files
@@ -34,9 +34,6 @@ rails s -b 0.0.0.0                      # needed for IP access from mobile app
 ```
 
 ## Deploy
-
-NOTE: The [the `paper_trail` install generator](https://github.com/paper-trail-gem/paper_trail#1b-installation) 
-generates migrations out-of-band, so it's a development-time step, not a deployment step.
 
 ```sh 
 bundle exec rails db:migrate
@@ -72,8 +69,8 @@ MONTHS=6 rake kosa:looped:publish
 
 *Required Kosa Changes*
 
-* [ ] deal with failed downloads (below)
 * [ ] test non-CDN audio URLs from mobile app
+* [x] deal with failed downloads (below)
 * [x] add CI: GitHub Actions w smoke tests
 * [x] populate /today cards back in time?
     * [x] large refactor of publishing
@@ -85,17 +82,6 @@ MONTHS=6 rake kosa:looped:publish
     * [x] dynamic host (trickery for per-environment routing)
     * [x] expose in controllers
 * [x] DB audits w paper_trail
-
-```
-Minitest::UnexpectedError: Net::OpenTimeout: Failed to open TCP connection to download.pariyatti.org:443 (execution expired)
-    app/models/concerns/loop_ingestable.rb:20:in `download_audio_attachment!'
-    app/models/looped_doha.rb:58:in `download_attachment!'
-    app/models/concerns/loop_ingestable.rb:29:in `build!'
-    app/models/concerns/loop_ingestable.rb:101:in `insert'
-    app/models/concerns/loop_ingestable.rb:72:in `block in ingest'
-    app/models/concerns/loop_ingestable.rb:69:in `each'
-    app/models/concerns/loop_ingestable.rb:69:in `ingest'
-```
 
 *Optional / Future*
 
