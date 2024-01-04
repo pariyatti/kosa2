@@ -72,9 +72,9 @@ MONTHS=6 rake kosa:looped:publish
 
 *Required Kosa Changes*
 
-* [ ] add CI: GitHub Actions w smoke tests
 * [ ] deal with failed downloads (below)
 * [ ] test non-CDN audio URLs from mobile app
+* [x] add CI: GitHub Actions w smoke tests
 * [x] populate /today cards back in time?
     * [x] large refactor of publishing
     * [x] ability to publish for a specific date
