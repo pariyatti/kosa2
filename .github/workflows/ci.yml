@@ -35,12 +35,6 @@ jobs:
           gem install bundler -v 2.4.10 --no-document
           bundle install --jobs 4 --retry 3
 
-#      - name: Install rbenv / Ruby
-#        uses: ruby/setup-ruby@v1
-#        with:
-#          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-#          # Ruby version selected by .ruby-version file (rbenv)
-
       - name: Setup
         id: setup
         run: |
@@ -71,8 +65,11 @@ jobs:
           bundle exec rails db:create
           bundle exec rails db:migrate
 
-#      - name: Smoke Test
-#        run: bundle exec rails test
+      - name: Clone TXT Files
+        env:
+          PA_TOKEN: ${{ secrets.TXT_PA_SECRET }}
+        run: "./bin/kosa-clone-txt-files.sh"
+        shell: bash
 
       - name: Run Tests
         env:
@@ -83,21 +80,3 @@ jobs:
           POSTGRES_DB: kosa2_ci
           POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
         run: bundle exec rake test
-
-#      - name: Build Docker
-#        uses: docker/build-push-action@v5
-#        with:
-#          pull: true # equivalent to --pull, not --pull-always / --pull=always
-#          push: false
-#          context: .
-#          # https://docs.docker.com/build/ci/github-actions/multi-platform/
-#          # https://dev.to/cloudx/multi-arch-docker-images-the-easy-way-with-github-actions-4k54
-#          platforms: linux/amd64 # ,linux/arm64
-#          file: ./Dockerfile
-#          build-args: |
-#            ENDB_GIT_DESCRIBE=${{ steps.setup.outputs.ENDB_GIT_DESCRIBE }}
-#            RUST_OS=${{ steps.setup.outputs.RUST_OS }}
-#            SBCL_OS=${{ steps.setup.outputs.SBCL_OS }}
-#            ENDB_OS=${{ steps.setup.outputs.ENDB_OS }}
-#          tags: ${{ steps.setup.outputs.DOCKER_TAG }} # not required, but maintains
-#                                                      # symmetry with build-push-docker.yml
