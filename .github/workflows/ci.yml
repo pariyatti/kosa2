@@ -65,6 +65,10 @@ jobs:
           bundle exec rails db:create
           bundle exec rails db:migrate
 
+      - name: Create known_hosts
+        run: "ssh-keygen -F github.com || ssh-keyscan github.com >> ~/.ssh/known_hosts"
+        shell: bash
+
       - name: Clone TXT Files
         env:
           PA_TOKEN: ${{ secrets.TXT_PA_SECRET }}
