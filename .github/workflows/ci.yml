@@ -35,23 +35,6 @@ jobs:
           gem install bundler -v 2.4.10 --no-document
           bundle install --jobs 4 --retry 3
 
-      - name: Setup
-        id: setup
-        run: |
-          {
-            echo "RAILS_TEST_ENV=smoke"
-          } >> "$GITHUB_OUTPUT"
-
-      - name: Print Setup
-        id: print_setup
-        run: |
-          {
-            echo "### Workflow variables"
-            echo "| Variable          | Value                                        |"
-            echo "| ----------------- | -------------------------------------------- |"
-            echo "| RAILS_TEST_ENV    | ${{ steps.setup.outputs.RAILS_TEST_ENV }}    |"
-          } >> $GITHUB_STEP_SUMMARY
-
       - name: Setup database
         env:
           RAILS_ENV: test
@@ -77,6 +60,7 @@ jobs:
 
       - name: Run Tests
         env:
+          RAILS_TEST_ENV: smoke
           RAILS_ENV: test
           POSTGRES_HOST: postgres
           POSTGRES_USER: postgres
