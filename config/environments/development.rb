@@ -67,6 +67,11 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 
+  # NOTE: Add developers' machine names below.
+  #       There is a `bind 'tcp://0.0.0.0:3000'` in puma.rb to allow
+  #       local network connections in development.
+  config.hosts << "solasa.local:3000"
+
   # Abuse ActionMailer to expose the host in the Routing Concern.
   config.action_mailer.default_url_options = self.default_url_options = { host: 'localhost', port: 3000 }
 
