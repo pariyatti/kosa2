@@ -70,9 +70,13 @@ Rails.application.configure do
   # NOTE: Add developers' machine names below.
   #       There is a `bind 'tcp://0.0.0.0:3000'` in puma.rb to allow
   #       local network connections in development.
-  config.hosts << "solasa.local:3000"
+  developers = {steven: { host: 'solasa.local', port: 3000 },
+                tanmay: { host: 'localhost', port: 3000 }}
+  localhost = developers[`whoami`.strip.to_sym] || { host: 'localhost', port: 3000 }
+  puts "#### dev localhost is '#{localhost.inspect}'"
+  config.hosts << "#{localhost[:host]}:#{localhost[:port]}"
 
   # Abuse ActionMailer to expose the host in the Routing Concern.
-  config.action_mailer.default_url_options = self.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = self.default_url_options = localhost
 
 end
