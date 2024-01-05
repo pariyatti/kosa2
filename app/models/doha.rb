@@ -35,7 +35,7 @@ class Doha < ApplicationRecord
       bookmarkable: true,
       shareable: true,
       audio: { path: rails_blob_path(self.audio, disposition: "attachment", only_path: true),
-               url: polymorphic_url(self.audio)
+               url: url_for(self.audio)
               },
       original_doha: self.original_doha,
       original_url: self.original_url,

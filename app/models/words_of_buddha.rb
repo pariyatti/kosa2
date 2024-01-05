@@ -39,7 +39,7 @@ class WordsOfBuddha < ApplicationRecord
       bookmarkable: true,
       shareable: true,
       audio: { path: rails_blob_path(self.audio, disposition: "attachment", only_path: true),
-               url: polymorphic_url(self.audio)
+               url: url_for(self.audio)
       },
       original_words: self.original_words,
       original_url: self.original_url,
