@@ -20,7 +20,7 @@ services:
     volumes:
       - /mnt/efs/volumes/db:/var/lib/postgresql/data
     env_file:
-      - .dockerenv
+      - .dockerenv_prod
       - .env.local_password
   web:
     build:
@@ -31,7 +31,7 @@ services:
     ports:
       - "3000:3000"
     env_file:
-      - .dockerenv
+      - .dockerenv_prod
       - .env.local_password
       - /home/ec2-user/.kosa/kosa-rails.dockerenv
     environment:
