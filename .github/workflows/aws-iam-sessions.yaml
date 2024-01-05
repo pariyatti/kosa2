@@ -1,6 +1,8 @@
 name: AWS Sessions Manager
 on:
-  push
+  push:
+    branches:
+      - main
 env:
   BUCKET_NAME : "pariyatti-example-bucket"
   AWS_REGION : "us-east-1"  
