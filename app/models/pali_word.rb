@@ -18,7 +18,8 @@ class PaliWord < ApplicationRecord
   include Routing
   include Nameable
   has_paper_trail
-  has_many :translations, class_name: 'PaliWordTranslation', dependent: :destroy, autosave: true
+  has_many :translations, -> { order("created_at ASC") },
+           class_name: 'PaliWordTranslation', dependent: :destroy, autosave: true
   naturalkey_column :pali
   validates_presence_of :pali, :translations, :published_at
 

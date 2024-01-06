@@ -16,7 +16,8 @@ class Doha < ApplicationRecord
   include Routing
   include Nameable
   has_paper_trail
-  has_many :translations, class_name: 'DohaTranslation', dependent: :destroy, autosave: true
+  has_many :translations, -> { order("created_at ASC") },
+           class_name: 'DohaTranslation', dependent: :destroy, autosave: true
   has_one_attached :audio
   naturalkey_column :doha
   validates_presence_of :doha, :translations, :published_at

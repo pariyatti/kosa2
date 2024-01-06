@@ -20,7 +20,8 @@ class WordsOfBuddha < ApplicationRecord
   include Routing
   include Nameable
   has_paper_trail
-  has_many :translations, class_name: 'WordsOfBuddhaTranslation', dependent: :destroy, autosave: true
+  has_many :translations, -> { order("created_at ASC") },
+           class_name: 'WordsOfBuddhaTranslation', dependent: :destroy, autosave: true
   has_one_attached :audio
   naturalkey_column :words
   validates_presence_of :words, :translations, :published_at
