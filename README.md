@@ -69,7 +69,7 @@ MONTHS=6 rake kosa:looped:publish
 
 *Required Kosa Changes*
 
-* [ ] test non-CDN audio URLs from mobile app
+* [x] test non-CDN audio URLs from mobile app
 * [x] deal with failed downloads (below)
 * [x] add CI: GitHub Actions w smoke tests
 * [x] populate /today cards back in time?
