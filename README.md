@@ -1,6 +1,6 @@
 # Kosa2
 
-Spiking Kosa in (vanilla) Rails.
+The Kosa service for [the Pariyatti mobile app](https://pariyatti.app).
 
 ## Dependencies
 
@@ -59,33 +59,16 @@ MONTHS=6 rake kosa:looped:publish
 
 * [ ] way to load db backup
 * [ ] create deploy GitHub Action
-* [x] configure EFS volume mount?
-* [x] setup initial AWS deploy infra (PR #1)
 
 *Required App Changes*
 
-* [ ] Limit Infinite Scroll: https://github.com/pariyatti/mobile-app/issues/126
+* [x] Limit Infinite Scroll: https://github.com/pariyatti/mobile-app/issues/126
 * [ ] Show Cards in Local Timezone: https://github.com/pariyatti/mobile-app/issues/129
-
-*Required Kosa Changes*
-
-* [x] test non-CDN audio URLs from mobile app
-* [x] deal with failed downloads (below)
-* [x] add CI: GitHub Actions w smoke tests
-* [x] populate /today cards back in time?
-    * [x] large refactor of publishing
-    * [x] ability to publish for a specific date
-* [x] ActiveStorage to S3 instead of local
-    * [x] Ops for S3 Access Key - not required (we use IAM)
-    * [x] configure production.rb, staging.rb
-* [x] expose / test self-reference URLs
-    * [x] dynamic host (trickery for per-environment routing)
-    * [x] expose in controllers
-* [x] DB audits w paper_trail
 
 *Optional / Future*
 
 * standardrb
 * ViewComponent
 * pagination / limit
+    * `geared_pagination` vs `pagy` 
 * OAuth (Devise)
