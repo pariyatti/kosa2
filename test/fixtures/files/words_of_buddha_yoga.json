@@ -1,0 +1,61 @@
+{
+  "id": "fba45b04-ba87-4da8-b44a-49210c76c6f4",
+  "words": "Yogā ve jāyatī bhūri,\nayogā bhūrisaṅkhayo.\nEtaṃ dvedhāpathaṃ ñatvā bhavāya vibhavāya ca,\ntathāttānaṃ niveseyya yathā bhūri pavaḍḍhati.",
+  "translations": [
+    {
+      "id": "1b133e7b-0a0c-4801-a990-2d450aab66bd",
+      "language": "eng",
+      "translation": "Wisdom springs from meditation;\nwithout meditation wisdom wanes.\nHaving known these two paths of progress and decline,\nlet one so conduct oneself that one's wisdom may increase."
+    },
+    {
+      "id": "6a8dba30-21a0-4ae8-8b9e-a6b20d07cf04",
+      "language": "spa",
+      "translation": "De la meditación, en verdad, surge la sabiduría; \nsin meditación hay disminución de sabiduría. \nHabiendo comprendido este doble camino de progreso y retroceso, \nasí uno mismo debería establecerse, de forma tal que aumente la sabiduría."
+    },
+    {
+      "id": "351eed52-d4ea-42c8-8308-a03b1dab2cb2",
+      "language": "fra",
+      "translation": "La sagesse jaillit de la méditation.\nSans la méditation, la sagesse régresse.\nConnaissant ces deux chemins de progrès et déclin,\nQue chacun se conduise afin de faire croître sa sagesse."
+    },
+    {
+      "id": "e1fd0eaa-3fad-4f0f-ad06-1b938c9ae50b",
+      "language": "ita",
+      "translation": "La sagezza sgorga dalla meditazione;\nsenza meditazione la saggezza scema.\nConosciuti questi due sentieri di progresso e declino,\ncomportati in modo che la tua saggezza possa aumentare"
+    },
+    {
+      "id": "875f16e3-d6a9-4c75-bc9c-9d14d36843ba",
+      "language": "por",
+      "translation": "A sabedoria surge da meditação;\nsem a meditação a sabedoria se esvai.\nTendo conhecido estes dois caminhos do progresso e da decadência,\nprocuremos nos comportar de forma a expandir nossa sabedoria."
+    },
+    {
+      "id": "a437906f-1af5-4882-ab62-dccacf974a1e",
+      "language": "srp",
+      "translation": "Vežbanjem znanje se stiče,\na nevežbanjem gubi.\nZnajući ta dva puta nastanka i nestanka,\ntako sebe usmeri da mudrost u tebi raste."
+    },
+    {
+      "id": "ff390fb8-49ee-46f5-af3e-2a8cd21b707d",
+      "language": "zho-hant",
+      "translation": "智慧從禪修生起；\n不禪修則智慧衰減。\n了知生長與衰減這兩條道路，\n願修者如實修行，令智慧增長。\n《南傳法句經 20.282》"
+    }
+  ],
+  "published_date": "2023-08-04",
+  "published_at": "2023-08-04T00:00:00.000Z",
+  "created_at": "2024-01-08T04:58:33.238Z",
+  "updated_at": "2024-01-08T04:58:33.250Z",
+  "type": "words_of_buddha",
+  "url": "http://kosa-test.pariyatti.app/api/v1/today/words_of_buddha/fba45b04-ba87-4da8-b44a-49210c76c6f4.json",
+  "header": "Words of the Buddha",
+  "bookmarkable": true,
+  "shareable": true,
+  "audio": {
+    "path": "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaEpJaWsxWTJJeE9Ea3pNUzFqTXpFM0xUUmlOV0l0T0RBek55MHhORFZqTXpWa01qazBNMllHT2daRlZBPT0iLCJleHAiOm51bGwsInB1ciI6ImJsb2JfaWQifX0=--226a0e4ef7f3566e16526400e750284feeba6ade/dhammapada_20_282.mp3?disposition=attachment",
+    "url": "http://kosa-test.pariyatti.app/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaEpJaWsxWTJJeE9Ea3pNUzFqTXpFM0xUUmlOV0l0T0RBek55MHhORFZqTXpWa01qazBNMllHT2daRlZBPT0iLCJleHAiOm51bGwsInB1ciI6ImJsb2JfaWQifX0=--226a0e4ef7f3566e16526400e750284feeba6ade/dhammapada_20_282.mp3"
+  },
+  "original_words": null,
+  "original_url": null,
+  "original_audio_url": "https://download.pariyatti.org/dwob/dhammapada_20_282.mp3",
+  "citepali": "Dhammapada 20.282",
+  "citepali_url": "https://tipitaka.org/romn/cscd/s0502m.mul19.xml#para282",
+  "citebook": "The Dhammapada: The Buddha's Path of Wisdom, translated from Pāli by Acharya Buddharakkhita",
+  "citebook_url": "https://store.pariyatti.org/The-Dhammapada-The-Buddhas-Path-of-Wisdom-Pocket-Edition_p_6305.html"
+}

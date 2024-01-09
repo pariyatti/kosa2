@@ -17,8 +17,7 @@ so_often = if Rails.env.development?
            end
 
 s.every so_often do
-  LoopedPaliWord.publish_daily!
-  LoopedDoha.publish_daily!
-  LoopedWordsOfBuddha.publish_daily!
+  LoopedPaliWord.publish_tomorrow!
+  LoopedDoha.publish_tomorrow!
+  LoopedWordsOfBuddha.publish_tomorrow!
 end
-

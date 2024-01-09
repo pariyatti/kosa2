@@ -24,10 +24,8 @@ class LoopedWordsOfBuddhaSmokeTest < ActiveSupport::TestCase
 
   smoke_test "publishing 2012" do
     words_text = "Yo ca dhammamabhiññāya\ndhammamaññāya paṇḍito,\nrahadova nivāte ca\nanejo vūpasammati."
-    # 2012-07-30T00:00:01
-    travel_to Time.utc(2012, 7, 30, 0, 0, 1)
-    LoopedWordsOfBuddha.publish_daily!
-    puts WordsOfBuddha.first.inspect
+    travel_to Time.utc(2012, 7, 29, 0, 0, 1)
+    LoopedWordsOfBuddha.publish_tomorrow!
     assert_equal words_text, WordsOfBuddha.first.words
     assert_models WordsOfBuddha.new(words: words_text,
                                     original_words: nil, original_url: nil,
@@ -37,7 +35,7 @@ class LoopedWordsOfBuddhaSmokeTest < ActiveSupport::TestCase
                                     citebook: "Gemstones of the Good Dhamma, compiled and translated by Ven. S. Dhammika",
                                     citebook_url: "https://store.pariyatti.org/Gemstones-of-the-Good-Dhamma-WH342-4_p_1679.html",
                                     published_date: Date.new(2012, 7, 30),
-                                    published_at: DateTime.parse("2012-07-30T15:11:02Z")),
+                                    published_at: DateTime.parse("2012-07-30T00:00:00Z")),
                   WordsOfBuddha.first
   end
 

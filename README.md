@@ -19,7 +19,7 @@ before you can run `make txt-clone`, as explained below. Speak to Pariyatti Staf
 obtain access. If you do not have access to these files, Kosa will still run
 without them.
 
-## Build / Run Kosa
+## Run Kosa in Development
 
 * install [`rbenv`](https://github.com/rbenv/rbenv)
 
@@ -27,22 +27,32 @@ without them.
 git clone git@github.com:pariyatti/kosa2.git
 cd kosa2
 
-rake kosa:txt:clean                     # Remove TXT files
-rake kosa:txt:clone                     # Clone TXT files from GitHub
-rake kosa:txt:ingest                    # Ingest TXT files
-rails s -b 0.0.0.0                      # needed for IP access from mobile app
+rake db:drop                # If you have a previous version in dev
+rake db:create db:migrate   # Setup DB
+rake kosa:txt:clean         # Remove TXT files
+rake kosa:txt:clone         # Clone TXT files from GitHub
+rake kosa:txt:ingest        # Ingest TXT files
+rails s                     # -b 0.0.0.0 is not required anymore
+                            # ... see `puma.rb` and `development.rb`
 ```
 
-## Deploy
+## Deploy in Production
+
+You may wish to prefix `rake` and `rails` commands with `bundle exec`.
+
+First deployment:
 
 ```sh 
-bundle exec rails db:migrate
-```
-
-If retroactive looped cards are required, they can be generated/published with:
-
-```sh 
+rake db:create db:migrate
+rake kosa:txt:clean kosa:txt:clone kosa:txt:ingest
+# If retroactive looped cards are required:
 MONTHS=6 rake kosa:looped:publish
+```
+
+Subsequent deployments:
+
+```sh 
+rake db:migrate
 ```
 
 ## Development

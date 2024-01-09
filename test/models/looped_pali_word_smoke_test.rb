@@ -31,21 +31,21 @@ class LoopedPaliWordSmokeTest < ActiveSupport::TestCase
   end
 
   test "publishing 2012" do
-    # 2012-07-30T00:00:01
     travel_to Time.utc(2012, 7, 30, 0, 0, 1)
-    LoopedPaliWord.publish_daily!
+    LoopedPaliWord.publish_tomorrow!
     puts PaliWord.first.inspect
-    assert_models PaliWord.new(pali: "obhāsetvā", original_pali: "obhāsetvā", original_url: nil,
-                               published_at: DateTime.parse("2012-07-30T16:11:02Z"), published_date: Date.new(2012, 7, 30)),
+    assert_models PaliWord.new(pali: "tenupasaṅkami", original_pali: "tenupasaṅkami", original_url: nil,
+                               published_at: DateTime.parse("2012-07-31T00:00:00Z"),
+                               published_date: Date.new(2012, 7, 31)),
                   PaliWord.first
   end
 
   test "publishing 2023" do
-    # 2012-07-30T00:00:01
-    travel_to Time.utc(2023, 8, 3, 0, 0, 1)
-    LoopedPaliWord.publish_daily!
+    travel_to Time.utc(2023, 8, 2, 0, 0, 1)
+    LoopedPaliWord.publish_tomorrow!
     assert_models PaliWord.new(pali: "pubbe", original_pali: "pubbe", original_url: nil,
-                               published_at: DateTime.parse("2023-08-03T16:11:02Z"), published_date: Date.new(2023, 8, 3)),
+                               published_at: DateTime.parse("2023-08-03T00:00:00Z"),
+                               published_date: Date.new(2023, 8, 3)),
                   PaliWord.first
   end
 

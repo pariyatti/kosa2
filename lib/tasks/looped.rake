@@ -11,8 +11,9 @@ namespace :kosa do
 
       n_months = ENV['MONTHS'].to_i
       puts "Publishing #{n_months} months of looped cards in [#{Rails.env}]..."
-      puts n_months
-      date_range = (Date.today - n_months.months)..Date.today
+      n_months_ago = Date.today - n_months.months
+      tomorrow = Date.today.next_day
+      date_range = n_months_ago..tomorrow
       date_range.each do |date|
         LoopedPaliWord.publish_specific!(date)
         LoopedDoha.publish_specific!(date)

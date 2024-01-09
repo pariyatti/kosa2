@@ -35,11 +35,6 @@ class LoopedPaliWord < ApplicationRecord
     Rails.application.config_for(:looped_cards)[:txt_feeds][:pali_word]
   end
 
-  def self.publish_at_time
-    # 08:11:02am PST +08:00 from UTC = 16:11:02
-    { hour: 16, min: 11, sec: 2 }
-  end
-
   def self.already_published(card)
     PaliWord.where(pali: card.pali)
   end
@@ -47,11 +42,12 @@ class LoopedPaliWord < ApplicationRecord
   def download_attachment!
   end
 
-  def transcribe(pub_time)
+  def transcribe(date)
+    pub_time = to_publish_time(date)
     pw = PaliWord.new(pali: self.pali,
                       original_pali: self.original_pali,
                       original_url: self.original_url,
-                      published_date: pub_time.to_date,
+                      published_date: date,
                       published_at: pub_time)
     translations.each do |t|
       pw.translations.build(language: t.language, translation: t.translation, published_at: pub_time)
