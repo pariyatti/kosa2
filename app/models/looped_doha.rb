@@ -63,6 +63,7 @@ class LoopedDoha < ApplicationRecord
                     original_doha: self.original_doha,
                     original_url: self.original_url,
                     original_audio_url: self.original_audio_url,
+                    published_date: pub_time.to_date,
                     published_at: pub_time)
     raise "Looped audio not attached" unless self.audio.attached?
     doha.audio.attach(self.audio.blob)

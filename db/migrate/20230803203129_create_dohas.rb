@@ -6,6 +6,7 @@ class CreateDohas < ActiveRecord::Migration[7.0]
       t.string :original_url
       t.string :original_audio_url
 
+      t.date :published_date
       t.datetime :published_at
       t.timestamps
     end

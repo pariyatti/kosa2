@@ -8,6 +8,7 @@
 #  original_doha      :text
 #  original_url       :string
 #  published_at       :datetime
+#  published_date     :date
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #
@@ -28,6 +29,7 @@ class Doha < ApplicationRecord
       doha: self.doha,
       translations: self.translations.as_json,
       published_at: self.published_at,
+      published_date: self.published_date,
       created_at: self.created_at,
       updated_at: self.updated_at,
       type: "doha",

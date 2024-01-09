@@ -11,6 +11,7 @@
 #  original_url       :string
 #  original_words     :text
 #  published_at       :datetime
+#  published_date     :date
 #  words              :text
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
@@ -31,6 +32,7 @@ class WordsOfBuddha < ApplicationRecord
       id: self.id,
       words: self.words,
       translations: self.translations.as_json,
+      published_date: self.published_date,
       published_at: self.published_at,
       created_at: self.created_at,
       updated_at: self.updated_at,

@@ -4,14 +4,15 @@
 #
 # Table name: pali_words
 #
-#  id            :uuid             not null, primary key
-#  index         :bigint
-#  original_pali :string
-#  original_url  :string
-#  pali          :string
-#  published_at  :datetime
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id             :uuid             not null, primary key
+#  index          :bigint
+#  original_pali  :string
+#  original_url   :string
+#  pali           :string
+#  published_at   :datetime
+#  published_date :date
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
 #
 class PaliWord < ApplicationRecord
   include Ordered
@@ -27,6 +28,7 @@ class PaliWord < ApplicationRecord
     { id: self.id,
       pali: self.pali,
       translations: self.translations.as_json,
+      published_date: self.published_date,
       published_at: self.published_at,
       created_at: self.created_at,
       updated_at: self.updated_at,

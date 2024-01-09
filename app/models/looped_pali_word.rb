@@ -50,6 +50,7 @@ class LoopedPaliWord < ApplicationRecord
     pw = PaliWord.new(pali: self.pali,
                       original_pali: self.original_pali,
                       original_url: self.original_url,
+                      published_date: pub_time.to_date,
                       published_at: pub_time)
     translations.each do |t|
       pw.translations.build(language: t.language, translation: t.translation, published_at: pub_time)

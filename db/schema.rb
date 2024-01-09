@@ -58,6 +58,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_203251) do
     t.text "original_doha"
     t.string "original_url"
     t.string "original_audio_url"
+    t.date "published_date"
     t.datetime "published_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -139,6 +140,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_203251) do
     t.string "original_pali"
     t.string "original_url"
     t.string "pali"
+    t.date "published_date"
     t.datetime "published_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -183,6 +185,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_203251) do
     t.text "original_words"
     t.string "original_url"
     t.string "original_audio_url"
+    t.date "published_date"
     t.datetime "published_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

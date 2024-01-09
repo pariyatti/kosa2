@@ -35,7 +35,7 @@ module LoopPublishable
 
     def transcribe_nth(pub_time, count)
       index = which_card(pub_time, count)
-      puts "index is: #{index}"
+      logger.debug "#### index is: #{index}"
       looped = self.where(index: index).sole
       card = looped.transcribe(pub_time)
       logger.info "#### Today's #{human_name} is: #{card.naturalkey_value}"
@@ -49,9 +49,16 @@ module LoopPublishable
 
     def recently_published?(card)
       existing = self.already_published(card).order(published_at: :desc)
-      puts "existing? #{existing.exists?}"
+      logger.debug "#### existing? #{existing.exists?}"
+      print_progress existing.exists? ? "x" : "."
       return existing.exists? && existing.first.published_at.utc.to_datetime.whole_days_since(card.published_at) < 2
     end
+
+    def print_progress(x)
+      print x
+      STDOUT.flush
+    end
+
   end
 
 end
