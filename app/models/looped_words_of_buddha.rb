@@ -69,11 +69,6 @@ class LoopedWordsOfBuddha < ApplicationRecord
     Rails.application.config_for(:looped_cards)[:txt_feeds][:words_of_buddha]
   end
 
-  def self.publish_at_time
-    # 07:11:02am PST +08:00 from UTC = 15:11:02
-    { hour: 15, min: 11, sec: 2 }
-  end
-
   def self.already_published(card)
     WordsOfBuddha.where(words: card.words)
   end
@@ -82,7 +77,8 @@ class LoopedWordsOfBuddha < ApplicationRecord
     download_audio_attachment!
   end
 
-  def transcribe(pub_time)
+  def transcribe(date)
+    pub_time = to_publish_time(date)
     wob = WordsOfBuddha.new(words: self.words,
                             citepali: self.citepali,
                             citepali_url: self.citepali_url,
@@ -91,7 +87,7 @@ class LoopedWordsOfBuddha < ApplicationRecord
                             original_words: self.original_words,
                             original_url: self.original_url,
                             original_audio_url: self.original_audio_url,
-                            published_date: pub_time.to_date,
+                            published_date: date,
                             published_at: pub_time)
     raise "Looped audio not attached" unless self.audio.attached?
     wob.audio.attach(self.audio.blob)

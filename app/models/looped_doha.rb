@@ -46,11 +46,6 @@ class LoopedDoha < ApplicationRecord
     Rails.application.config_for(:looped_cards)[:txt_feeds][:doha]
   end
 
-  def self.publish_at_time
-    # 09:11:02am PST +08:00 from UTC = 17:11:02
-    { hour: 17, min: 11, sec: 2 }
-  end
-
   def self.already_published(card)
     Doha.where(doha: card.doha)
   end
@@ -59,12 +54,13 @@ class LoopedDoha < ApplicationRecord
     download_audio_attachment!
   end
 
-  def transcribe(pub_time)
+  def transcribe(date)
+    pub_time = to_publish_time(date)
     doha = Doha.new(doha: self.doha,
                     original_doha: self.original_doha,
                     original_url: self.original_url,
                     original_audio_url: self.original_audio_url,
-                    published_date: pub_time.to_date,
+                    published_date: date,
                     published_at: pub_time)
     raise "Looped audio not attached" unless self.audio.attached?
     doha.audio.attach(self.audio.blob)

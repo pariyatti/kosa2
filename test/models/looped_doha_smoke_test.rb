@@ -25,15 +25,14 @@ class LoopedDohaSmokeTest < ActiveSupport::TestCase
 
   smoke_test "publishing 2012" do
     doha_text = "Bhogata bhogata bhogate, \nbandhana bandhate jāṅya. \nDekhata dekhata dekhate, \nbandhana khulate jāṅya. \n\nBhogata bhogata bhogate, \nGanthey bandhate jāṅya. \nDekhata dekhata dekhate, \nGanthey khulate jāṅya."
-    # 2012-07-30T00:00:01
-    travel_to Time.utc(2012, 7, 30, 0, 0, 1)
-    LoopedDoha.publish_daily!
+    travel_to Time.utc(2012, 7, 29, 0, 0, 1)
+    LoopedDoha.publish_tomorrow!
     assert_equal doha_text, Doha.first.doha
     assert_models Doha.new(doha: doha_text,
                            original_doha: nil, original_url: nil,
                            original_audio_url: "https://download.pariyatti.org/dohas/086_Doha.mp3",
                            published_date: Date.new(2012, 7, 30),
-                           published_at: DateTime.parse("2012-07-30T17:11:02Z")),
+                           published_at: DateTime.parse("2012-07-30T00:00:00Z")),
                   Doha.first
   end
 
