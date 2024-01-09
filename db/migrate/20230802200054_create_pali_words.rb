@@ -1,4 +1,4 @@
-class CreatePaliWord < ActiveRecord::Migration[7.0]
+class CreatePaliWords < ActiveRecord::Migration[7.0]
   def change
     create_table :pali_words, id: :uuid do |t|
       t.bigint :index
