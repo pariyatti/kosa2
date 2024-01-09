@@ -67,7 +67,7 @@ module LoopIngestable
       entries.map { |entry| entry.trim }
              .map.with_index(1) { |entry, i| [entry, parse(entry, lang), i] }
              .each do |entry_text, record, i|
-               print_progress
+               print_progress(".")
                logger.debug "Attempting insert of #{i} / #{entries.count}"
                insert(entry_text, record)
              end
@@ -76,11 +76,6 @@ module LoopIngestable
     def print_logged(msg)
       puts msg
       logger.info msg
-    end
-
-    def print_progress
-      print "."
-      STDOUT.flush
     end
 
     def marker_for(lang)

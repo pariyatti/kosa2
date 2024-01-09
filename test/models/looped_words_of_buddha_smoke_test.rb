@@ -36,6 +36,7 @@ class LoopedWordsOfBuddhaSmokeTest < ActiveSupport::TestCase
                                     citepali_url: "https://tipitaka.org/romn/cscd/s0504m.mul2.xml#para92",
                                     citebook: "Gemstones of the Good Dhamma, compiled and translated by Ven. S. Dhammika",
                                     citebook_url: "https://store.pariyatti.org/Gemstones-of-the-Good-Dhamma-WH342-4_p_1679.html",
+                                    published_date: Date.new(2012, 7, 30),
                                     published_at: DateTime.parse("2012-07-30T15:11:02Z")),
                   WordsOfBuddha.first
   end

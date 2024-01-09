@@ -18,6 +18,7 @@ class LoopedDoha < ApplicationRecord
   include Nameable
   include LoopIngestable
   include LoopPublishable
+  include ProgressPrintable
   has_paper_trail
   #noinspection RailsParamDefResolve
   has_many :translations, class_name: 'LoopedDohaTranslation', dependent: :destroy, autosave: true

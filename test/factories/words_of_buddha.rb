@@ -7,6 +7,7 @@ FactoryBot.define do
     translations  { [ association(:words_of_buddha_translation_eng, strategy: :build),
                       association(:words_of_buddha_translation_por, strategy: :build) ] }
     published_at { Time.parse("2007-12-30T00:00:00Z") }
+    published_date { Date.new(2007, 12, 30) }
     after(:build) do |wob|
       #noinspection RubyResolve
       wob.audio.attach(

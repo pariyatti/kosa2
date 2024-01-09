@@ -23,6 +23,7 @@ class LoopedWordsOfBuddha < ApplicationRecord
   include Nameable
   include LoopIngestable
   include LoopPublishable
+  include ProgressPrintable
   has_paper_trail
   #noinspection RailsParamDefResolve
   has_many :translations, class_name: 'LoopedWordsOfBuddhaTranslation', dependent: :destroy, autosave: true

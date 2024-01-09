@@ -17,6 +17,7 @@ class LoopedPaliWord < ApplicationRecord
   include Nameable
   include LoopIngestable
   include LoopPublishable
+  include ProgressPrintable
   has_paper_trail
   has_many :translations, class_name: 'LoopedPaliWordTranslation', dependent: :destroy, autosave: true
   naturalkey_column :pali

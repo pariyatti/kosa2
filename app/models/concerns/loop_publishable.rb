@@ -54,11 +54,6 @@ module LoopPublishable
       return existing.exists? && existing.first.published_at.utc.to_datetime.whole_days_since(card.published_at) < 2
     end
 
-    def print_progress(x)
-      print x
-      STDOUT.flush
-    end
-
   end
 
 end

@@ -31,7 +31,9 @@ class LoopedDohaSmokeTest < ActiveSupport::TestCase
     assert_equal doha_text, Doha.first.doha
     assert_models Doha.new(doha: doha_text,
                            original_doha: nil, original_url: nil,
-                           original_audio_url: "https://download.pariyatti.org/dohas/086_Doha.mp3", published_at: DateTime.parse("2012-07-30T17:11:02Z")),
+                           original_audio_url: "https://download.pariyatti.org/dohas/086_Doha.mp3",
+                           published_date: Date.new(2012, 7, 30),
+                           published_at: DateTime.parse("2012-07-30T17:11:02Z")),
                   Doha.first
   end
 

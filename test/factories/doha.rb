@@ -7,6 +7,7 @@ FactoryBot.define do
     translations  { [ association(:doha_translation_eng, strategy: :build),
                       association(:doha_translation_por, strategy: :build) ] }
     published_at { Time.parse("2007-12-30T00:00:00Z") }
+    published_date { Date.new(2007, 12, 30) }
     after(:build) do |doha|
       doha.audio.attach(
         io: File.open(Rails.root.join('test', 'fixtures', 'files', '054_Doha.mp3')),
