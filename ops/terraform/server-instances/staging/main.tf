@@ -40,7 +40,7 @@ locals {
     fi
     su ec2-user -c 'ssh-keygen -F github.com || ssh-keyscan github.com >>/home/ec2-user/.ssh/known_hosts'
     su ec2-user -c 'cd /home/ec2-user && git clone git@github.com:pariyatti/kosa2.git'
-    su ec2-user -c 'cd /home/ec2-user/kosa2 && ./bin/kosa-clone-txt-files.sh && ./init_local_container_env.sh'
+    su ec2-user -c 'cd /home/ec2-user/kosa2 && ./bin/kosa-clone-txt-files.sh && ./init_server_container_env.sh'
     docker-compose -f /home/ec2-user/kosa2/docker-compose-server.yml up -d
     TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
     PUBLIC_IP=$(curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/public-ipv4)
@@ -226,7 +226,9 @@ data "aws_iam_policy_document" "kosa2_s3_buckets" {
 
     resources = [
       "arn:aws:s3:::pariyatti-app-activestorage-production",
-      "arn:aws:s3:::pariyatti-app-activestorage-production/*"
+      "arn:aws:s3:::pariyatti-app-activestorage-production/*",
+      "arn:aws:s3:::pariyatti-kosa2-postgresql-db-backup",
+      "arn:aws:s3:::pariyatti-kosa2-postgresql-db-backup/*"
     ]
   }
 }
