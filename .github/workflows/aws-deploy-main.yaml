@@ -4,7 +4,7 @@ on:
     branches:
       - main
 env:
-  BUCKET_NAME : "pariyatti-example-bucket"
+  BUCKET_NAME : "pariyatti-kosa2-postgresql-db-backup"
   AWS_REGION : "us-east-1"  
 permissions:
   id-token: write  
@@ -30,6 +30,6 @@ jobs:
           KOSA2_INSTANCE_ID=$(aws ec2 describe-instances --filter "Name=tag:Name,Values=kosa2-asg" --query "Reservations[].Instances[?State.Name == 'running'].InstanceId[]" --output text)
           aws ssm send-command \
           --document-name "AWS-RunShellScript" \
-          --parameters commands="echo Hello>/tmp/githubactions" \
+          --parameters commands=["sudo -u ec2-user /home/ec2-user/kosa2/.github/scripts/deploy-main.sh"] \
           --instance-ids $KOSA2_INSTANCE_ID \
           --document-version '$LATEST'
