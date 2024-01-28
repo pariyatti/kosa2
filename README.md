@@ -67,8 +67,9 @@ rake db:migrate
 
 *Required Ops*
 
-* [ ] way to load db backup
-* [ ] create deploy GitHub Action
+* [x] way to load db backup
+* [x] create deploy GitHub Action
+* [x] way to take db backup
 
 *Required App Changes*
 
