@@ -58,6 +58,7 @@ resource "aws_iam_policy" "ssm_session_manager_policy" {
           "ssm:CreateSession",
           "ssm:TerminateSession",
           "ssm:SendCommand",
+          "ssm:GetCommandInvocation",
           "ec2:Describe*"
         ],
         Resource = "*",

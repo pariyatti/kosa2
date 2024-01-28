@@ -85,3 +85,4 @@ volumes/
 *.tfstate
 terraform.plan
 *.tfstate.backup
+plan.out

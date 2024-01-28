@@ -1,4 +1,4 @@
-name: AWS Sessions Manager
+name: AWS Sessions Manager Deploy Main to kosa2
 on:
   push:
     branches:
@@ -10,7 +10,7 @@ permissions:
   id-token: write  
   contents: read
 jobs:
-  SessionsManagerGetRole:
+  SessionsManagerRunDeployMain:
     runs-on: ubuntu-latest
     steps:
       - name: Git clone the repository
