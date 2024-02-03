@@ -22,4 +22,4 @@ else
 fi
 
 echo "Updating docker-compose managed containers."
-docker-compose -f docker-compose-server.yml up --build -d
+docker-compose -f docker-compose-production.yml up --build -d

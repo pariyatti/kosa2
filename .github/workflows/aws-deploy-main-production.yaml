@@ -28,7 +28,7 @@ jobs:
           KOSA2_INSTANCE_ID=$(aws ec2 describe-instances --filter "Name=tag:Name,Values=kosa-prod-asg" --query "Reservations[].Instances[?State.Name == 'running'].InstanceId[]" --output text)
           command_id=$(aws ssm send-command \
           --document-name "AWS-RunShellScript" \
-          --parameters commands=["sudo -u ec2-user /home/ec2-user/kosa2/.github/scripts/deploy-main.sh"] \
+          --parameters commands=["sudo -u ec2-user /home/ec2-user/kosa2/.github/scripts/deploy-main-prod.sh"] \
           --instance-ids $KOSA2_INSTANCE_ID \
           --document-version '$LATEST' --query "Command.CommandId" --output text)
           echo "The command id is $command_id"
