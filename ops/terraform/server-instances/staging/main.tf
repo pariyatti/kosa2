@@ -6,7 +6,7 @@ locals {
     systemctl enable amazon-ssm-agent
     systemctl start amazon-ssm-agent
     yum install -y amazon-efs-utils docker git tree
-    file_system_id_01=fs-0bfbacf2ba1a4d7a5
+    file_system_id_01=fs-0be35ba21541d49a0
     efs_directory=/mnt/efs
     mkdir -p "$${efs_directory}"
     echo "$${file_system_id_01}:/ $${efs_directory} efs tls,_netdev" >> /etc/fstab
@@ -41,7 +41,7 @@ locals {
     su ec2-user -c 'ssh-keygen -F github.com || ssh-keyscan github.com >>/home/ec2-user/.ssh/known_hosts'
     su ec2-user -c 'cd /home/ec2-user && git clone git@github.com:pariyatti/kosa2.git'
     su ec2-user -c 'cd /home/ec2-user/kosa2 && ./bin/kosa-clone-txt-files.sh && ./init_server_container_env.sh'
-    docker-compose -f /home/ec2-user/kosa2/docker-compose-server.yml up -d
+    docker-compose -f /home/ec2-user/kosa2/docker-compose-staging.yml up -d
     TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
     PUBLIC_IP=$(curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/public-ipv4)
     aws route53 change-resource-record-sets --hosted-zone-id Z060531520ID78WZY53YW --change-batch '
