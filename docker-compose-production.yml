@@ -10,7 +10,7 @@ services:
       - "80:80"
       - "443:443"
     environment:
-      - SITE_ADDRESS=kosa2.pariyatti.app
+      - SITE_ADDRESS=kosa.pariyatti.app
     volumes:
       - $PWD/site:/srv
       - /mnt/efs/caddy_data:/data

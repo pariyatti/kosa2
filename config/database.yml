@@ -85,3 +85,10 @@ production:
   username: kosa2
   password: <%= ENV["KOSA2_DATABASE_PASSWORD"] %>
   host: <%= ENV["KOSA2_DATABASE_HOST"] %>
+
+staging:
+  <<: *default
+  database: kosa2_staging
+  username: kosa2
+  password: <%= ENV["KOSA2_DATABASE_PASSWORD"] %>
+  host: <%= ENV["KOSA2_DATABASE_HOST"] %>

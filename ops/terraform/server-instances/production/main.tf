@@ -6,7 +6,7 @@ locals {
     systemctl enable amazon-ssm-agent
     systemctl start amazon-ssm-agent
     yum install -y amazon-efs-utils docker git tree
-    file_system_id_01=fs-0be35ba21541d49a0
+    file_system_id_01=fs-012b16bc86d310354
     efs_directory=/mnt/efs
     mkdir -p "$${efs_directory}"
     echo "$${file_system_id_01}:/ $${efs_directory} efs tls,_netdev" >> /etc/fstab
@@ -41,17 +41,17 @@ locals {
     su ec2-user -c 'ssh-keygen -F github.com || ssh-keyscan github.com >>/home/ec2-user/.ssh/known_hosts'
     su ec2-user -c 'cd /home/ec2-user && git clone git@github.com:pariyatti/kosa2.git'
     su ec2-user -c 'cd /home/ec2-user/kosa2 && ./bin/kosa-clone-txt-files.sh && ./init_server_container_env.sh'
-    docker-compose -f /home/ec2-user/kosa2/docker-compose-staging.yml up -d
+    docker-compose -f /home/ec2-user/kosa2/docker-compose-production.yml up -d
     TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
     PUBLIC_IP=$(curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/public-ipv4)
-    aws route53 change-resource-record-sets --hosted-zone-id Z060531520ID78WZY53YW --change-batch '
+    aws route53 change-resource-record-sets --hosted-zone-id Z0793825120JM065CZ1F9 --change-batch '
     {
         "Changes": [
             {
                 "Action": "UPSERT",
                 "ResourceRecordSet": {
                     "Type": "A",
-                    "Name": "kosa-staging.pariyatti.app",
+                    "Name": "kosa.pariyatti.app",
                     "TTL": 60,
                     "ResourceRecords": [{"Value": "'$PUBLIC_IP'"}]
                 }
@@ -102,7 +102,7 @@ data "aws_ami" "amazonlinux_2023" {
 }
 
 data "aws_route53_zone" "kosa_domain" {
-  name = "kosa-staging.pariyatti.app"
+  name = "kosa.pariyatti.app"
 }
 
 data "aws_security_group" "kosa_asg_sg" {
@@ -115,7 +115,7 @@ module "kosa2_asg" {
   source = "terraform-aws-modules/autoscaling/aws"
 
   # Autoscaling group
-  name = "kosa2-asg"
+  name = "kosa-prod-asg"
 
   min_size                  = 0
   max_size                  = 1
@@ -138,8 +138,8 @@ module "kosa2_asg" {
   }
 
   # Launch template
-  launch_template_name        = "kosa2-asg"
-  launch_template_description = "Kosa2 launch template test"
+  launch_template_name        = "kosa-prod-asg"
+  launch_template_description = "Kosa prod launch template test"
   update_default_version      = true
 
   image_id          = data.aws_ami.amazonlinux_2023.id
@@ -150,7 +150,7 @@ module "kosa2_asg" {
 
   # IAM role & instance profile
   create_iam_instance_profile = true
-  iam_role_name               = "kosa2-asg"
+  iam_role_name               = "kosa-prod-asg"
   iam_role_path               = "/ec2/"
   iam_role_description        = "Kosa2 IAM role"
   iam_role_tags = {
@@ -208,7 +208,7 @@ data "aws_iam_policy_document" "kosa2_set_dns" {
 }
 
 resource "aws_iam_policy" "kosa2_set_dns" {
-  name   = "kosa2_set_dns_policy"
+  name   = "kosa2_prod_set_dns_policy"
   path   = "/"
   policy = data.aws_iam_policy_document.kosa2_set_dns.json
 }
@@ -225,8 +225,8 @@ data "aws_iam_policy_document" "kosa2_s3_buckets" {
     ]
 
     resources = [
-      "arn:aws:s3:::pariyatti-app-activestorage-staging",
-      "arn:aws:s3:::pariyatti-app-activestorage-staging/*",
+      "arn:aws:s3:::pariyatti-app-activestorage-production",
+      "arn:aws:s3:::pariyatti-app-activestorage-production/*",
       "arn:aws:s3:::pariyatti-kosa2-postgresql-db-backup",
       "arn:aws:s3:::pariyatti-kosa2-postgresql-db-backup/*"
     ]
@@ -234,7 +234,7 @@ data "aws_iam_policy_document" "kosa2_s3_buckets" {
 }
 
 resource "aws_iam_policy" "kosa2_s3_buckets" {
-  name   = "kosa2_s3_buckets_access"
+  name   = "kosa2_prod_s3_buckets_access"
   path   = "/"
   policy = data.aws_iam_policy_document.kosa2_s3_buckets.json
 }
