@@ -1,7 +1,5 @@
-name: AWS Sessions Manager run DB backup
+name: AWS Sessions Manager Deploy Main to kosa2
 on:
-  schedule:
-    - cron: '0 2 * * 3'
   workflow_dispatch:
 env:
   BUCKET_NAME : "pariyatti-kosa2-postgresql-db-backup"
@@ -10,7 +8,7 @@ permissions:
   id-token: write  
   contents: read
 jobs:
-  SessionsManagerRunDBbackup:
+  SessionsManagerRunDeployMain:
     runs-on: ubuntu-latest
     steps:
       - name: Git clone the repository
@@ -19,7 +17,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::169629426357:role/kosa2-iam-github-oidc
-          role-session-name: githuboidcrolesessionbackup
+          role-session-name: githuboidcrolesession
           aws-region: ${{ env.AWS_REGION }}
       # Get current role information
       - name:  Test the current role for IAM
@@ -30,7 +28,7 @@ jobs:
           KOSA2_INSTANCE_ID=$(aws ec2 describe-instances --filter "Name=tag:Name,Values=kosa-prod-asg" --query "Reservations[].Instances[?State.Name == 'running'].InstanceId[]" --output text)
           command_id=$(aws ssm send-command \
           --document-name "AWS-RunShellScript" \
-          --parameters commands=["sudo -u ec2-user /home/ec2-user/kosa2/bin/kosa-db-backup-s3.sh"] \
+          --parameters commands=["sudo -u ec2-user /home/ec2-user/kosa2/.github/scripts/deploy-main.sh"] \
           --instance-ids $KOSA2_INSTANCE_ID \
           --document-version '$LATEST' --query "Command.CommandId" --output text)
           echo "The command id is $command_id"

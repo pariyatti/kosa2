@@ -44,14 +44,14 @@ locals {
     docker-compose -f /home/ec2-user/kosa2/docker-compose-server.yml up -d
     TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
     PUBLIC_IP=$(curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/public-ipv4)
-    aws route53 change-resource-record-sets --hosted-zone-id Z034735625QA8S8JNJVZZ --change-batch '
+    aws route53 change-resource-record-sets --hosted-zone-id Z0793825120JM065CZ1F9 --change-batch '
     {
         "Changes": [
             {
                 "Action": "UPSERT",
                 "ResourceRecordSet": {
                     "Type": "A",
-                    "Name": "kosa2.pariyatti.app",
+                    "Name": "kosa.pariyatti.app",
                     "TTL": 60,
                     "ResourceRecords": [{"Value": "'$PUBLIC_IP'"}]
                 }
@@ -102,7 +102,7 @@ data "aws_ami" "amazonlinux_2023" {
 }
 
 data "aws_route53_zone" "kosa_domain" {
-  name = "kosa2.pariyatti.app"
+  name = "kosa.pariyatti.app"
 }
 
 data "aws_security_group" "kosa_asg_sg" {
@@ -115,7 +115,7 @@ module "kosa2_asg" {
   source = "terraform-aws-modules/autoscaling/aws"
 
   # Autoscaling group
-  name = "kosa2-asg"
+  name = "kosa-prod-asg"
 
   min_size                  = 0
   max_size                  = 1
@@ -138,8 +138,8 @@ module "kosa2_asg" {
   }
 
   # Launch template
-  launch_template_name        = "kosa2-asg"
-  launch_template_description = "Kosa2 launch template test"
+  launch_template_name        = "kosa-prod-asg"
+  launch_template_description = "Kosa prod launch template test"
   update_default_version      = true
 
   image_id          = data.aws_ami.amazonlinux_2023.id
@@ -150,7 +150,7 @@ module "kosa2_asg" {
 
   # IAM role & instance profile
   create_iam_instance_profile = true
-  iam_role_name               = "kosa2-asg"
+  iam_role_name               = "kosa-prod-asg"
   iam_role_path               = "/ec2/"
   iam_role_description        = "Kosa2 IAM role"
   iam_role_tags = {
@@ -225,8 +225,8 @@ data "aws_iam_policy_document" "kosa2_s3_buckets" {
     ]
 
     resources = [
-      "arn:aws:s3:::pariyatti-app-activestorage-staging",
-      "arn:aws:s3:::pariyatti-app-activestorage-staging/*",
+      "arn:aws:s3:::pariyatti-app-activestorage-production",
+      "arn:aws:s3:::pariyatti-app-activestorage-production/*",
       "arn:aws:s3:::pariyatti-kosa2-postgresql-db-backup",
       "arn:aws:s3:::pariyatti-kosa2-postgresql-db-backup/*"
     ]

@@ -1,0 +1,40 @@
+version: "3.7"
+
+services:
+  caddy:
+    build:
+      context: docker/caddy
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - SITE_ADDRESS=kosa2.pariyatti.app
+    volumes:
+      - $PWD/site:/srv
+      - /mnt/efs/caddy_data:/data
+      - /mnt/efs/caddy_config:/config
+  db:
+    image: postgres:14
+    volumes:
+      - /mnt/efs/volumes/db:/var/lib/postgresql/data
+    env_file:
+      - .dockerenv_staging
+      - .env.local_password
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    ports:
+      - "3000:3000"
+    env_file:
+      - .dockerenv_staging
+      - .env.local_password
+      - /home/ec2-user/.kosa/kosa-rails.dockerenv
+    environment:
+      - RUN_INGESTION=yes
+    depends_on:
+      - db

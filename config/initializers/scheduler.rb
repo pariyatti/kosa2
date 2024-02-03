@@ -12,6 +12,8 @@ so_often = if Rails.env.development?
              '1m'
            elsif Rails.env.production?
              '1h'
+           elsif Rails.env.staging?
+             '1h'
            else
              '1h'
            end

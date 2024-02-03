@@ -10,5 +10,5 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_options = { from: 'no-reply@kosa-test.pariyatti.app' }
   # NOTE: Do NOT set 'config.action_mailer.default_url_options' here.
-  #       It should be set in {test,development,production}.rb instead.
+  #       It should be set in {test,development,production,staging}.rb instead.
 end
