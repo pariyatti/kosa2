@@ -44,14 +44,14 @@ locals {
     docker-compose -f /home/ec2-user/kosa2/docker-compose-server.yml up -d
     TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
     PUBLIC_IP=$(curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/public-ipv4)
-    aws route53 change-resource-record-sets --hosted-zone-id Z034735625QA8S8JNJVZZ --change-batch '
+    aws route53 change-resource-record-sets --hosted-zone-id Z060531520ID78WZY53YW --change-batch '
     {
         "Changes": [
             {
                 "Action": "UPSERT",
                 "ResourceRecordSet": {
                     "Type": "A",
-                    "Name": "kosa2.pariyatti.app",
+                    "Name": "kosa-staging.pariyatti.app",
                     "TTL": 60,
                     "ResourceRecords": [{"Value": "'$PUBLIC_IP'"}]
                 }
@@ -102,7 +102,7 @@ data "aws_ami" "amazonlinux_2023" {
 }
 
 data "aws_route53_zone" "kosa_domain" {
-  name = "kosa2.pariyatti.app"
+  name = "kosa-staging.pariyatti.app"
 }
 
 data "aws_security_group" "kosa_asg_sg" {

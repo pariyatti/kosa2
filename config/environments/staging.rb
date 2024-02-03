@@ -93,6 +93,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Abuse ActionMailer to expose the host in the Routing Concern.
-  config.action_mailer.default_url_options = self.default_url_options = { host: 'kosa2.pariyatti.app' }
+  config.action_mailer.default_url_options = self.default_url_options = { host: 'kosa-staging.pariyatti.app' }
 
 end
