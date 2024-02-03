@@ -67,6 +67,8 @@ rake db:migrate
 
 *Required Ops*
 
+* [ ] test: Kosa2 + old (prod) mobile app
+* [ ] test: Kosa2 + old (prod) mobile app with Kosa1 bookmarks
 * [x] way to load db backup
 * [x] create deploy GitHub Action
 * [x] way to take db backup
@@ -74,7 +76,7 @@ rake db:migrate
 *Required App Changes*
 
 * [x] Limit Infinite Scroll: https://github.com/pariyatti/mobile-app/issues/126
-* [ ] Show Cards in Local Timezone: https://github.com/pariyatti/mobile-app/issues/129
+* [-] Show Cards in Local Timezone: https://github.com/pariyatti/mobile-app/issues/129
 
 *Optional / Future*
 
