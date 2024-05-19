@@ -19,6 +19,14 @@ before you can run `make txt-clone`, as explained below. Speak to Pariyatti Staf
 obtain access. If you do not have access to these files, Kosa will still run
 without them.
 
+## Development Environment Quick Start
+
+Please ensure that you have docker and docker-compose installed on your machine. If you have a windows or macOS machine, Docker Desktop would be recommended on a personal device.
+
+The command to get run the server running locally:
+
+`docker-compose up -d`
+
 ## Run Kosa in Development
 
 * install [`rbenv`](https://github.com/rbenv/rbenv)
