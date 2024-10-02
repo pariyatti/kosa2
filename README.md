@@ -84,9 +84,9 @@ rake db:migrate
 *Required App Changes*
 
 * [x] Limit Infinite Scroll: https://github.com/pariyatti/mobile-app/issues/126
-* [ ] Show Cards in Local Timezone: https://github.com/pariyatti/mobile-app/issues/129
+* [x] Show Cards in Local Timezone: https://github.com/pariyatti/mobile-app/issues/129
     * [x] test
-    * [ ] deploy
+    * [x] deploy
 
 *Optional / Future*
 
