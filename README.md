@@ -73,6 +73,8 @@ rake db:migrate
 
 ## TODOs
 
+* [ ] upgrade to rails 7.2
+
 *Optional / Future*
 
 * standardrb
