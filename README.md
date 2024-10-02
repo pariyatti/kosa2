@@ -74,6 +74,7 @@ rake db:migrate
 ## TODOs
 
 * [ ] upgrade to rails 7.2
+* [ ] Sync Video Listings: https://github.com/pariyatti/kosa/issues/101
 
 *Optional / Future*
 
