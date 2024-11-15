@@ -86,3 +86,7 @@ volumes/
 terraform.plan
 *.tfstate.backup
 plan.out
+
+# Vim
+*.swp
+
