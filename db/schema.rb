@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_08_05_154431) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_15_210718) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -164,6 +164,31 @@ ActiveRecord::Schema[7.1].define(version: 2023_08_05_154431) do
     t.datetime "created_at"
     t.text "object_changes"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
+  end
+
+  create_table "videos", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "uri"
+    t.string "name"
+    t.text "description"
+    t.string "link"
+    t.string "player_embed_url"
+    t.integer "duration"
+    t.integer "width"
+    t.integer "height"
+    t.string "language"
+    t.string "embed_html"
+    t.datetime "created_time", precision: nil
+    t.datetime "modified_time", precision: nil
+    t.datetime "release_time", precision: nil
+    t.string "privacy_view"
+    t.string "privacy_embed"
+    t.boolean "privacy_download"
+    t.string "picture_base_link"
+    t.text "tags"
+    t.integer "play_stats"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "words_of_buddha_translations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
