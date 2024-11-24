@@ -13,10 +13,14 @@ class SyncVideosTest < ActiveSupport::TestCase
   end
 
   test "try it out" do
-    ENV['VIMEO_AUTHENTICATED_TOKEN'] = '2102488a59bd9aefdc7cae80b9a0be02'
-    @user = VimeoMe2::User.new(ENV['VIMEO_AUTHENTICATED_TOKEN'], 'pariyatti')
+    # path = Video.download_vimeo_json
+    # puts path
+  end
+
+  smoke_test "confirm we get the correct number of results from the vimeo API" do
+    @user = VimeoMe2::User.new(Rails.application.credentials.vimeo_authenticated_token, 'pariyatti')
     videos = @user.get_full_video_list
-    puts "videos: #{videos.length}"
     assert_equal 200, @user.client.last_request.code
+    assert_equal 217, videos.length # this value will change whenever a new video is uploaded
   end
 end

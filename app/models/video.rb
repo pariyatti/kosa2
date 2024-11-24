@@ -27,4 +27,22 @@
 #  updated_at        :datetime         not null
 #
 class Video < ApplicationRecord
+  def self.download_vimeo_json
+    @user = VimeoMe2::User.new(Rails.application.credentials.vimeo_authenticated_token, 'pariyatti')
+    videos = @user.get_full_video_list
+    # dump_latest_json(videos)
+    # videos
+  end
+
+  # These are Video objects, not json... need to delay the transformation
+  # def self.dump_latest_json(videos)
+  #   File.open(Rails.root.join('tmp', 'vimeo_latest.json'), 'w') do |f|
+  #     f.print(videos.to_s)
+  #     f.flush
+  #   end
+  # end
+
+  def self.sync_vimeo_json(json)
+
+  end
 end
