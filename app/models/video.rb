@@ -29,6 +29,8 @@ require 'json'
 #  updated_at        :datetime         not null
 #
 class Video < ApplicationRecord
+  include Upsertable
+
   def self.download_vimeo_json
     @user = VimeoMe2::User.new(Rails.application.credentials.vimeo_authenticated_token, 'pariyatti')
     json = @user.get_full_video_list
@@ -44,21 +46,16 @@ class Video < ApplicationRecord
   end
 
   def self.sync_vimeo_json!(json)
-    updated = 0
     created = 0
+    updated = 0
     videos = json_to_videos(json)
     videos.each do |video|
-      existing = Video.where(uri: video.uri).first
-      if existing
-        existing.update!(video.attributes.except('id').except('created_at').except('updated_at'))
-        updated += 1
-      else
-        video.save!
-        created += 1
-      end
+      _, c, u = Video.create_or_update!(:uri, video)
+      created += c
+      updated += u
     end
-    puts "Updated #{updated} existing videos (blindly)"
     puts "Created #{created} new videos"
+    puts "Updated #{updated} existing videos (blindly)"
   end
 
   def self.json_to_videos(json)
