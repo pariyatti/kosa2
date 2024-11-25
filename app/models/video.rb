@@ -1,4 +1,5 @@
 require 'json'
+using RefinedVimeoMe2User
 
 # == Schema Information
 #
