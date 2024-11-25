@@ -12,6 +12,10 @@ class ApiController < ApplicationController
     WordsOfBuddha.all.order(published_date: :desc).each do |words_of_buddha|
       cards << words_of_buddha
     end
+    # NOTE: Old clients using the v1 API do not trim off "future" dates; they assume everyone
+    #       around the world sees all published cards at the same time, and thus show everything.
+    #       For v1 clients, therefore, we remove future cards so they aren't seeing published
+    #       cards from 1 or 2 days in the future (depending on timezone).
     render json: remove_future(reverse_chrono(cards))
   end
 
