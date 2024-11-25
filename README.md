@@ -63,6 +63,17 @@ Subsequent deployments:
 rake db:migrate
 ```
 
+## Scheduler
+
+See `config/initializers/scheduler.rb`. Uses Rufus Scheduler.
+Scheduled tasks:
+
+* publishing daily cards:
+    * Pali Word
+    * Doha (Dhamma Verse)
+    * Words of the Buddha
+* synchronizing videos listed on Vimeo API
+
 ## Development
 
 * *Date/Time/DateTime:* Everywhere in Kosa, we will use the Ruby `Date` and `DateTime` classes exclusively.

@@ -45,7 +45,7 @@ class Video < ApplicationRecord
     end
   end
 
-  def self.sync_vimeo_json!(json)
+  def self.sync_json_to_db!(json)
     created = 0
     updated = 0
     videos = json_to_videos(json)
