@@ -32,8 +32,14 @@ using RefinedVimeoMe2User
 class Video < ApplicationRecord
   include Upsertable
 
+  def self.sync_all!
+    json = Video.download_vimeo_json
+    Video.sync_json_to_db!(json)
+  end
+
   def self.download_vimeo_json
-    @user = VimeoMe2::User.new(Rails.application.credentials.vimeo_authenticated_token, 'pariyatti')
+    token = Rails.application.credentials.vimeo_authenticated_token || ENV['VIMEO_API_TOKEN']
+    @user = VimeoMe2::User.new(token, 'pariyatti')
     json = @user.get_full_video_list
     dump_latest_json(json)
     json
