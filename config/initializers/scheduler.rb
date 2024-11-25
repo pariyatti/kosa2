@@ -8,18 +8,8 @@ return if defined?(Rails::Console) || Rails.env.test? || File.split($PROGRAM_NAM
 # before Puma goes into cluster mode; jobs all run in the master process
 s = Rufus::Scheduler.singleton
 
-so_often = if Rails.env.development?
-             '1m'
-           elsif Rails.env.production?
-             '1h'
-           elsif Rails.env.staging?
-             '1h'
-           else
-             '1h'
-           end
-
-s.every so_often do
-  LoopedPaliWord.publish_tomorrow!
-  LoopedDoha.publish_tomorrow!
-  LoopedWordsOfBuddha.publish_tomorrow!
+# NOTE: we have to use to_prepare because initializers can't refer to reloadable constants otherwise
+Rails.application.config.to_prepare do
+  ScheduledDailyPublishService.new(s).start
+  ScheduledVideoSyncService.new(s).start
 end

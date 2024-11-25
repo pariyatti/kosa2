@@ -11,7 +11,7 @@ namespace :kosa do
 
       puts "Syncing Vimeo metadata in [#{Rails.env}]... (this will take a few minutes)"
       json = Video.download_vimeo_json
-      Video.sync_vimeo_json!(json)
+      Video.sync_json_to_db!(json)
     end
 
   end
