@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     resources :pali_word, :doha, :words_of_buddha
   end
 
+  get 'api/v1/library/videos/search', to: 'videos#search', as: 'videos_search_v1'
+
   scope '/api/v1/library', constraints: { format: 'json' } do
     resources :videos
   end
