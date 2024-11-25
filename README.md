@@ -81,6 +81,8 @@ Scheduled tasks:
   since every time value is stored in UTC. Timezones are only used in clients. 
   `DateTime` provides a saner approach to calendars than seconds from epoch.
   See [SO discussion](https://stackoverflow.com/questions/1261329/difference-between-datetime-and-time-in-ruby).
+* Random JSON parse errors in Factories? Try `brew install jpeg-xl`
+    * weird: https://stackoverflow.com/questions/76538178/dyld-library-not-loaded-usr-local-opt-jpeg-xl-lib-libjxl-0-7-dylib
 
 ## TODOs
 
