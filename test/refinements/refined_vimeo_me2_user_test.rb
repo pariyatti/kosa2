@@ -2,8 +2,9 @@
 
 require "test_helper"
 require 'vimeo_me2'
+using RefinedVimeoMe2User
 
-class SyncVideosTest < ActiveSupport::TestCase
+class RefinedVimeoMe2UserTest < ActiveSupport::TestCase
 
   smoke_test "confirm we get the correct number of results from the vimeo API" do
     @user = VimeoMe2::User.new(Rails.application.credentials.vimeo_authenticated_token, 'pariyatti')
