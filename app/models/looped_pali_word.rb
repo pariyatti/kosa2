@@ -19,7 +19,8 @@ class LoopedPaliWord < ApplicationRecord
   include LoopPublishable
   include ProgressPrintable
   has_paper_trail
-  has_many :translations, class_name: 'LoopedPaliWordTranslation', dependent: :destroy, autosave: true
+  has_many :translations, -> { order("language ASC") },
+           class_name: 'LoopedPaliWordTranslation', dependent: :destroy, autosave: true
   naturalkey_column :pali
   validates_presence_of :pali, :translations
   validates_uniqueness_of :pali
