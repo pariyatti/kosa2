@@ -37,6 +37,28 @@ class Video < ApplicationRecord
     Video.sync_json_to_db!(json)
   end
 
+  def self.dump_latest_spreadsheet!
+    json = download_vimeo_json
+    sliced = json['data']
+      .map {|v| v.slice('link', 'name', 'description', 'tags')}
+      .map do |v|
+        tags = v['tags'].map {|t| t['tag'] }
+        v['category'] = tags.select {|t| t.include?('category:')}.first || ""
+        v['tags'] = tags.join(",")
+        v
+      end
+    Axlsx::Package.new do |p|
+      p.workbook.add_worksheet(:name => "Videos") do |sheet|
+        sheet.add_row %w[Link Title Description Tags Category]
+        sliced.each do |v|
+          sheet.add_row [v['link'], v['name'], v['description'], v['tags'], v['category']]
+        end
+      end
+      puts "Serializing data to XLSX..."
+      p.serialize(Rails.root.join('tmp', 'vimeo_latest.xlsx'))
+    end
+  end
+
   def self.download_vimeo_json
     token = Rails.application.credentials.vimeo_authenticated_token || ENV['VIMEO_API_TOKEN']
     @user = VimeoMe2::User.new(token, 'pariyatti')

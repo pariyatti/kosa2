@@ -14,5 +14,11 @@ namespace :kosa do
       Video.delete_all
     end
 
+    desc "Dump Vimeo list to XLSX"
+    task xlsx: [:environment] do
+      puts "Dumping Vimeo metadata in [#{Rails.env}]... (this will take a few minutes)"
+      Video.dump_latest_spreadsheet!
+    end
+
   end
 end
