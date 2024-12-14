@@ -21,7 +21,8 @@ class LoopedDoha < ApplicationRecord
   include ProgressPrintable
   has_paper_trail
   #noinspection RailsParamDefResolve
-  has_many :translations, class_name: 'LoopedDohaTranslation', dependent: :destroy, autosave: true
+  has_many :translations, -> { order("language ASC") },
+           class_name: 'LoopedDohaTranslation', dependent: :destroy, autosave: true
   has_one_attached :audio
   naturalkey_column :doha
   validates_presence_of :doha, :translations

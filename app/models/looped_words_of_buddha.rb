@@ -26,7 +26,8 @@ class LoopedWordsOfBuddha < ApplicationRecord
   include ProgressPrintable
   has_paper_trail
   #noinspection RailsParamDefResolve
-  has_many :translations, class_name: 'LoopedWordsOfBuddhaTranslation', dependent: :destroy, autosave: true
+  has_many :translations, -> { order("language ASC") },
+           class_name: 'LoopedWordsOfBuddhaTranslation', dependent: :destroy, autosave: true
   has_one_attached :audio
   naturalkey_column :words
   #noinspection RailsParamDefResolve

@@ -10,7 +10,7 @@ class RefinedVimeoMe2UserTest < ActiveSupport::TestCase
     @user = VimeoMe2::User.new(Rails.application.credentials.vimeo_authenticated_token, 'pariyatti')
     json = @user.get_full_video_list
     assert_equal 200, @user.client.last_request.code
-    assert_equal 217, json['data'].length # this value will change whenever a new video is uploaded
+    assert_equal 218, json['data'].length # this value will change whenever a new video is uploaded
   end
 
 end

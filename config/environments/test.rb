@@ -1,4 +1,5 @@
 require "active_support/core_ext/integer/time"
+require "logging"
 
 # The test environment is used exclusively to run your application's
 # test suite. You never need to work with it otherwise. Remember that
@@ -58,8 +59,16 @@ Rails.application.configure do
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
 
-  config.logger = Logger.new(STDOUT)
-  config.log_level = :info
+  # config.logger = Logger.new(STDOUT)
+  # config.log_level = :info
+
+  logger = Logging.logger['test']
+  logger.add_appenders(
+    Logging.appenders.stdout,
+    Logging.appenders.file('log/test.log')
+  )
+  logger.level = :info
+  config.logger = logger
 
   config.active_job.queue_adapter = :inline
 
