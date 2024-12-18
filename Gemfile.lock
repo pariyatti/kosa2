@@ -1,6 +1,6 @@
 GIT
-  remote: https://github.com/bo-oz/vimeo_me2.git
-  revision: 4a6e0fc8d1bb8b8d793d2ff21809358e59f789f9
+  remote: https://github.com/pariyatti/vimeo_me2.git
+  revision: cb980f5ae1e482cbc89bdec4e59db6d1b9bfe49e
   specs:
     vimeo_me2 (1.2.1)
       httparty (>= 0.14.0)
@@ -126,7 +126,7 @@ GEM
     concurrent-ruby (1.2.2)
     connection_pool (2.4.1)
     crass (1.0.6)
-    csv (3.3.0)
+    csv (3.3.1)
     date (3.3.4)
     debug (1.9.1)
       irb (~> 1.10)

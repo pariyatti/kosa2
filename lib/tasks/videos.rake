@@ -20,5 +20,11 @@ namespace :kosa do
       Video.dump_latest_spreadsheet!
     end
 
+    desc "Force embed visibility to 'public'"
+    task visible: [:environment] do
+      puts "Downloading all video metadata first (this takes a few minutes)..."
+      Video.force_all_public_embeds
+    end
+
   end
 end
