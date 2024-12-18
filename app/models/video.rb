@@ -37,6 +37,20 @@ class Video < ApplicationRecord
     Video.sync_json_to_db!(json)
   end
 
+  def self.force_all_public_embeds
+    json = download_vimeo_json
+    videos = json['data']
+    videos.each do |video|
+      print "."
+      if video['privacy']['embed'] != 'public'
+        puts "Found non-embed video. Forcing public..."
+        puts video['uri']
+        puts video['name']
+        force_public_embed(video['uri'].sub(/^\/videos\//, ''))
+      end
+    end
+  end
+
   def self.dump_latest_spreadsheet!
     json = download_vimeo_json
     sliced = json['data']
@@ -57,6 +71,13 @@ class Video < ApplicationRecord
       puts "Serializing data to XLSX..."
       p.serialize(Rails.root.join('tmp', 'vimeo_latest.xlsx'))
     end
+  end
+
+  def self.force_public_embed(video_id)
+    token = Rails.application.credentials.vimeo_authenticated_token || ENV['VIMEO_API_TOKEN']
+    v = VimeoMe2::Video.new(token, video_id)
+    v.privacy = {"embed" => "public"}
+    v.update
   end
 
   def self.download_vimeo_json

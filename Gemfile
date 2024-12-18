@@ -52,7 +52,7 @@ gem "bootsnap", require: false
 gem "rufus-scheduler"
 gem "paper_trail"
 gem "aws-sdk-s3"
-gem 'vimeo_me2', :git => "https://github.com/bo-oz/vimeo_me2.git"
+gem 'vimeo_me2', :git => "https://github.com/pariyatti/vimeo_me2.git"
 gem 'caxlsx'
 
 group :development, :test do
