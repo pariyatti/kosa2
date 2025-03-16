@@ -5,12 +5,12 @@ require "test_helper"
 class LoopedDohaSmokeTest < ActiveSupport::TestCase
 
   smoke_setup do
-    Rails.logger.level = 2
+    # Rails.logger.level = 2
     LoopedDoha.ingest_all
   end
 
   teardown do
-    Rails.logger.level = 0
+    # Rails.logger.level = 0
   end
 
   smoke_test "exactly 122 records" do

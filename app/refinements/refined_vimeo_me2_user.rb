@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module RefinedVimeoMe2User
+  PRIVATE_LISTINGS = ["disable", "unlisted", "nobody", "password"]
   refine VimeoMe2::User do
     def get_full_video_list
       json = {'total' => nil, 'page' => nil, 'per_page' => nil, 'paging' => nil, 'data' => []}
@@ -26,7 +27,6 @@ module RefinedVimeoMe2User
       /https?/.match(endpoint) ? endpoint : "https://api.vimeo.com#{endpoint}"
     end
 
-    PRIVATE_LISTINGS = ["disable", "unlisted", "nobody", "password"]
     def remove_private(json)
       json['data'] = json['data'].reject do |v|
         PRIVATE_LISTINGS.include?(v['privacy']['view'])

@@ -67,7 +67,7 @@ Rails.application.configure do
     Logging.appenders.stdout,
     Logging.appenders.file('log/test.log')
   )
-  logger.level = :info
+  config.log_level = logger.level = :info
   config.logger = logger
 
   config.active_job.queue_adapter = :inline

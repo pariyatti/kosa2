@@ -4,12 +4,12 @@ require "test_helper"
 class LoopedWordsOfBuddhaSmokeTest < ActiveSupport::TestCase
 
   smoke_setup do
-    Rails.logger.level = 2
+    # Rails.logger.level = 2
     LoopedWordsOfBuddha.ingest_all
   end
 
   teardown do
-    Rails.logger.level = 0
+    # Rails.logger.level = 0
   end
 
   smoke_test "exactly 169 records" do
