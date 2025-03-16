@@ -36,11 +36,6 @@ jobs:
           gem install bundler -v 2.4.10 --no-document
           bundle install --jobs 4 --retry 3
 
-      - name: Set Rails credentials
-        run: |
-          mkdir -p ~/.rails
-          echo "$RAILS_MASTER_KEY" > ~/.rails/master.key
-
       - name: Setup database
         env:
           RAILS_ENV: test
@@ -68,6 +63,7 @@ jobs:
         env:
           RAILS_TEST_ENV: smoke
           RAILS_ENV: test
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           POSTGRES_HOST: localhost
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
