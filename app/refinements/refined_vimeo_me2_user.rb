@@ -16,7 +16,7 @@ module RefinedVimeoMe2User
         json['data'].concat(page['data'])
         next_page = prefix_endpoint(page['paging']['next'])
       end
-      json
+      remove_private(json)
     end
 
     # NOTE: from VimeoMe2's own HttpRequest - url is tested against 'http', even in
@@ -24,6 +24,16 @@ module RefinedVimeoMe2User
     def prefix_endpoint(endpoint)
       return nil if endpoint.nil?
       /https?/.match(endpoint) ? endpoint : "https://api.vimeo.com#{endpoint}"
+    end
+
+    PRIVATE_LISTINGS = ["disable", "unlisted", "nobody", "password"]
+    def remove_private(json)
+      json['data'] = json['data'].reject do |v|
+        PRIVATE_LISTINGS.include?(v['privacy']['view'])
+      end
+      json['total_with_unlisted'] = json['total']
+      json['total'] = json['data'].length
+      json
     end
   end
 end
