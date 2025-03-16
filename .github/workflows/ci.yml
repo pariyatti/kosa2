@@ -36,6 +36,11 @@ jobs:
           gem install bundler -v 2.4.10 --no-document
           bundle install --jobs 4 --retry 3
 
+      - name: Set Rails credentials
+        run: |
+          mkdir -p ~/.rails
+          echo "$RAILS_MASTER_KEY" > ~/.rails/master.key
+
       - name: Setup database
         env:
           RAILS_ENV: test
