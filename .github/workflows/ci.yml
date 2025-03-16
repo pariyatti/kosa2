@@ -28,7 +28,7 @@ jobs:
           ref: 'main'
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.2.3'
+          ruby-version: '3.2.6'
           bundler-cache: true
 
       - name: Setup app dependencies
