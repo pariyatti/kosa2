@@ -1,4 +1,4 @@
-FROM ruby:3.2.3
+FROM ruby:3.2.6
 RUN apt-get update -qq && apt-get install -y nodejs postgresql-client tree
 WORKDIR /kosa
 COPY Gemfile /kosa/Gemfile
