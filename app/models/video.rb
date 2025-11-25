@@ -6,6 +6,7 @@ using RefinedVimeoMe2User
 # Table name: videos
 #
 #  id                :uuid             not null, primary key
+#  category          :string
 #  created_time      :datetime
 #  description       :text
 #  duration          :integer
