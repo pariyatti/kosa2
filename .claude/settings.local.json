@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bundle install:*)",
+      "Bash(bundle info:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

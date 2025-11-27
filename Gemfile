@@ -53,7 +53,8 @@ gem "rufus-scheduler"
 gem "paper_trail"
 gem "aws-sdk-s3"
 gem 'vimeo_me2', :git => "https://github.com/pariyatti/vimeo_me2.git"
-gem 'caxlsx'
+gem 'caxlsx' # writing XLSX
+gem 'roo'    # reading XLSX
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
