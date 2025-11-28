@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(bundle install:*)",
-      "Bash(bundle info:*)"
+      "Bash(bundle info:*)",
+      "Bash(psql:*)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []

@@ -28,71 +28,129 @@ namespace :kosa do
 
     desc "Update videos with categories and tags from XLSX"
     task update_from_xlsx: [:environment] do
+      xlsx_path = Rails.root.join('tmp', 'vimeo_latest_with_categories.xlsx')
+      Video.update_from_xlsx(xlsx_path)
+    end
+
+    desc "Sanity check: verify categories and tags were updated on Vimeo"
+    task sanity_update_from_xlsx: [:environment] do
       require 'roo'
 
-      xlsx_path = Rails.root.join('tmp', 'vimeo_latest_with_categories.xlsx')
+      puts "Downloading latest Vimeo metadata and generating fresh spreadsheet..."
+      Video.dump_latest_spreadsheet!
 
-      unless File.exist?(xlsx_path)
-        puts "ERROR: File not found at #{xlsx_path}"
+      fresh_xlsx_path = Rails.root.join('tmp', 'vimeo_latest.xlsx')
+      original_xlsx_path = Rails.root.join('tmp', 'vimeo_latest_with_categories.xlsx')
+
+      unless File.exist?(fresh_xlsx_path)
+        puts "ERROR: Fresh spreadsheet not found at #{fresh_xlsx_path}"
         exit 1
       end
 
-      puts "Reading XLSX file from #{xlsx_path} as #{xlsx_path.class}..."
-      xlsx = Roo::Spreadsheet.open(xlsx_path.to_s)
-
-      # Get header row to find column indices
-      headers = xlsx.row(1)
-      link_col = headers.index('Link')
-      tags_col = headers.index('Tags')
-      category_col = headers.index('Category')
-
-      if link_col.nil? || tags_col.nil? || category_col.nil?
-        puts "ERROR: Could not find required columns (Link, Tags, Category) in XLSX"
-        puts "Found headers: #{headers.inspect}"
+      unless File.exist?(original_xlsx_path)
+        puts "ERROR: Original spreadsheet not found at #{original_xlsx_path}"
+        puts "This task expects you to have run 'update_from_xlsx' with the original file."
         exit 1
       end
 
-      updated_count = 0
-      not_found_count = 0
+      puts "Reading fresh data from Vimeo..."
+      fresh_xlsx = Roo::Spreadsheet.open(fresh_xlsx_path.to_s)
+      fresh_headers = fresh_xlsx.row(1)
+      fresh_link_col = fresh_headers.index('Link')
+      fresh_tags_col = fresh_headers.index('Tags')
+      fresh_category_col = fresh_headers.index('Category')
 
-      # Process each row (skip header)
-      (2..xlsx.last_row).each do |row_num|
-        row = xlsx.row(row_num)
+      puts "Reading original data..."
+      original_xlsx = Roo::Spreadsheet.open(original_xlsx_path.to_s)
+      original_headers = original_xlsx.row(1)
+      original_link_col = original_headers.index('Link')
+      original_tags_col = original_headers.index('Tags')
+      original_category_col = original_headers.index('Category')
+
+      # Build a hash of expected values from the original spreadsheet
+      expected = {}
+      (2..original_xlsx.last_row).each do |row_num|
+        row = original_xlsx.row(row_num)
         next if row.nil?
 
-        link = row[link_col]
-        tags = row[tags_col]
-        category = row[category_col]
-
+        link = row[original_link_col]
         next if link.blank?
 
-        # Extract URI from link (e.g., "https://vimeo.com/123456789" -> "/videos/123456789")
-        uri = if link.to_s.match(%r{vimeo\.com/(\d+)})
-          "/videos/#{$1}"
-        else
-          puts "WARN: Could not extract video ID from link: #{link}"
-          next
-        end
+        expected[link] = {
+          tags: row[original_tags_col].to_s,
+          category: row[original_category_col].to_s
+        }
+      end
 
-        # Find video by URI
-        video = Video.find_by(uri: uri)
+      # Check the fresh data against expected values
+      match_count = 0
+      mismatch_count = 0
+      missing_count = 0
+      mismatches = []
 
-        if video
-          video.update!(
-            tags: tags.to_s,
-            category: category.to_s
-          )
-          updated_count += 1
+      (2..fresh_xlsx.last_row).each do |row_num|
+        row = fresh_xlsx.row(row_num)
+        next if row.nil?
+
+        link = row[fresh_link_col]
+        next if link.blank?
+
+        # Only check videos that were in the original update
+        next unless expected.key?(link)
+
+        fresh_tags = row[fresh_tags_col].to_s
+        fresh_category = row[fresh_category_col].to_s
+        expected_tags = expected[link][:tags]
+        expected_category = expected[link][:category]
+
+        # Parse fresh tags to extract the actual tag values
+        fresh_tag_list = fresh_tags.split(',').map(&:strip)
+          .select { |t| t.start_with?('tag:') }
+          .map { |t| t.sub(/^tag:/, '') }
+          .join(',')
+
+        # Parse fresh category to extract the actual category value
+        fresh_category_value = fresh_category.sub(/^category:/, '')
+
+        # Compare
+        tags_match = fresh_tag_list == expected_tags
+        category_match = fresh_category_value == expected_category
+
+        if tags_match && category_match
+          match_count += 1
           print "."
         else
-          not_found_count += 1
-          puts "\nWARN: Video not found for URI: #{uri} (link: #{link})"
+          mismatch_count += 1
+          mismatches << {
+            link: link,
+            expected_tags: expected_tags,
+            actual_tags: fresh_tag_list,
+            expected_category: expected_category,
+            actual_category: fresh_category_value
+          }
         end
       end
 
-      puts "\n\nUpdate complete!"
-      puts "Updated: #{updated_count} videos"
-      puts "Not found: #{not_found_count} videos"
+      puts "\n\nSanity check complete!"
+      puts "Matches: #{match_count} videos"
+      puts "Mismatches: #{mismatch_count} videos"
+
+      if mismatch_count > 0
+        puts "\nMismatched videos:"
+        mismatches.each do |m|
+          puts "\n  #{m[:link]}"
+          if m[:expected_tags] != m[:actual_tags]
+            puts "    Tags - Expected: #{m[:expected_tags]}"
+            puts "    Tags - Actual:   #{m[:actual_tags]}"
+          end
+          if m[:expected_category] != m[:actual_category]
+            puts "    Category - Expected: #{m[:expected_category]}"
+            puts "    Category - Actual:   #{m[:actual_category]}"
+          end
+        end
+      else
+        puts "\n✓ All videos have correct tags and categories on Vimeo!"
+      end
     end
 
   end
