@@ -53,7 +53,7 @@ class Video < ApplicationRecord
     end
   end
 
-  def self.dump_latest_spreadsheet!
+  def self.dump_latest_spreadsheet!(xlsx)
     json = download_vimeo_json
     sliced = json['data']
       .map {|v| v.slice('link', 'name', 'description', 'tags')}
@@ -71,7 +71,7 @@ class Video < ApplicationRecord
         end
       end
       puts "Serializing data to XLSX..."
-      p.serialize(Rails.root.join('tmp', 'vimeo_latest.xlsx'))
+      p.serialize(xlsx)
     end
   end
 

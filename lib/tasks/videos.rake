@@ -17,7 +17,7 @@ namespace :kosa do
     desc "Dump Vimeo list to XLSX"
     task xlsx: [:environment] do
       puts "Dumping Vimeo metadata in [#{Rails.env}]... (this will take a few minutes)"
-      Video.dump_latest_spreadsheet!
+      Video.dump_latest_spreadsheet!(Rails.root.join('tmp', 'vimeo_latest.xlsx'))
     end
 
     desc "Force embed visibility to 'public'"
@@ -37,7 +37,7 @@ namespace :kosa do
       require 'roo'
 
       puts "Downloading latest Vimeo metadata and generating fresh spreadsheet..."
-      Video.dump_latest_spreadsheet!
+      Video.dump_latest_spreadsheet!(Rails.root.join('tmp', 'vimeo_latest.xlsx'))
 
       fresh_xlsx_path = Rails.root.join('tmp', 'vimeo_latest.xlsx')
       original_xlsx_path = Rails.root.join('tmp', 'vimeo_latest_with_categories.xlsx')
