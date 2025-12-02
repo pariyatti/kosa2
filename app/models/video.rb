@@ -33,6 +33,7 @@ using RefinedVimeoMe2User
 class Video < ApplicationRecord
   include Upsertable
   include XlsxUpdatable
+  include XlsxSanity
 
   def self.sync_all!
     json = Video.download_vimeo_json
