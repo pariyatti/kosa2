@@ -59,4 +59,37 @@ class ApiControllerTest < ActionDispatch::IntegrationTest
                  json_body2.map {|card| card['type'] }
   end
 
+  test "today_v2 only returns cards from the last 6 months" do
+    today = Date.parse("2024-06-15")
+
+    # Cards within 6 months (should be included)
+    recent_pali = create(:pali_word, pali: "recent",
+                         published_at: Time.parse("2024-06-01T00:00:00Z"),
+                         published_date: Date.parse("2024-06-01"))
+    recent_doha = create(:doha, doha: "recent doha",
+                         published_at: Time.parse("2024-03-01T00:00:00Z"),
+                         published_date: Date.parse("2024-03-01"))
+    recent_wob = create(:words_of_buddha, words: "recent words",
+                        published_at: Time.parse("2024-01-01T00:00:00Z"),
+                        published_date: Date.parse("2024-01-01"))
+
+    # Cards older than 6 months (should be excluded)
+    old_pali = create(:pali_word, pali: "old",
+                      published_at: Time.parse("2023-12-14T00:00:00Z"),
+                      published_date: Date.parse("2023-12-14"))
+    old_doha = create(:doha, doha: "old doha",
+                      published_at: Time.parse("2023-01-01T00:00:00Z"),
+                      published_date: Date.parse("2023-01-01"))
+
+    travel_to Time.utc(2024, 6, 15, 12, 0, 0)
+    get api_today_v2_url
+    assert_response :success
+    json_body = JSON.parse(response.body)
+
+    assert_equal 3, json_body.length, "Expected only 3 recent cards but got #{json_body.length}"
+    pali_words = json_body.select { |c| c['type'] == 'pali_word' }.map { |c| c['pali'] }
+    assert_includes pali_words, "recent"
+    refute_includes pali_words, "old"
+  end
+
 end

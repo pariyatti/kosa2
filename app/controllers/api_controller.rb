@@ -20,14 +20,15 @@ class ApiController < ApplicationController
   end
 
   def today_v2
+    six_months_ago = Date.today - 6.months
     cards = []
-    PaliWord.all.order(published_date: :desc).each do |pali_word|
+    PaliWord.where(published_date: six_months_ago..).order(published_date: :desc).each do |pali_word|
       cards << pali_word
     end
-    Doha.all.order(published_date: :desc).each do |doha|
+    Doha.where(published_date: six_months_ago..).order(published_date: :desc).each do |doha|
       cards << doha
     end
-    WordsOfBuddha.all.order(published_date: :desc).each do |words_of_buddha|
+    WordsOfBuddha.where(published_date: six_months_ago..).order(published_date: :desc).each do |words_of_buddha|
       cards << words_of_buddha
     end
     render json: reverse_chrono(cards)
