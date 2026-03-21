@@ -14,7 +14,7 @@ class RefinedVimeoMe2UserTest < ActiveSupport::TestCase
     json = @user.get_full_video_list
 
     assert_equal 200, @user.client.last_request.code
-    assert_equal 221, json['data'].length # this value will change whenever a new video is uploaded
+    assert_equal 237, json['data'].length # this value will change whenever a new video is uploaded
   end
 
   test "removes unlisted and disabled videos from results" do
