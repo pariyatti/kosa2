@@ -36,6 +36,8 @@ module XlsxUpdatable
 
       # Process each row (skip header)
       (2..xlsx.last_row).each do |row_num|
+        break if updated_count > 0
+
         row = xlsx.row(row_num)
         next if row.nil?
 
@@ -69,6 +71,7 @@ module XlsxUpdatable
 
           # Update Vimeo via API
           begin
+            puts "Creating video with id #{video_id} before API call..."
             vimeo_video = VimeoMe2::Video.new(token, video_id)
 
             # Build tags array: category as "category:xxx" and tags as "tag:xxx"
@@ -83,8 +86,10 @@ module XlsxUpdatable
               end
             end
 
+            # TODO: is something wrong here? `update` doesn't seem to push to API...
             # Set tags on the video object
             vimeo_video.video['tags'] = vimeo_tags.map { |t| {'name' => t} }
+            puts "Internal video is: #{vimeo_video.video.inspect}"
             vimeo_video.update
             api_update_count += 1
           rescue => e

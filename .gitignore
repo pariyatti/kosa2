@@ -90,3 +90,5 @@ plan.out
 # Vim
 *.swp
 
+.claude/settings.local.json
+
