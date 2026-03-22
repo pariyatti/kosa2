@@ -3,6 +3,21 @@ require_relative "../config/environment"
 require "rails/test_help"
 using RefinedHash
 
+# Silence "has primary key id with no default sequence" warnings for UUID primary keys.
+# Rails fixture loading calls reset_pk_sequence! which expects a serial sequence,
+# but UUID columns use gen_random_uuid() instead — no sequence is needed.
+module HackSilenceUuidPkSequenceWarning
+  def reset_pk_sequence!(table, pk = nil, sequence = nil)
+    default_pk, default_sequence = pk_and_sequence_for(table)
+    pk ||= default_pk
+    sequence ||= default_sequence
+    return unless pk && sequence
+
+    super
+  end
+end
+ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.prepend(HackSilenceUuidPkSequenceWarning)
+
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
 

@@ -12,11 +12,13 @@ module LoopIngestable
       unless ldt.new_record?
         logger.debug "Duplicate #{lang[:language]} found: #{self.naturalkey_value} — replacing translation"
       end
+      # logger.info "ldt: #{ldt.inspect}"
       ldt.save!
     end
 
     def download_audio_attachment!
       url = self.original_audio_url
+      # logger.info "Downloading audio: #{url}"
       file = URI.open_with_retries(url, 5)
       filename = File.basename(URI.parse(url).path) # TODO: test for nil path
       #noinspection RubyResolve
